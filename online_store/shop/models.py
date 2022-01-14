@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from mptt.models import MPTTModel, TreeForeignKey
+from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
 
 
 class Category(MPTTModel):
@@ -37,38 +37,19 @@ class Category(MPTTModel):
         return self.name
 
 
-# class ProductType(models.Model):
-#     """
-#     ProductType Table will provide a list of the different types
-#     of products that are for sale.
-#     """
-
-#     name = models.CharField(
-#         verbose_name="Название товара",
-#         help_text="Required",
-#         max_length=255,
-#         unique=True,
-#     )
-#     category = models.ForeignKey(Category, default=1, on_delete=models.RESTRICT)
-#     is_active = models.BooleanField(default=True)
-
-#     class Meta:
-#         verbose_name = "Тип товара"
-#         verbose_name_plural = "Типы товаров"
-
-#     def __str__(self):
-#         return self.name
-
-
 class ProductSpecification(models.Model):
     """
     The Product Specification Table contains product
     specifiction or features for the product types.
     """
 
-    # product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
     name = models.CharField(
         verbose_name="Имя", help_text="Required", max_length=255, unique=True
+    )
+    category = models.ManyToManyField(
+        Category,
+        verbose_name="категория",
+        related_name="products_specification_category",
     )
 
     class Meta:
@@ -84,13 +65,11 @@ class Product(models.Model):
     The Product table contining all product items.
     """
 
-    # product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
     title = models.CharField(
         verbose_name="Название",
         help_text="Required",
         max_length=255,
     )
-    # category = models.ForeignKey(Category, on_delete=models.RESTRICT)
     category = models.ManyToManyField(
         Category,
         verbose_name="категория",
@@ -110,6 +89,7 @@ class Product(models.Model):
         },
         max_digits=9,
         decimal_places=2,
+        null=True,
         blank=True,
     )
     discount_price = models.DecimalField(
@@ -128,7 +108,7 @@ class Product(models.Model):
     is_active = models.BooleanField(
         verbose_name="Видимость товара",
         help_text="Изменить видимость товара",
-        null=True,
+        # null=True,
         default=True,
     )
     created_at = models.DateTimeField("Создан", auto_now_add=True, editable=False)
@@ -154,7 +134,9 @@ class ProductSpecificationValue(models.Model):
     """
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    specification = models.ForeignKey(ProductSpecification, on_delete=models.RESTRICT)
+    specification = models.ForeignKey(
+        ProductSpecification, verbose_name="Свойство", on_delete=models.RESTRICT
+    )
     value = models.CharField(
         verbose_name="значение",
         help_text="Значение характеристики товара (maximum of 255 words)",

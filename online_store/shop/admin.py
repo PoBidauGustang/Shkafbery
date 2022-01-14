@@ -1,33 +1,42 @@
 from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from mptt.admin import MPTTModelAdmin
+from mptt.admin import MPTTModel, MPTTModelAdmin, TreeRelatedFieldListFilter
 
 from .models import (
     Category,
     Product,
-    ProductImage,  # ProductType,
+    ProductImage,
     ProductSpecification,
     ProductSpecificationValue,
 )
 
-admin.site.register(Category, MPTTModelAdmin)
+
+@admin.register(Category)
+class CategoryAdmin(MPTTModelAdmin):
+    list_display = [
+        "name",
+        "parent",
+        "is_active",
+    ]
+    list_editable = ["parent", "is_active"]
+    prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(ProductSpecification)
+class ProductSpecificationAdmin(admin.ModelAdmin):
+    model = Category
+    list_filter = (("category", TreeRelatedFieldListFilter),)
+    filter_horizontal = ("category",)
 
 
 class ProductSpecificationInline(admin.TabularInline):
     model = ProductSpecification
 
 
-# @admin.register(ProductType)
-# class ProductTypeAdmin(admin.ModelAdmin):
-#     inlines = [
-#         ProductSpecificationInline,
-#     ]
-
-
-@admin.register(ProductSpecification)
-class ProductSpecificationAdmin(admin.ModelAdmin):
-    ...
+@admin.register(ProductSpecificationValue)
+class ProductSpecificationValueAdmin(admin.ModelAdmin):
+    list_filter = ("specification",)
 
 
 class ProductImageInline(admin.TabularInline):
@@ -48,9 +57,7 @@ class ProductSpecificationValueInline(admin.TabularInline):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
-        # "product_type",
         "title",
-        # "category",
         "description",
         "slug",
         "regular_price",
@@ -59,6 +66,7 @@ class ProductAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     ]
+    filter_horizontal = ("category",)
     list_filter = ["is_active", "created_at", "updated_at"]
     list_editable = ["regular_price", "discount_price", "is_active"]
     inlines = [
@@ -66,3 +74,5 @@ class ProductAdmin(admin.ModelAdmin):
         ProductImageInline,
     ]
     prepopulated_fields = {"slug": ("title",)}
+    save_on_top = True
+    save_as = True
