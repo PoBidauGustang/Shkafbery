@@ -132,16 +132,24 @@ class ProductSpecificationValue(models.Model):
     The Product Specification Value table holds each of the
     products individual specification or bespoke features.
     """
+    # def get_total_cost(self):
+    #     results = self.Product.objects.all()
+    #     end = []
+    #     for result in results:
+    #         end += result.category.all()
+    #     return end
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     specification = models.ForeignKey(
-        ProductSpecification, verbose_name="Свойство", on_delete=models.RESTRICT
+        ProductSpecification, verbose_name="Свойство", on_delete=models.RESTRICT,
+        # limit_choices_to={'category': get_total_cost(product)},
     )
     value = models.CharField(
         verbose_name="значение",
         help_text="Значение характеристики товара (maximum of 255 words)",
         max_length=255,
     )
+
 
     class Meta:
         verbose_name = "Значение характеристики товара"
