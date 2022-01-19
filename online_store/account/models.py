@@ -6,6 +6,7 @@ class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, verbose_name="пользователь", on_delete=models.CASCADE
     )
+    phone = models.CharField("тел", max_length=50)
     photo = models.ImageField(
         verbose_name="Фото", upload_to="users/%Y/%m/%d/", blank=True
     )

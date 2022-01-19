@@ -12,5 +12,14 @@ from .models import Profile
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "photo", "town", "street", "house", "building", "apartment"]
+    list_display = [
+        "user",
+        "phone",
+        "photo",
+        "town",
+        "street",
+        "house",
+        "building",
+        "apartment",
+    ]
     list_select_related = ("user",)
