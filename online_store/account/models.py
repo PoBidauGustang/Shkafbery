@@ -3,13 +3,25 @@ from django.db import models
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name="пользователь", on_delete=models.CASCADE)
-    photo = models.ImageField(verbose_name="Фото", upload_to="users/%Y/%m/%d/", blank=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, verbose_name="пользователь", on_delete=models.CASCADE
+    )
+    photo = models.ImageField(
+        verbose_name="Фото", upload_to="users/%Y/%m/%d/", blank=True
+    )
     town = models.CharField(
-        verbose_name="город", help_text="Not Required", max_length=255, blank=True, null=True
+        verbose_name="город",
+        help_text="Not Required",
+        max_length=255,
+        blank=True,
+        null=True,
     )
     street = models.CharField(
-        verbose_name="улица", help_text="Not Required", max_length=255, blank=True, null=True
+        verbose_name="улица",
+        help_text="Not Required",
+        max_length=255,
+        blank=True,
+        null=True,
     )
     house = models.PositiveSmallIntegerField(
         verbose_name="дом", help_text="Not Required", blank=True, null=True
