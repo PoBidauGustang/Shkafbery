@@ -1,3 +1,4 @@
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
@@ -10,6 +11,14 @@ from .models import (
     ProductSpecification,
     ProductSpecificationValue,
 )
+
+
+class ProductAdminForm(forms.ModelForm):
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Product
+        fields = "__all__"
 
 
 @admin.register(Category)
@@ -69,6 +78,7 @@ class ProductAdmin(admin.ModelAdmin):
     filter_horizontal = ("category",)
     list_filter = ["is_active", "created_at", "updated_at"]
     list_editable = ["regular_price", "discount_price", "is_active"]
+    form = ProductAdminForm
     inlines = [
         ProductSpecificationValueInline,
         ProductImageInline,
