@@ -1,26 +1,94 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Home from "../views/Home.vue";
+import HomePage from "../views/HomePage.vue";
 
-const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
+const routes = [{
+        path: "/",
+        name: "HomePage",
+        component: HomePage,
+    },
+    {
+        path: "/contacts",
+        name: "ContactPage",
+        component: () =>
+            import ("../views/ContactPage.vue"),
+    },
+    {
+        path: "/partners",
+        name: "PartnerPage",
+        component: () =>
+            import ("../views/PartnerPage.vue"),
+    },
+    {
+        path: "/services",
+        name: "ServicesPage",
+        component: () =>
+            import ("../views/ServicesPage.vue"),
+    },
+    {
+        path: "/posts",
+        name: "Blog Posts",
+        component: () =>
+            import ("../views/PostsPage.vue"),
+    },
+    {
+        path: "/post/:id",
+        name: "article",
+        component: () =>
+            import ("../views/PostPageSingle.vue"),
+    },
+    {
+        path: "/products",
+        name: "List products",
+        component: () =>
+            import ("../views/ProductsPage.vue"),
+    },
+    {
+        path: "/product/:id",
+        name: "product",
+        component: () =>
+            import ("../views/ProductPageSingle.vue"),
+    },
+    {
+        path: "/materials",
+        name: "List materials",
+        component: () =>
+            import ("../views/MaterialsPage.vue"),
+    },
+    {
+        path: "/material/:id",
+        name: "materials",
+        component: () =>
+            import ("../views/MaterialPageSingle.vue"),
+    },
+    {
+        path: "/kitchen",
+        name: "kitchen",
+        component: () =>
+            import ("../views/KitchenPage.vue"),
+    },
+    {
+        path: "/wardrobe",
+        name: "wardrobe",
+        component: () =>
+            import ("../views/WardrobePage.vue"),
+    },
+    {
+        path: "/closet",
+        name: "closet",
+        component: () =>
+            import ("../views/ClosetPage.vue"),
+    },
+    {
+        path: "/closet_planner",
+        name: "closet planner",
+        component: () =>
+            import ("../views/ClosetPlannerPage.vue"),
+    },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
+    history: createWebHashHistory(),
+    routes,
 });
 
 export default router;
