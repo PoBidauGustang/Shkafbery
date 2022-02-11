@@ -22,7 +22,7 @@
     methods: {
       async loadListProducts() {
         this.listProducts = await fetch(
-          `${this.$store.getters.getServerUrl}/productcategories`
+          `${this.$store.getters.getServerShopUrl}/productcategories`
         ).then(response => response.json())
       }
     }

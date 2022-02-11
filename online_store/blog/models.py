@@ -40,6 +40,9 @@ class Category(MPTTModel):
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     STATUS_CHOICES = (

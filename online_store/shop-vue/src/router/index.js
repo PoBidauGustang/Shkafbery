@@ -43,7 +43,7 @@ const routes = [{
             import ("../views/PostsPage.vue"),
     },
     {
-        path: "/post/:id",
+        path: "/post/:slug",
         name: "article",
         component: () =>
             import ("../views/PostPageSingle.vue"),

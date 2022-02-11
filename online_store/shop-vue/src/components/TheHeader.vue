@@ -46,7 +46,7 @@
         <div class="header_bottom">
         <ul class="bottom_menu">
           <li class="bottom_menu_input">
-            <base-mega-menu/>
+            <!-- <base-mega-menu/> -->
             <a class="bottom_menu_link" @click="say"><span class="btm_link">Шкафы-купе</span><span class="icon_wrapper"><span class="material-icons-outlined md-18">expand_more</span></span></a>
           </li>
           <li class="bottom_menu_input">
@@ -71,9 +71,9 @@
 </template>
 
 <script>
-  import BaseMegaMenu from './BaseMegaMenu';
+  // import BaseMegaMenu from './BaseMegaMenu';
   export default {
-    components: {BaseMegaMenu},
+    // components: {BaseMegaMenu},
     methods: {
       say() {
         alert('message')

@@ -4,15 +4,18 @@ import App from "/src/App.vue";
 
 const store = createStore({
     state: {
-        // backendUrl: "http://127.0.0.1:8000/api/v1"
-        backendUrl: "http://localhost:8000/api/v1"
+        backendShopUrl: "http://localhost:8000/api/shop",
+        backendBlogUrl: "http://localhost:8000/api/blog",
     },
     mutations: {},
     actions: {},
     modules: {},
     getters: {
-        getServerUrl: state => {
-            return state.backendUrl
+        getServerShopUrl: state => {
+            return state.backendShopUrl
+        },
+        getServerBlogUrl: state => {
+            return state.backendBlogUrl
         }
     }
 })
