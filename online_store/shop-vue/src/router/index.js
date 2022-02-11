@@ -7,10 +7,22 @@ const routes = [{
         component: HomePage,
     },
     {
+        path: "/about",
+        name: "about",
+        component: () =>
+            import ("../views/AboutPage.vue"),
+    },
+    {
         path: "/contacts",
-        name: "ContactPage",
+        name: "contacs",
         component: () =>
             import ("../views/ContactPage.vue"),
+    },
+    {
+        path: "/photos",
+        name: "photos",
+        component: () =>
+            import ("../views/PhotosPage.vue"),
     },
     {
         path: "/partners",
@@ -26,7 +38,7 @@ const routes = [{
     },
     {
         path: "/posts",
-        name: "Blog Posts",
+        name: "BlogPosts",
         component: () =>
             import ("../views/PostsPage.vue"),
     },
