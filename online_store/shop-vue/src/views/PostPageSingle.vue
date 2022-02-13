@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h2>Страница статьи: {{ this.$route.params.slug }} </h2>
-    <div>
-      {{ listPosts.data.attributes }}
+    <div v-if="listPosts.data">
+      <h1>{{ listPosts.data.attributes.title }}</h1>
+      <p v-html="listPosts.data.attributes.body"></p>
+      <img :src=" require('../assets/images/2.jpeg') " alt="img" class="Post_Image">
     </div>
   </div>
 </template>
