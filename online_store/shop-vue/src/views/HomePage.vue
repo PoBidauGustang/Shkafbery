@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  import { mapGetters} from 'vuex'
   export default {
     name: "HomePage",
     data() {
@@ -19,10 +20,13 @@
     created() {
       this.loadListProducts()
     },
+    computed: {
+      ...mapGetters({getServerShopUrl: 'getServerShopUrl'}),
+    },
     methods: {
       async loadListProducts() {
         this.listProducts = await fetch(
-          `${this.$store.getters.getServerShopUrl}/productcategories`
+          `${this.getServerShopUrl}/productcategories`
         ).then(response => response.json())
       }
     }

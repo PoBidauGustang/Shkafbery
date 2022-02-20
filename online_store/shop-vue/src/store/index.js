@@ -1,24 +1,15 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
+import closet_configurator from './modules/closet_configurator'
+import api_urls from './modules/api_urls'
 import App from "/src/App.vue";
 
 const store = createStore({
-    state: {
-        backendShopUrl: "http://localhost:8000/api/shop",
-        backendBlogUrl: "http://localhost:8000/api/blog",
+    modules: {
+        closet_configurator,
+        api_urls,
     },
-    mutations: {},
-    actions: {},
-    modules: {},
-    getters: {
-        getServerShopUrl: state => {
-            return state.backendShopUrl
-        },
-        getServerBlogUrl: state => {
-            return state.backendBlogUrl
-        }
-    }
-})
+});
 
 const app = createApp({ App })
 

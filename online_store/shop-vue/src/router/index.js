@@ -92,9 +92,9 @@ const routes = [{
     },
     {
         path: "/closet_planner",
-        name: "closet planner",
+        name: "ClosetPlanner",
         component: () =>
-            import ("../views/ClosetPlannerPage.vue"),
+            import ("../views/PlannerCloset.vue"),
     },
 ];
 

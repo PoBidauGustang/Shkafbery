@@ -5,7 +5,7 @@
             <div class="Post_Tag_Wrapper">
                 <span class="Post_Tag">Категория: {{ post_data.category[0].name }}</span>
             </div>
-            <h3 class="Post_Headline">{{ post_data.title }}</h3>
+            <a class="Post_Headline">{{ post_data.title }}</a>
         </router-link>
     </div>
 </template>
@@ -21,7 +21,6 @@ export default {
             }
         }
     }
-
 }
 </script>
 

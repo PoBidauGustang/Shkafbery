@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  // import {mapActions, mapGetters} from 'vuex'
+  import { mapGetters} from 'vuex'
   import ThePostView from '../components/ThePostView.vue'
   import TheSelect from '../components/TheSelect.vue';
   export default {
@@ -42,6 +42,8 @@
       this.loadListPosts()
     },
     computed: {
+      // ...mapGetters('api_urls', ['getServerBlogUrl']),
+      ...mapGetters({getServerBlogUrl: 'getServerBlogUrl'}),
       filteredPosts() {
         if (this.sortedPosts.length) {
           return this.sortedPosts
@@ -64,7 +66,7 @@
 
       async loadListPosts() {
         this.listPosts = await fetch(
-          `${this.$store.getters.getServerBlogUrl}/posts`
+          `${this.getServerBlogUrl}/posts`
         ).then(response => response.json())
       }
     }
