@@ -4,38 +4,42 @@
       <div v-if="listPosts.data">
         <h2>{{ listPosts.data.attributes.title }}</h2>
         <p v-html="listPosts.data.attributes.body"></p>
-        <img :src=" require('../assets/images/2.jpeg') " alt="img" class="Post_Image">
+        <img
+          :src="require('../assets/images/2.jpeg')"
+          alt="img"
+          class="Post_Image"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters} from 'vuex'
-  export default {
-    name: "Article",
-    components: {},
-    props: {},
-    data() {
-      return {
-        listPosts: []
-      }
+import { mapGetters } from "vuex";
+export default {
+  name: "Article",
+  components: {},
+  props: {},
+  data() {
+    return {
+      listPosts: [],
+    };
+  },
+  created() {
+    this.loadListPosts();
+  },
+  computed: {
+    // ...mapGetters('api_urls', ['getServerBlogUrl']),
+    ...mapGetters({ getServerBlogUrl: "getServerBlogUrl" }),
+  },
+  methods: {
+    async loadListPosts() {
+      this.listPosts = await fetch(
+        `${this.getServerBlogUrl}/post/${this.$route.params.slug}`
+      ).then((response) => response.json());
     },
-    created() {
-      this.loadListPosts()
-    },
-    computed: {
-      // ...mapGetters('api_urls', ['getServerBlogUrl']),
-      ...mapGetters({getServerBlogUrl: 'getServerBlogUrl'}),
-    },
-    methods: {
-      async loadListPosts() {
-        this.listPosts = await fetch(
-          `${this.getServerBlogUrl}/post/${this.$route.params.slug}`
-        ).then(response => response.json())
-      }
-    }
-  };
+  },
+};
 </script>
 
 <style>

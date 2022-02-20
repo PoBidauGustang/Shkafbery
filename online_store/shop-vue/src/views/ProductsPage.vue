@@ -5,12 +5,10 @@
 </template>
 
 <script>
-  export default {
-    name: "List of products",
-    components: {
-    },
-  };
+export default {
+  name: "List of products",
+  components: {},
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

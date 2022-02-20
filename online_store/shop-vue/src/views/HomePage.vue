@@ -8,30 +8,29 @@
 </template>
 
 <script>
-  import { mapGetters} from 'vuex'
-  export default {
-    name: "HomePage",
-    data() {
-      return {
-        listProducts: []
-      }
+import { mapGetters } from "vuex";
+export default {
+  name: "HomePage",
+  data() {
+    return {
+      listProducts: [],
+    };
+  },
+  components: {},
+  created() {
+    this.loadListProducts();
+  },
+  computed: {
+    ...mapGetters({ getServerShopUrl: "getServerShopUrl" }),
+  },
+  methods: {
+    async loadListProducts() {
+      this.listProducts = await fetch(
+        `${this.getServerShopUrl}/productcategories`
+      ).then((response) => response.json());
     },
-    components: {},
-    created() {
-      this.loadListProducts()
-    },
-    computed: {
-      ...mapGetters({getServerShopUrl: 'getServerShopUrl'}),
-    },
-    methods: {
-      async loadListProducts() {
-        this.listProducts = await fetch(
-          `${this.getServerShopUrl}/productcategories`
-        ).then(response => response.json())
-      }
-    }
-  };
+  },
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -5,12 +5,10 @@
 </template>
 
 <script>
-  export default {
-    name: "List of materials",
-    components: {
-    },
-  };
+export default {
+  name: "List of materials",
+  components: {},
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

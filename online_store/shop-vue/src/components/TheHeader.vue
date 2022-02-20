@@ -12,19 +12,29 @@
             <router-link class="top_menu_link" to="/about">О нас</router-link>
           </li>
           <li class="top_menu_input">
-            <router-link class="top_menu_link" to="/contacts">Контакты</router-link>
+            <router-link class="top_menu_link" to="/contacts"
+              >Контакты</router-link
+            >
           </li>
           <li class="top_menu_input">
-            <router-link class="top_menu_link" to="/services">Установка</router-link>
+            <router-link class="top_menu_link" to="/services"
+              >Установка</router-link
+            >
           </li>
           <li class="top_menu_input">
-            <router-link class="top_menu_link" to="/services">Замеры</router-link>
+            <router-link class="top_menu_link" to="/services"
+              >Замеры</router-link
+            >
           </li>
           <li class="top_menu_input">
-            <router-link class="top_menu_link" to="/partners">Партнерам</router-link>
+            <router-link class="top_menu_link" to="/partners"
+              >Партнерам</router-link
+            >
           </li>
           <li class="top_menu_input">
-            <router-link class="top_menu_link" to="/photos">Фото работ</router-link>
+            <router-link class="top_menu_link" to="/photos"
+              >Фото работ</router-link
+            >
           </li>
           <li class="top_menu_input">
             <router-link class="top_menu_link" to="/posts">Блог</router-link>
@@ -32,14 +42,25 @@
         </ul>
         <div class="phone">
           <a class="phone_link" href="/">+7 999 987 78 89</a>
-          <div class="phone_info"><span class="material-icons-outlined md-18">info</span></div>
+          <div class="phone_info">
+            <span class="material-icons-outlined md-18">info</span>
+          </div>
         </div>
       </div>
       <div class="header_middle">
-        <button class="search"><span class="material-icons-outlined md-24">search</span></button>
-      <div class="logo">
-        <svg width="125" height="24" viewBox="0 0 125 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.869507 21.9999H19.9375V2.3999H16.5495V18.7239H12.0975V2.3999H8.7095V18.7239H4.2575V2.3999H0.869507V21.9999ZM32.3548 
+        <button class="search">
+          <span class="material-icons-outlined md-24">search</span>
+        </button>
+        <div class="logo">
+          <svg
+            width="125"
+            height="24"
+            viewBox="0 0 125 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0.869507 21.9999H19.9375V2.3999H16.5495V18.7239H12.0975V2.3999H8.7095V18.7239H4.2575V2.3999H0.869507V21.9999ZM32.3548 
           21.9999H36.2748L30.1708 10.9399L35.4348 2.3999H31.4588L28.1828 8.1399L27.0348 10.4359V2.3999H23.6468V21.9999H27.0348V15.8959L28.2388 
           14.0199L32.3548 21.9999ZM46.1477 21.9999H49.7317L44.9157 2.3999H41.2197L36.4037 21.9999H39.9877L40.7717 18.4439H45.3637L46.1477 
           21.9999ZM41.4717 15.1679L42.2557 11.5279C42.5357 10.1839 42.8437 8.0279 43.0117 6.7119H43.0957C43.2917 8.0279 43.5997 10.1839 43.8797 
@@ -55,14 +76,25 @@
           2.3999ZM103.426 12.1719H101.466V5.6759H103.426C105.274 5.6759 106.198 6.76789 106.198 8.92389C106.198 11.0799 105.274 12.1719 103.426 
           12.1719ZM112.049 21.9999H115.465L119.413 12.9559C120.001 11.6119 120.533 10.0439 121.037 8.69989L121.121 8.7839C120.897 10.8559 
           120.757 14.0479 120.757 15.8959V21.9999H124.117V2.3999H120.673L116.501 11.9759C115.969 13.1519 115.493 14.4959 115.073 15.5879L114.989 
-          15.5319C115.241 13.4039 115.409 10.4359 115.409 8.8119V2.3999H112.049V21.9999Z" fill="#1B1B1F"/>
-        </svg>
-      </div>
-      <div class="navbar_wrapper">
-        <a class="cart" href="/"><span class="material-icons-outlined md-24">shopping_cart</span></a>
-        <a class="cart" href="/"><span class="material-icons-outlined md-24">favorite_border</span></a>
-      </div>
-        <a class="login" href="/"><span class="material-icons-outlined md-24">person</span><span class="login_text">Войти</span></a>
+          15.5319C115.241 13.4039 115.409 10.4359 115.409 8.8119V2.3999H112.049V21.9999Z"
+              fill="#1B1B1F"
+            />
+          </svg>
+        </div>
+        <div class="navbar_wrapper">
+          <a class="cart" href="/"
+            ><span class="material-icons-outlined md-24">shopping_cart</span></a
+          >
+          <a class="cart" href="/"
+            ><span class="material-icons-outlined md-24"
+              >favorite_border</span
+            ></a
+          >
+        </div>
+        <a class="login" href="/"
+          ><span class="material-icons-outlined md-24">person</span
+          ><span class="login_text">Войти</span></a
+        >
       </div>
       <div class="header_bottom">
         <ul class="bottom_menu">
@@ -84,24 +116,30 @@
             </a>
           </li>
           <li class="bottom_menu_input">
-              <router-link class="bottom_menu_link" to="/wardrobe">Гардеробные</router-link>
+            <router-link class="bottom_menu_link" to="/wardrobe"
+              >Гардеробные</router-link
+            >
           </li>
           <li class="bottom_menu_input">
-              <a class="bottom_menu_link" @click="showMegaMenu">
-                <span class="btm_link">Материалы</span><span class="icon_wrapper">
-                  <span class="material-icons-outlined md-18">expand_more</span>
-                </span>
-              </a>
+            <a class="bottom_menu_link" @click="showMegaMenu">
+              <span class="btm_link">Материалы</span
+              ><span class="icon_wrapper">
+                <span class="material-icons-outlined md-18">expand_more</span>
+              </span>
+            </a>
           </li>
           <li class="bottom_menu_input">
-              <a class="bottom_menu_link" @click="showMegaMenu">
-                <span class="btm_link">Услуги</span><span class="icon_wrapper">
-                  <span class="material-icons-outlined md-18">expand_more</span>
-                </span>
-              </a>
+            <a class="bottom_menu_link" @click="showMegaMenu">
+              <span class="btm_link">Услуги</span
+              ><span class="icon_wrapper">
+                <span class="material-icons-outlined md-18">expand_more</span>
+              </span>
+            </a>
           </li>
           <li class="bottom_menu_input">
-              <router-link class="bottom_menu_link" to="/kitchen">Кухни</router-link>
+            <router-link class="bottom_menu_link" to="/kitchen"
+              >Кухни</router-link
+            >
           </li>
         </ul>
       </div>
@@ -110,29 +148,33 @@
 </template>
 
 <script>
-import BaseMegaMenu from './BaseMegaMenu';
-  export default {
-    name: "THeheader",
-    components: {
-      BaseMegaMenu
+import BaseMegaMenu from "./BaseMegaMenu";
+export default {
+  name: "THeheader",
+  components: {
+    BaseMegaMenu,
+  },
+  props: {},
+  data() {
+    return {
+      isMegaMenuVisible: false,
+      links_list: [
+        { id: "1", attributes: "Разде 1" },
+        { id: "2", attributes: "Раздел 2" },
+        { id: "3", attributes: "Раздел 3" },
+      ],
+    };
+  },
+  computed: {},
+  methods: {
+    showMegaMenu() {
+      this.isMegaMenuVisible = true;
     },
-    props: {},
-    data() {
-      return {
-        isMegaMenuVisible: false,
-        links_list: [ {"id": "1", "attributes": 'Разде 1'}, {"id": "2", "attributes": 'Раздел 2'}, {"id": "3", "attributes": 'Раздел 3'}]
-      }
+    closeMegaMenu() {
+      this.isMegaMenuVisible = false;
     },
-    computed: {},
-    methods: {
-      showMegaMenu() {
-        this.isMegaMenuVisible = true;
-      },
-      closeMegaMenu() {
-        this.isMegaMenuVisible = false;
-      },
-    },
-  }
+  },
+};
 </script>
 
 <style scoped>
@@ -172,7 +214,7 @@ import BaseMegaMenu from './BaseMegaMenu';
   padding-top: 6px;
   padding-bottom: 6px;
   text-decoration: none;
-	color: #000000;
+  color: #000000;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -194,7 +236,7 @@ import BaseMegaMenu from './BaseMegaMenu';
 }
 
 .phone {
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 4px;
@@ -338,7 +380,7 @@ import BaseMegaMenu from './BaseMegaMenu';
   align-items: center;
   justify-content: center;
   text-decoration: none;
-	color: #000000;
+  color: #000000;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
