@@ -1,17 +1,33 @@
 <template>
   <div>
-    <!-- <div>Планировщик шкафа-купе отдельностоящего</div> -->
-    <div></div>
+    <StepContainer :currentStep="currentStep" />
   </div>
 </template>
 
 <script>
-// import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters } from "vuex";
+import StepContainer from "../components/PlanerCloset/StepContainer.vue";
 export default {
   name: "PlannerCloset",
-  components: {},
-  computed: {},
-  methods: {},
-  mounted() {},
+  data() {
+    return {};
+  },
+  components: {
+    StepContainer,
+  },
+  computed: {
+    ...mapState("closet_configurator", ["currentStep", "steps", "config"]),
+    ...mapGetters("closet_configurator", []),
+    showBwithoutgetter() {
+      return this.$store.state.closet_configurator.b;
+    },
+  },
+  // methods: {
+  //   ...mapActions("closet_configurator", ["switchStepVisability"]),
+  // },
+
+  // mounted() {
+  //   this.switchStepVisability();
+  // },
 };
 </script>

@@ -5,10 +5,10 @@ import api_urls from "./modules/api_urls";
 import App from "/src/App.vue";
 
 const store = createStore({
-    modules: {
-        closet_configurator,
-        api_urls,
-    },
+  modules: {
+    closet_configurator,
+    api_urls,
+  },
 });
 
 const app = createApp({ App });
