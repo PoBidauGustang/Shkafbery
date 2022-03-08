@@ -35,6 +35,7 @@ class ClosetTypeAdmin(admin.ModelAdmin):
         "description",
         "is_active",
     ]
+    list_display_links = ("type",)
     form = ClosetTypeAdminForm
     save_on_top = True
     save_as = True
@@ -48,12 +49,18 @@ class FillingSchemeAdminForm(forms.ModelForm):
         fields = "__all__"
 
 
-class ClosetTypeInline(admin.TabularInline):
-    model = ClosetType
+class DimensionsInline(admin.TabularInline):
+    model = Dimensions
+    extra = 1
+
+
+class BodyColourInline(admin.TabularInline):
+    model = BodyColour.filling_scheme.through
+    extra = 2
 
 
 @admin.register(FillingScheme)
-class StepSpecificationValueAdmin(admin.ModelAdmin):
+class FillingSchemeAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "name",
@@ -61,47 +68,162 @@ class StepSpecificationValueAdmin(admin.ModelAdmin):
         "description",
         "is_active",
     ]
+    list_display_links = ("name",)
+    list_editable = ("type",)
     form = FillingSchemeAdminForm
+    inlines = [
+        DimensionsInline,
+        BodyColourInline,
+    ]
     save_on_top = True
     save_as = True
 
 
-# class StepSpecificationValueInline(admin.TabularInline):
-#     model = StepSpecificationValue
+@admin.register(BodyColour)
+class BodyColourAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+        "image",
+        "alt_text",
+    ]
+    filter_horizontal = ("filling_scheme",)
+    list_display_links = ("name",)
+    save_on_top = True
+    save_as = True
 
 
-# @admin.register(FillingScheme)
-# class StepsAdmin(admin.ModelAdmin):
-#     list_display = [
-#         "id",
-#         "name",
-#     ]
-#     inlines = [
-#         StepSpecificationInline,
-#         StepSpecificationValueInline,
-#     ]
+@admin.register(CategoryBodyComplectation)
+class CategoryBodyComplectationAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+        "is_active",
+    ]
 
 
-# @admin.register(Product)
-# class ProductAdmin(admin.ModelAdmin):
-#     list_display = [
-#         "title",
-#         "description",
-#         "slug",
-#         "regular_price",
-#         "discount_price",
-#         "is_active",
-#         "created_at",
-#         "updated_at",
-#     ]
-#     filter_horizontal = ("category",)
-#     list_filter = ["is_active", "created_at", "updated_at"]
-#     list_editable = ["regular_price", "discount_price", "is_active"]
-#     form = ProductAdminForm
-#     inlines = [
-#         ProductSpecificationValueInline,
-#         ProductImageInline,
-#     ]
-#     prepopulated_fields = {"slug": ("title",)}
-#     save_on_top = True
-#     save_as = True
+class BodyComplectationForm(forms.ModelForm):
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = BodyComplectation
+        fields = "__all__"
+
+
+@admin.register(BodyComplectation)
+class BodyComplectationAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+        "description",
+        "image",
+        "alt_text",
+    ]
+    form = BodyComplectationForm
+    filter_horizontal = ("category", "filling_scheme")
+    list_display_links = ("name",)
+    save_on_top = True
+    save_as = True
+
+
+@admin.register(CategoryAdditionalElements)
+class CategoryAdditionalElementsAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+        "is_active",
+    ]
+
+
+class AdditionalElementsForm(forms.ModelForm):
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = AdditionalElements
+        fields = "__all__"
+
+
+@admin.register(AdditionalElements)
+class AdditionalElementsAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+        "description",
+        "image",
+        "alt_text",
+    ]
+    form = AdditionalElementsForm
+    filter_horizontal = ("category", "filling_scheme")
+    list_display_links = ("name",)
+    save_on_top = True
+    save_as = True
+
+
+class DoorsSystemForm(forms.ModelForm):
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = DoorsSystem
+        fields = "__all__"
+
+
+class DoorsColoursInline(admin.TabularInline):
+    model = DoorsColours
+    extra = 1
+
+
+class DoorsProfilesInline(admin.TabularInline):
+    model = DoorsProfiles
+    extra = 1
+
+
+class DoorhandleInline(admin.TabularInline):
+    model = Doorhandle
+    extra = 1
+
+
+@admin.register(DoorsSystem)
+class DoorsSystemAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+        "description",
+        "is_active",
+    ]
+    form = DoorsSystemForm
+    filter_horizontal = ("filling_scheme",)
+    list_display_links = ("name",)
+    inlines = [
+        DoorsColoursInline,
+        DoorsProfilesInline,
+        DoorhandleInline,
+    ]
+    save_on_top = True
+    save_as = True
+
+
+class DoorsMaterialsForm(forms.ModelForm):
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = DoorsMaterials
+        fields = "__all__"
+
+
+@admin.register(DoorsMaterials)
+class DoorsMaterialsAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+        "description",
+        "image",
+        "alt_text",
+        "is_feature",
+        "created_at",
+        "updated_at",
+    ]
+    form = DoorsMaterialsForm
+    filter_horizontal = ("filling_scheme",)
+    list_display_links = ("name",)
+    save_on_top = True
+    save_as = True

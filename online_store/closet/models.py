@@ -75,13 +75,13 @@ class Dimensions(models.Model):
         null=False,
         blank=False,
     )
-    min_length = models.IntegerField(
-        verbose_name="Минимальная длина",
+    min_height = models.IntegerField(
+        verbose_name="Минимальная высота",
         null=False,
         blank=False,
     )
-    max_length = models.IntegerField(
-        verbose_name="Максимальная длина",
+    max_height = models.IntegerField(
+        verbose_name="Максимальная высота",
         null=False,
         blank=False,
     )
@@ -100,17 +100,16 @@ class Dimensions(models.Model):
         verbose_name = "Размер шкафа"
         verbose_name_plural = "Размеры шкафов"
 
-    def __str__(self):
-        return self.filling_scheme
-
 
 class BodyColour(models.Model):
     """
     Body Coloure Table.
     """
 
-    filling_scheme = models.ForeignKey(
-        FillingScheme, on_delete=models.CASCADE, related_name="filling_scheme_image"
+    filling_scheme = models.ManyToManyField(
+        FillingScheme,
+        verbose_name="схема наполнения",
+        related_name="filling_scheme_image",
     )
     name = models.CharField(
         verbose_name="наименование",
@@ -135,7 +134,7 @@ class BodyColour(models.Model):
 
     class Meta:
         verbose_name = "Цвет корпуса"
-        verbose_name_plural = "Цвета корпусов"
+        verbose_name_plural = "Цвета корпуса"
 
     def __str__(self):
         return self.name
@@ -173,9 +172,14 @@ class BodyComplectation(models.Model):
         max_length=255,
         unique=True,
     )
-    category = models.ForeignKey(
+    filling_scheme = models.ManyToManyField(
+        FillingScheme,
+        verbose_name="схема наполнения",
+        related_name="filling_scheme_body_complectation",
+    )
+    category = models.ManyToManyField(
         CategoryBodyComplectation,
-        on_delete=models.CASCADE,
+        verbose_name="категория",
         related_name="category_body_complectation",
     )
     description = models.TextField(
@@ -188,10 +192,17 @@ class BodyComplectation(models.Model):
         default="planner/default.jpg",
         blank=True,
     )
+    alt_text = models.CharField(
+        verbose_name="Альтернативный текст",
+        help_text="Пожалуйста, добавьте альтернативный текст",
+        max_length=255,
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         verbose_name = "комплектация корпуса"
-        verbose_name_plural = "комплектация корпусов"
+        verbose_name_plural = "комплектация корпуса"
 
     def __str__(self):
         return self.name
@@ -229,9 +240,14 @@ class AdditionalElements(models.Model):
         max_length=255,
         unique=True,
     )
-    category = models.ForeignKey(
+    filling_scheme = models.ManyToManyField(
+        FillingScheme,
+        verbose_name="схема наполнения",
+        related_name="filling_scheme_additional_elements",
+    )
+    category = models.ManyToManyField(
         CategoryAdditionalElements,
-        on_delete=models.CASCADE,
+        verbose_name="категория",
         related_name="category_additional_elements",
     )
     description = models.TextField(
@@ -242,6 +258,13 @@ class AdditionalElements(models.Model):
         help_text="Загрузите изображение",
         upload_to="planner/additional_elements/%Y/%m/%d",
         default="planner/default.jpg",
+        blank=True,
+    )
+    alt_text = models.CharField(
+        verbose_name="Альтернативный текст",
+        help_text="Пожалуйста, добавьте альтернативный текст",
+        max_length=255,
+        null=True,
         blank=True,
     )
 
@@ -263,6 +286,11 @@ class DoorsSystem(models.Model):
         help_text="Обязательное и уникальное поле",
         max_length=255,
         unique=True,
+    )
+    filling_scheme = models.ManyToManyField(
+        FillingScheme,
+        verbose_name="схема наполнения",
+        related_name="filling_scheme_doors_system",
     )
     description = models.TextField(
         verbose_name="описание", help_text="Not Required", blank=True
@@ -416,9 +444,9 @@ class DoorsMaterials(models.Model):
         max_length=255,
         unique=True,
     )
-    filling_scheme = models.ForeignKey(
+    filling_scheme = models.ManyToManyField(
         FillingScheme,
-        on_delete=models.CASCADE,
+        verbose_name="схема наполнения",
         related_name="filling_scheme_doors_materials",
     )
     image = models.ImageField(
