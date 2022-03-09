@@ -25,6 +25,7 @@ urlpatterns = [
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("api/shop/", include("shop.urls")),
     path("api/blog/", include("blog.urls")),
+    path("api/closet/", include("closet.urls")),
 ]
 
 if settings.DEBUG:

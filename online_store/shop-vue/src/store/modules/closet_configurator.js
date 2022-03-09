@@ -124,6 +124,9 @@ const getters = {
   GETCURRENTSTEP(state) {
     return state.currentStep;
   },
+  GETDOORSAMOUNT(state) {
+    return state.config.doorsAmount;
+  },
 };
 
 export default {

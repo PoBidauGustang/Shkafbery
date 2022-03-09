@@ -7,7 +7,7 @@ class ClosetType(models.Model):
     """
 
     type = models.CharField(
-        verbose_name="тип шкафа",
+        verbose_name="количество дверей",
         help_text="Обязательное и уникальное поле",
         max_length=255,
         unique=True,
