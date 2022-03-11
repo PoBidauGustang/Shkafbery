@@ -1,6 +1,6 @@
 <template>
   <div>
-    <StepContainer :currentStep="currentStep" />
+    <StepContainer />
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
     StepContainer,
   },
   computed: {
-    ...mapState("closet_configurator", ["currentStep", "steps", "config"]),
+    ...mapState("closet_configurator", ["steps", "config"]),
     ...mapGetters("closet_configurator", []),
     showBwithoutgetter() {
       return this.$store.state.closet_configurator.b;

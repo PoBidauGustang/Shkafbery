@@ -18,9 +18,38 @@ from .models import (
 
 
 class ClosetTypeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ClosetType
+        exclude = ("is_active",)
+
+
+class SchemeDimensionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FillingScheme
+        fields = ["name"]
+
+
+class DimensionsSerializer(serializers.ModelSerializer):
+
+    filling_scheme = SchemeDimensionsSerializer(read_only=True)
+
+    class Meta:
+        model = Dimensions
+        fields = "__all__"
+
+
+class TypeSchemeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClosetType
+        fields = ["type"]
+
+
+class FillingSchemeSerializer(serializers.ModelSerializer):
+
+    type = TypeSchemeSerializer(read_only=True)
+
+    class Meta:
+        model = FillingScheme
         exclude = ("is_active",)
 
 

@@ -1,24 +1,6 @@
 <template>
   <div>
     <p>first step</p>
-    <!-- <div>
-      <input type="radio" name="test_id" @change="onChange($event)" value="1" />
-      <label for="1">1-ый шкаф</label>
-      <br />
-      <input type="radio" name="test_id" @change="onChange($event)" value="2" />
-      <label for="1">2-ый шкаф</label>
-      <br />
-      <input type="radio" name="test_id" @change="onChange($event)" value="3" />
-      <label for="1">3-ый шкаф</label>
-      <br />
-      <input type="radio" name="test_id" @change="onChange($event)" value="4" />
-      <label for="1">4-ый шкаф</label>
-      <br />
-      <span
-        >Выбрано:
-        {{ this.$store.state.closet_configurator.config.doorsAmount }}</span
-      >
-    </div> -->
     <div>
       <TheDoor
         v-for="doorsNumber in doorsNumberList.data"
@@ -26,7 +8,6 @@
         :doors_data="doorsNumber.attributes.type"
       />
     </div>
-    <!-- <p>{{doorsNumberList}}</p> -->
   </div>
 </template>
 
@@ -47,7 +28,7 @@ export default {
     this.loadDoorsNumberList();
   },
   computed: {
-    ...mapGetters({ getServerClosetUrl: "getServerClosetUrl" }),
+    ...mapGetters("api_urls", ["getServerClosetUrl"]),
   },
   methods: {
     ...mapActions("closet_configurator", ["chooseDoorsAmount"]),

@@ -10,12 +10,13 @@ const getters = {
   getServerBlogUrl: (state) => {
     return state.backendBlogUrl;
   },
-  getServerClosetUrl: (state) => {
+  getServerClosetUrl(state) {
     return state.backendClosetUrl;
   },
 };
 
 export default {
+  namespaced: true,
   state,
   getters,
 };

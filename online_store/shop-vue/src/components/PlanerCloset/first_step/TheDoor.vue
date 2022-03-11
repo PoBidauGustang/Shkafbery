@@ -1,11 +1,18 @@
 <template>
   <div>
-		<p>----------------------------------------------------------------------------------------------</p>
-    <p>Карточка № {{doors_data}}</p>
-    <input type="radio" name="test_id" @change="onChange($event)" :value="doors_data" />
+    <p>
+      ----------------------------------------------------------------------------------------------
+    </p>
+    <p>Карточка № {{ doors_data }}</p>
+    <input
+      type="radio"
+      name="test_id"
+      @change="onChange($event)"
+      :value="doors_data"
+    />
     <label>{{ doors_data }}</label>
-    <br />
-		<p>в сторе: {{GETDOORSAMOUNT}}</p>
+    <!-- <br /> -->
+    <!-- <p>в сторе: {{GETDOORSAMOUNT}}</p> -->
   </div>
 </template>
 
