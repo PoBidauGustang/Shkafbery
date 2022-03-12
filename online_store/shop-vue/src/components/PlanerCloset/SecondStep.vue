@@ -17,6 +17,7 @@ export default {
     return {
       filteredFillingSchemesList: [],
       doorsDimensionsData: {},
+      b: this.getSchemesParams,
     };
   },
   props: {
@@ -30,27 +31,45 @@ export default {
   created() {
     this.filterPosts();
     this.loadDoorsDimensionsData();
+    this.getSchemesParams();
   },
   computed: {
     ...mapGetters("closet_configurator", ["GETDOORSAMOUNT"]),
     ...mapGetters("api_urls", ["getServerClosetUrl"]),
   },
   methods: {
+    getSchemesParams() {
+      var schemes = new URLSearchParams();
+      for (let i in this.filteredFillingSchemesList) {
+        schemes.append("scheme", this.filteredFillingSchemesList[i]);
+      }
+      var request = {
+        params: schemes,
+      };
+      return request;
+    },
     filterPosts() {
       for (let scheme in this.fillingSchemesList.data) {
         if (
           this.fillingSchemesList.data[scheme].attributes.type.type ==
           this.GETDOORSAMOUNT
         ) {
-          this.filteredFillingSchemesList +=
-            this.fillingSchemesList.data[scheme].attributes.name;
+          this.filteredFillingSchemesList.push(
+            this.fillingSchemesList.data[scheme].id
+          );
         }
       }
     },
-    async loadDoorsDimensionsData() {
-      this.doorsDimensionsData = await fetch(
-        `${this.getServerClosetUrl}/step_two`
-      ).then((response) => response.json());
+    loadDoorsDimensionsData() {
+      this.axios
+        .get(`${this.getServerClosetUrl}/step_two`, this.getSchemesParams())
+        .then((response) => {
+          console.log("we are here", response);
+          this.doorsDimensionsData = response.data.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
     },
   },
 };

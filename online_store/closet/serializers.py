@@ -26,7 +26,7 @@ class ClosetTypeSerializer(serializers.ModelSerializer):
 class SchemeDimensionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = FillingScheme
-        fields = ["name"]
+        fields = ["id", "name"]
 
 
 class DimensionsSerializer(serializers.ModelSerializer):
@@ -51,23 +51,3 @@ class FillingSchemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = FillingScheme
         exclude = ("is_active",)
-
-
-# class PostListSerializer(serializers.ModelSerializer):
-#     """List of posts"""
-
-#     category = CategorySerializer(read_only=True, many=True)
-
-#     class Meta:
-#         model = Post
-#         fields = "__all__"
-
-
-# class PostDetailSerializer(serializers.ModelSerializer):
-#     """Post"""
-
-#     category = CategorySerializer(read_only=True, many=True)
-
-#     class Meta:
-#         model = Post
-#         exclude = ("status",)

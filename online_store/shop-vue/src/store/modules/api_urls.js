@@ -7,7 +7,7 @@ const getters = {
   getServerShopUrl: (state) => {
     return state.backendShopUrl;
   },
-  getServerBlogUrl: (state) => {
+  getServerBlogUrl(state) {
     return state.backendBlogUrl;
   },
   getServerClosetUrl(state) {

@@ -42,8 +42,7 @@ export default {
     this.loadListPosts();
   },
   computed: {
-    // ...mapGetters('api_urls', ['getServerBlogUrl']),
-    ...mapGetters({ getServerBlogUrl: "getServerBlogUrl" }),
+    ...mapGetters("api_urls", ["getServerBlogUrl"]),
     filteredPosts() {
       if (this.sortedPosts.length) {
         return this.sortedPosts;

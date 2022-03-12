@@ -22,12 +22,5 @@ export default {
       return this.$store.state.closet_configurator.b;
     },
   },
-  // methods: {
-  //   ...mapActions("closet_configurator", ["switchStepVisability"]),
-  // },
-
-  // mounted() {
-  //   this.switchStepVisability();
-  // },
 };
 </script>

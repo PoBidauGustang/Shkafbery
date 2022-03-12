@@ -45,6 +45,7 @@ class DimensionsListView(APIView):
     """Displaying list dimensions"""
 
     def get(self, request):
-        dimensions = Dimensions.objects.all()
+        params = request.query_params.getlist("scheme")
+        dimensions = Dimensions.objects.filter(filling_scheme__in=params)
         serializer = DimensionsSerializer(dimensions, many=True)
         return Response(serializer.data)

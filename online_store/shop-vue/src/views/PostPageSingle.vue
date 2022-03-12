@@ -29,8 +29,7 @@ export default {
     this.loadListPosts();
   },
   computed: {
-    // ...mapGetters('api_urls', ['getServerBlogUrl']),
-    ...mapGetters({ getServerBlogUrl: "getServerBlogUrl" }),
+    ...mapGetters("api_urls", ["getServerBlogUrl"]),
   },
   methods: {
     async loadListPosts() {
