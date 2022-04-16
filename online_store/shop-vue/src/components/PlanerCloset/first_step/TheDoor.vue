@@ -3,16 +3,19 @@
     <p>
       ----------------------------------------------------------------------------------------------
     </p>
-    <p>Карточка № {{ doors_data }}</p>
+
     <input
       type="radio"
       name="test_id"
       @change="onChange($event)"
       :value="doors_data"
     />
-    <label>{{ doors_data }}</label>
+    <label></label>
+    <!-- <label>{{ doors_data }}</label> -->
+    <p>{{ doors_data }} двери</p>
+    <!-- <p v-html="doors_description"></p> -->
     <!-- <br /> -->
-    <!-- <p>в сторе: {{GETDOORSAMOUNT}}</p> -->
+    <p>в сторе: {{ GETDOORSAMOUNT }}</p>
   </div>
 </template>
 
@@ -22,6 +25,12 @@ export default {
   name: "TheDoor",
   props: {
     doors_data: {
+      type: String,
+      default() {
+        return "";
+      },
+    },
+    doors_description: {
       type: String,
       default() {
         return "";

@@ -97,6 +97,15 @@ const mutations = {
   chooseDoorsAmountMut(state, payload) {
     state.config.doorsAmount = payload;
   },
+  chooseDoorsDimensionsWidthMut(state, payload) {
+    state.config.doorDimensions.width.value = payload;
+  },
+  chooseDoorsDimensionsHeightMut(state, payload) {
+    state.config.doorDimensions.height.value = payload;
+  },
+  chooseDoorsDimensionsDepthMut(state, payload) {
+    state.config.doorDimensions.depth.value = payload;
+  },
 };
 
 const actions = {
@@ -115,6 +124,15 @@ const actions = {
   chooseDoorsAmount({ commit }, payload) {
     commit("chooseDoorsAmountMut", payload);
   },
+  chooseDoorsDimensionsWidth({ commit }, payload) {
+    commit("chooseDoorsDimensionsWidthMut", payload);
+  },
+  chooseDoorsDimensionsHeight({ commit }, payload) {
+    commit("chooseDoorsDimensionsHeightMut", payload);
+  },
+  chooseDoorsDimensionsDepth({ commit }, payload) {
+    commit("chooseDoorsDimensionsDepthMut", payload);
+  },
 };
 
 const getters = {
@@ -123,6 +141,9 @@ const getters = {
   },
   GETDOORSAMOUNT(state) {
     return state.config.doorsAmount;
+  },
+  GETDOORSDIMENSIONS(state) {
+    return state.config.doorDimensions;
   },
 };
 

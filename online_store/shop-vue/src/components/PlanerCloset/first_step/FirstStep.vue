@@ -1,18 +1,19 @@
 <template>
   <div>
-    <p>first step</p>
+    <p>Выберите количество дверей</p>
     <div>
       <TheDoor
-        v-for="doorsNumber in doorsNumberList.data"
+        v-for="doorsNumber in doorsNumberListJson.data"
         :key="doorsNumber.id"
         :doors_data="doorsNumber.attributes.type"
+        :doors_description="doorsNumber.attributes.description"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import TheDoor from "./TheDoor.vue";
 export default {
   name: "first_step",
@@ -21,7 +22,7 @@ export default {
   },
   data() {
     return {
-      doorsNumberList: [],
+      doorsNumberListJson: [],
     };
   },
   created() {
@@ -31,12 +32,8 @@ export default {
     ...mapGetters("api_urls", ["getServerClosetUrl"]),
   },
   methods: {
-    ...mapActions("closet_configurator", ["chooseDoorsAmount"]),
-    onChange(event) {
-      this.chooseDoorsAmount(event.target.value);
-    },
     async loadDoorsNumberList() {
-      this.doorsNumberList = await fetch(
+      this.doorsNumberListJson = await fetch(
         `${this.getServerClosetUrl}/step_one`
       ).then((response) => response.json());
     },

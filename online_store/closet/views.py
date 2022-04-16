@@ -1,5 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
+# from django_filters import rest_framework as filters
+# from rest_framework import generics
 
 from .models import (
     AdditionalElements,
@@ -30,6 +32,16 @@ class ClosetTypeListView(APIView):
         types = ClosetType.objects.filter(is_active=True)
         serializer = ClosetTypeSerializer(types, many=True)
         return Response(serializer.data)
+
+
+# class ClosetTypeListView(generics.ListAPIView):
+#     """Displaying list of Closet Types"""
+
+#     # def get(self, request):
+#     queryset = ClosetType.objects.filter(is_active=True)
+#     serializer = ClosetTypeSerializer(queryset, many=True)
+#     filter_backends = (filters.DjangoFilterBackend,)
+#     filterset_fields = ('type')
 
 
 class FillingSchemeListView(APIView):

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+
 from .models import (
     AdditionalElements,
     BodyColour,
@@ -20,6 +21,7 @@ from .models import (
 class ClosetTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClosetType
+        # fields = ["id", "type", "description"]
         exclude = ("is_active",)
 
 
