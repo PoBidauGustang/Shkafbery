@@ -4,7 +4,7 @@ const state = {
   config: {
     id: uuidv4(),
     doorsAmount: "",
-    doorDimensions: {
+    dimensions: {
       width: { name: "ширина", value: "" },
       height: { name: "высота", value: "" },
       depth: { name: "глубина", value: "" },
@@ -58,6 +58,8 @@ const state = {
   currentStep: 1,
   filledSteps: [],
   count: 5,
+  dimensionsData: [],
+  suitableFillingSchemes: [],
 };
 
 const mutations = {
@@ -97,14 +99,20 @@ const mutations = {
   chooseDoorsAmountMut(state, payload) {
     state.config.doorsAmount = payload;
   },
-  chooseDoorsDimensionsWidthMut(state, payload) {
-    state.config.doorDimensions.width.value = payload;
+  chooseDimensionsWidthMut(state, payload) {
+    state.config.dimensions.width.value = payload;
   },
-  chooseDoorsDimensionsHeightMut(state, payload) {
-    state.config.doorDimensions.height.value = payload;
+  chooseDimensionsHeightMut(state, payload) {
+    state.config.dimensions.height.value = payload;
   },
-  chooseDoorsDimensionsDepthMut(state, payload) {
-    state.config.doorDimensions.depth.value = payload;
+  chooseDimensionsDepthMut(state, payload) {
+    state.config.dimensions.depth.value = payload;
+  },
+  saveDimensionsDataMut(state, payload) {
+    state.dimensionsData = payload;
+  },
+  saveSuitableFillingSchemesMut(state, payload) {
+    state.suitableFillingSchemes = payload;
   },
 };
 
@@ -124,14 +132,20 @@ const actions = {
   chooseDoorsAmount({ commit }, payload) {
     commit("chooseDoorsAmountMut", payload);
   },
-  chooseDoorsDimensionsWidth({ commit }, payload) {
-    commit("chooseDoorsDimensionsWidthMut", payload);
+  chooseDimensionsWidth({ commit }, payload) {
+    commit("chooseDimensionsWidthMut", payload);
   },
-  chooseDoorsDimensionsHeight({ commit }, payload) {
-    commit("chooseDoorsDimensionsHeightMut", payload);
+  chooseDimensionsHeight({ commit }, payload) {
+    commit("chooseDimensionsHeightMut", payload);
   },
-  chooseDoorsDimensionsDepth({ commit }, payload) {
-    commit("chooseDoorsDimensionsDepthMut", payload);
+  chooseDimensionsDepth({ commit }, payload) {
+    commit("chooseDimensionsDepthMut", payload);
+  },
+  saveDimensionsData({ commit }, payload) {
+    commit("saveDimensionsDataMut", payload);
+  },
+  saveSuitableFillingSchemes({ commit }, payload) {
+    commit("saveSuitableFillingSchemesMut", payload);
   },
 };
 
@@ -142,8 +156,14 @@ const getters = {
   GETDOORSAMOUNT(state) {
     return state.config.doorsAmount;
   },
-  GETDOORSDIMENSIONS(state) {
-    return state.config.doorDimensions;
+  GETDIMENSIONS(state) {
+    return state.config.dimensions;
+  },
+  GETDIMENSIONSDATA(state) {
+    return state.dimensionsData;
+  },
+  GETSUITABLEFILLINGSCHEMES(state) {
+    return state.suitableFillingSchemes;
   },
 };
 
