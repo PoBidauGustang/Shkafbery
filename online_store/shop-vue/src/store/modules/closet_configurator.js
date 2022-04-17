@@ -114,6 +114,9 @@ const mutations = {
   saveSuitableFillingSchemesMut(state, payload) {
     state.suitableFillingSchemes = payload;
   },
+  chooseSchemaMut(state, payload) {
+    state.config.fillingScheme = payload;
+  },
 };
 
 const actions = {
@@ -147,6 +150,9 @@ const actions = {
   saveSuitableFillingSchemes({ commit }, payload) {
     commit("saveSuitableFillingSchemesMut", payload);
   },
+  chooseSchema({ commit }, payload) {
+    commit("chooseSchemaMut", payload);
+  },
 };
 
 const getters = {
@@ -164,6 +170,9 @@ const getters = {
   },
   GETSUITABLEFILLINGSCHEMES(state) {
     return state.suitableFillingSchemes;
+  },
+  GETFILLINGSCHEME(state) {
+    return state.config.fillingScheme;
   },
 };
 

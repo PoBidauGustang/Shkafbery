@@ -1,32 +1,65 @@
 <template>
   <div>
-    <h1>Выберите схему наполнения</h1>
+    <!-- <h1>Выберите схему наполнения</h1>
     <p>все размеры: {{ GETDIMENSIONSDATA }}</p>
     <p>выбранные размеры: {{ GETDIMENSIONS }}</p>
     <p>подходящие схемы наполнения: {{ GETSUITABLEFILLINGSCHEMES }}</p>
-    <p>подходящие по заанным размерам схемы: {{ filterSchemesByDimensions }}</p>
-    <p>{{ GETDIMENSIONS.width.value }}</p>
-    <p>Why?{{ GETDIMENSIONSDATA[0].attributes.min_width }}</p>
+    <p>подходящие по заданным размерам схемы: {{ filteredSchemesByDimensions }}</p>
+    <p>данные подходящих по заданным размерам схем: {{ filteredSchemesData }}</p> -->
+    <div>
+      <TheFillingScheme
+        v-for="scheme in filteredSchemesData"
+        :key="scheme.id"
+        :scheme_name="scheme.attributes.name"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import TheFillingScheme from "./TheFillingScheme.vue";
 export default {
   name: "third_step",
-  // data() {
-  //   return {
-  //     filteredSchemesByDimensions: [],
-  //   };
-  // },
+  components: {
+    TheFillingScheme,
+  },
+  data() {
+    return {
+      filteredSchemesByDimensions: [],
+      filteredSchemesData: [],
+    };
+  },
+  created() {
+    this.filterSchemesByDimensions();
+  },
+  beforeupdate() {
+    this.filterSchemesData();
+  },
   computed: {
     ...mapGetters("closet_configurator", [
       "GETDIMENSIONSDATA",
       "GETDIMENSIONS",
       "GETSUITABLEFILLINGSCHEMES",
     ]),
+  },
+  methods: {
+    ...mapActions("closet_configurator", ["chooseDimensionsWidth"]),
+    filterSchemesData() {
+      for (let i in this.filteredSchemesByDimensions) {
+        for (let scheme in this.GETSUITABLEFILLINGSCHEMES) {
+          if (
+            Number(this.GETSUITABLEFILLINGSCHEMES[scheme].id) ===
+            this.filteredSchemesByDimensions[i]
+          )
+            this.filteredSchemesData.push(
+              this.GETSUITABLEFILLINGSCHEMES[scheme]
+            );
+        }
+      }
+    },
     filterSchemesByDimensions() {
-      let filteredSchemesByDimensions = [];
+      this.filteredSchemesByDimensions = [];
       for (let scheme in this.GETDIMENSIONSDATA) {
         if (
           this.GETDIMENSIONSDATA[scheme].attributes.min_width <=
@@ -46,35 +79,16 @@ export default {
               this.GETDIMENSIONSDATA[scheme].attributes.max_depth >=
                 this.GETDIMENSIONS.depth.value
             ) {
-              filteredSchemesByDimensions.push(
-                this.GETDIMENSIONSDATA[scheme].attributes.filling_scheme
+              this.filteredSchemesByDimensions.push(
+                this.GETDIMENSIONSDATA[scheme].attributes.filling_scheme.id
               );
             }
           }
         }
       }
-      return filteredSchemesByDimensions;
+      // return filteredSchemesByDimensions;
+      this.filterSchemesData();
     },
-  },
-  methods: {
-    ...mapActions("closet_configurator", ["chooseDimensionsWidth"]),
-    // filterSchemesByDimensions() {
-    //   this.filteredSchemesByDimensions = 1
-    //   for (let scheme in this.GETDIMENSIONSDATA) {
-    //     if (
-    //       this.GETDIMENSIONSDATA[scheme].attributes.type.type ==
-    //       this.GETDOORSAMOUNT
-    //     ) {
-    //       this.filteredFillingSchemesListID.push(
-    //         this.fillingSchemesList.data[scheme].id
-    //       );
-    //       this.filteredFillingSchemesList.push(
-    //         this.fillingSchemesList.data[scheme]
-    //       );
-    //     }
-    //   }
-    //   this.saveSuitableFillingSchemes(this.filteredFillingSchemesList)
-    // },
   },
 };
 </script>
