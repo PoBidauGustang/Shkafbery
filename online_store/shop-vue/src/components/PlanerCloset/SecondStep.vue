@@ -1,11 +1,11 @@
 <template>
   <div>
-    <p>Укажите размеры</p>
+    <!-- <p>Укажите размеры</p>
     <p>выбрнный тип шкафа: {{ GETDOORSAMOUNT }} двери</p>
     <p>{{ fillingSchemesList.data }}</p>
     <p>ID подходящих схем наполнения: {{ filteredFillingSchemesListID }}</p>
     <p>подходящие схемы наполнения: {{ filteredFillingSchemesList }}</p>
-    <p>все размеры: {{ dimensionsData }}</p>
+    <p>все размеры: {{ dimensionsData }}</p> -->
     <!-- <p>сортированный список текущих размеров: {{ currentDimensions }}</p>
     <p>
       минимальная ширина, максимальная ширина: {{ minWidth }} - {{ maxWidth }}
@@ -75,6 +75,7 @@ export default {
       maxHeight: "",
       minDepth: "",
       maxDepth: "",
+      visible: false,
     };
   },
   // watch: {

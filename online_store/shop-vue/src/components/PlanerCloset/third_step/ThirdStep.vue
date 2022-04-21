@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- <h1>Выберите схему наполнения</h1>
-    <p>все размеры: {{ GETDIMENSIONSDATA }}</p>
+    <h1>Выберите схему наполнения</h1>
+    <!-- <p>все размеры: {{ GETDIMENSIONSDATA }}</p>
     <p>выбранные размеры: {{ GETDIMENSIONS }}</p>
     <p>подходящие схемы наполнения: {{ GETSUITABLEFILLINGSCHEMES }}</p>
     <p>подходящие по заданным размерам схемы: {{ filteredSchemesByDimensions }}</p>

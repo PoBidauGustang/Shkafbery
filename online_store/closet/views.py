@@ -1,7 +1,5 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-# from django_filters import rest_framework as filters
-# from rest_framework import generics
 
 from .models import (
     AdditionalElements,
@@ -19,10 +17,14 @@ from .models import (
     FillingScheme,
 )
 from .serializers import (
+    BodyColourSerializer,
     ClosetTypeSerializer,
     DimensionsSerializer,
     FillingSchemeSerializer,
 )
+
+# from django_filters import rest_framework as filters
+# from rest_framework import generics
 
 
 class ClosetTypeListView(APIView):
@@ -60,4 +62,13 @@ class DimensionsListView(APIView):
         params = request.query_params.getlist("scheme")
         dimensions = Dimensions.objects.filter(filling_scheme__in=params)
         serializer = DimensionsSerializer(dimensions, many=True)
+        return Response(serializer.data)
+
+
+class BodyColourListView(APIView):
+    """Displaying list of Filling Schemes"""
+
+    def get(self, request):
+        schemes = BodyColour.objects.all()
+        serializer = BodyColourSerializer(schemes, many=True)
         return Response(serializer.data)

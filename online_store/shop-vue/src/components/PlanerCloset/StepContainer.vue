@@ -17,7 +17,7 @@ import { mapActions, mapGetters } from "vuex";
 import FirstStep from "./first_step/FirstStep.vue";
 import SecondStep from "./SecondStep.vue";
 import ThirdStep from "./third_step/ThirdStep.vue";
-import FourthStep from "./FourthStep.vue";
+import FourthStep from "./fourth_step/FourthStep.vue";
 
 export default {
   name: "stepcontainer",

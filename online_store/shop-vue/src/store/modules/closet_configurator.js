@@ -117,6 +117,9 @@ const mutations = {
   chooseSchemaMut(state, payload) {
     state.config.fillingScheme = payload;
   },
+  chooseBodyColorMut(state, payload) {
+    state.config.bodyColor = payload;
+  },
 };
 
 const actions = {
@@ -153,6 +156,9 @@ const actions = {
   chooseSchema({ commit }, payload) {
     commit("chooseSchemaMut", payload);
   },
+  chooseBodyColor({ commit }, payload) {
+    commit("chooseBodyColorMut", payload);
+  },
 };
 
 const getters = {
@@ -173,6 +179,9 @@ const getters = {
   },
   GETFILLINGSCHEME(state) {
     return state.config.fillingScheme;
+  },
+  GETBODYCOLOR(state) {
+    return state.config.bodyColor;
   },
 };
 

@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-
 from .models import (
     AdditionalElements,
     BodyColour,
@@ -53,3 +52,12 @@ class FillingSchemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = FillingScheme
         exclude = ("is_active",)
+
+
+class BodyColourSerializer(serializers.ModelSerializer):
+
+    filling_scheme = SchemeDimensionsSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = BodyColour
+        fields = ["id", "filling_scheme", "name", "image", "alt_text"]
