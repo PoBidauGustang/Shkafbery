@@ -11,6 +11,7 @@
         v-for="colour in filteredBodyColourList"
         :key="colour.id"
         :colour_name="colour.attributes.name"
+        :colour="colour.attributes.image"
       />
       <div v-show="visible">
         <p>{{ bodyColourList }}</p>

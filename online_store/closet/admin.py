@@ -11,7 +11,6 @@ from .models import (
     ClosetType,
     Dimensions,
     Doorhandle,
-    DoorsColours,
     DoorsMaterials,
     DoorsProfiles,
     DoorsSystem,
@@ -167,18 +166,18 @@ class DoorsSystemForm(forms.ModelForm):
         fields = "__all__"
 
 
-class DoorsColoursInline(admin.TabularInline):
-    model = DoorsColours
+class DoorsMaterialsInline(admin.TabularInline):
+    model = DoorsMaterials.doors_system.through
     extra = 1
 
 
 class DoorsProfilesInline(admin.TabularInline):
-    model = DoorsProfiles
+    model = DoorsProfiles.doors_system.through
     extra = 1
 
 
 class DoorhandleInline(admin.TabularInline):
-    model = Doorhandle
+    model = Doorhandle.doors_system.through
     extra = 1
 
 
@@ -194,10 +193,64 @@ class DoorsSystemAdmin(admin.ModelAdmin):
     filter_horizontal = ("filling_scheme",)
     list_display_links = ("name",)
     inlines = [
-        DoorsColoursInline,
+        DoorsMaterialsInline,
         DoorsProfilesInline,
         DoorhandleInline,
     ]
+    save_on_top = True
+    save_as = True
+
+
+class DoorsProfilesForm(forms.ModelForm):
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = DoorsProfiles
+        fields = "__all__"
+
+
+@admin.register(DoorsProfiles)
+class DoorsProfilesAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+        "description",
+        "image",
+        "alt_text",
+        "is_feature",
+        "created_at",
+        "updated_at",
+    ]
+    form = DoorsProfilesForm
+    filter_horizontal = ("doors_system",)
+    list_display_links = ("name",)
+    save_on_top = True
+    save_as = True
+
+
+class DoorhandleForm(forms.ModelForm):
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Doorhandle
+        fields = "__all__"
+
+
+@admin.register(Doorhandle)
+class DoorhandleAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+        "description",
+        "image",
+        "alt_text",
+        "is_feature",
+        "created_at",
+        "updated_at",
+    ]
+    form = DoorhandleForm
+    filter_horizontal = ("doors_system",)
+    list_display_links = ("name",)
     save_on_top = True
     save_as = True
 
@@ -223,7 +276,7 @@ class DoorsMaterialsAdmin(admin.ModelAdmin):
         "updated_at",
     ]
     form = DoorsMaterialsForm
-    filter_horizontal = ("filling_scheme",)
+    filter_horizontal = ("doors_system",)
     list_display_links = ("name",)
     save_on_top = True
     save_as = True

@@ -10,7 +10,6 @@ from .models import (
     ClosetType,
     Dimensions,
     Doorhandle,
-    DoorsColours,
     DoorsMaterials,
     DoorsProfiles,
     DoorsSystem,

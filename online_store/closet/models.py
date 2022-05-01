@@ -305,46 +305,6 @@ class DoorsSystem(models.Model):
         return self.name
 
 
-class DoorsColours(models.Model):
-    """
-    The Doors Colours Image table.
-    """
-
-    name = models.CharField(
-        verbose_name="название",
-        help_text="Обязательное и уникальное поле",
-        max_length=255,
-        unique=True,
-    )
-    doors_system = models.ForeignKey(
-        DoorsSystem, on_delete=models.CASCADE, related_name="doors_system_doors_colours"
-    )
-    image = models.ImageField(
-        verbose_name="Изображение",
-        help_text="Загрузите изображение товара",
-        upload_to="planner/doors/colour/%Y/%m/%d",
-        default="planner/default.jpg",
-        blank=True,
-    )
-    alt_text = models.CharField(
-        verbose_name="Альтернативный текст",
-        help_text="Пожалуйста, добавьте альтернативный текст",
-        max_length=255,
-        null=True,
-        blank=True,
-    )
-    is_feature = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = "цвет дверей"
-        verbose_name_plural = "цвета дверей"
-
-    def __str__(self):
-        return self.name
-
-
 class DoorsProfiles(models.Model):
     """
     The Doors Profiles table.
@@ -356,9 +316,9 @@ class DoorsProfiles(models.Model):
         max_length=255,
         unique=True,
     )
-    doors_system = models.ForeignKey(
+    doors_system = models.ManyToManyField(
         DoorsSystem,
-        on_delete=models.CASCADE,
+        verbose_name="система дверей",
         related_name="doors_system_doors_profiles",
     )
     image = models.ImageField(
@@ -401,8 +361,10 @@ class Doorhandle(models.Model):
         max_length=255,
         unique=True,
     )
-    doors_system = models.ForeignKey(
-        DoorsSystem, on_delete=models.CASCADE, related_name="doors_system_doorhandle"
+    doors_system = models.ManyToManyField(
+        DoorsSystem,
+        verbose_name="система дверей",
+        related_name="doors_system_doorhandle",
     )
     image = models.ImageField(
         verbose_name="Изображение",
@@ -444,10 +406,10 @@ class DoorsMaterials(models.Model):
         max_length=255,
         unique=True,
     )
-    filling_scheme = models.ManyToManyField(
-        FillingScheme,
-        verbose_name="схема наполнения",
-        related_name="filling_scheme_doors_materials",
+    doors_system = models.ManyToManyField(
+        DoorsSystem,
+        verbose_name="система дверей",
+        related_name="doors_system_doors_materials",
     )
     image = models.ImageField(
         verbose_name="Изображение",
