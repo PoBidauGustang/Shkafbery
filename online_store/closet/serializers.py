@@ -60,3 +60,12 @@ class BodyColourSerializer(serializers.ModelSerializer):
     class Meta:
         model = BodyColour
         fields = ["id", "filling_scheme", "name", "image", "alt_text"]
+
+
+class DoorsSystemSerializer(serializers.ModelSerializer):
+
+    filling_scheme = SchemeDimensionsSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = DoorsSystem
+        fields = ["id", "name", "position", "filling_scheme", "description"]

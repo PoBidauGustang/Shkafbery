@@ -287,6 +287,11 @@ class DoorsSystem(models.Model):
         max_length=255,
         unique=True,
     )
+    position = models.IntegerField(
+        verbose_name="Позиция на сайте",
+        null=True,
+        blank=True,
+    )
     filling_scheme = models.ManyToManyField(
         FillingScheme,
         verbose_name="схема наполнения",

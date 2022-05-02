@@ -1,12 +1,12 @@
 <template>
   <div>
-    <!-- <p>Укажите размеры</p>
-    <p>выбрнный тип шкафа: {{ GETDOORSAMOUNT }} двери</p>
+    <h1>Укажите размеры</h1>
+    <!-- <p>выбрнный тип шкафа: {{ GETDOORSAMOUNT }} двери</p>
     <p>{{ fillingSchemesList.data }}</p>
     <p>ID подходящих схем наполнения: {{ filteredFillingSchemesListID }}</p>
     <p>подходящие схемы наполнения: {{ filteredFillingSchemesList }}</p>
-    <p>все размеры: {{ dimensionsData }}</p> -->
-    <!-- <p>сортированный список текущих размеров: {{ currentDimensions }}</p>
+    <p>все размеры: {{ dimensionsData }}</p>
+    <p>сортированный список текущих размеров: {{ currentDimensions }}</p>
     <p>
       минимальная ширина, максимальная ширина: {{ minWidth }} - {{ maxWidth }}
     </p>
@@ -15,8 +15,8 @@
     </p>
     <p>
       минимальная глубина, максимальная глубина: {{ minDepth }} - {{ maxDepth }}
-    </p> -->
-    <!-- <label for="new-todo">Add width</label> -->
+    </p>
+    <label for="new-todo">Add width</label> -->
     <div>
       ширина: {{ minWidth }}
       <input

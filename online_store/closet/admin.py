@@ -186,6 +186,7 @@ class DoorsSystemAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "name",
+        "position",
         "description",
         "is_active",
     ]

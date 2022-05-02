@@ -7,5 +7,6 @@ urlpatterns = [
     path("step_two/", views.DimensionsListView.as_view()),
     path("step_three/", views.FillingSchemeListView.as_view()),
     path("step_fourth/", views.BodyColourListView.as_view()),
+    path("step_fifth/", views.DoorsSystemListView.as_view()),
     # path("closet/<slug:slug>/", views.PostDetailView.as_view()),
 ]

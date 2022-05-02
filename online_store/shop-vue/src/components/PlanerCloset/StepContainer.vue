@@ -8,6 +8,7 @@
   />
   <ThirdStep v-if="GETCURRENTSTEP == 3" />
   <FourthStep v-if="GETCURRENTSTEP == 4" />
+  <FifthStep v-if="GETCURRENTSTEP == 5" />
   <button @click="switchToPreviousStep">Previous</button>
   <button @click="switchToNextStep">Next</button>
 </template>
@@ -18,6 +19,7 @@ import FirstStep from "./first_step/FirstStep.vue";
 import SecondStep from "./SecondStep.vue";
 import ThirdStep from "./third_step/ThirdStep.vue";
 import FourthStep from "./fourth_step/FourthStep.vue";
+import FifthStep from "./fifth_step/FifthStep.vue";
 
 export default {
   name: "stepcontainer",
@@ -26,6 +28,7 @@ export default {
     SecondStep,
     ThirdStep,
     FourthStep,
+    FifthStep,
   },
   data() {
     return {

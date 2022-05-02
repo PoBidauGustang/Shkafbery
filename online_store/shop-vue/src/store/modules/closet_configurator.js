@@ -120,6 +120,9 @@ const mutations = {
   chooseBodyColorMut(state, payload) {
     state.config.bodyColor = payload;
   },
+  chooseDoorsSystemMut(state, payload) {
+    state.config.doorsSystem = payload;
+  },
 };
 
 const actions = {
@@ -159,6 +162,9 @@ const actions = {
   chooseBodyColor({ commit }, payload) {
     commit("chooseBodyColorMut", payload);
   },
+  chooseDoorsSystem({ commit }, payload) {
+    commit("chooseDoorsSystemMut", payload);
+  },
 };
 
 const getters = {
@@ -182,6 +188,9 @@ const getters = {
   },
   GETBODYCOLOR(state) {
     return state.config.bodyColor;
+  },
+  GETDOORSSYSTEM(state) {
+    return state.config.doorsSystem;
   },
 };
 

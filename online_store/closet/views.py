@@ -19,6 +19,7 @@ from .serializers import (
     BodyColourSerializer,
     ClosetTypeSerializer,
     DimensionsSerializer,
+    DoorsSystemSerializer,
     FillingSchemeSerializer,
 )
 
@@ -65,9 +66,18 @@ class DimensionsListView(APIView):
 
 
 class BodyColourListView(APIView):
-    """Displaying list of Filling Schemes"""
+    """Displaying list of closet colours"""
 
     def get(self, request):
         schemes = BodyColour.objects.all()
         serializer = BodyColourSerializer(schemes, many=True)
+        return Response(serializer.data)
+
+
+class DoorsSystemListView(APIView):
+    """Displaying list of doors systems"""
+
+    def get(self, request):
+        schemes = DoorsSystem.objects.all()
+        serializer = DoorsSystemSerializer(schemes, many=True)
         return Response(serializer.data)
