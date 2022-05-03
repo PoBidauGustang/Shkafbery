@@ -23,7 +23,7 @@ class ClosetTypeSerializer(serializers.ModelSerializer):
         exclude = ("is_active",)
 
 
-class SchemeDimensionsSerializer(serializers.ModelSerializer):
+class SchemeFilterSerializer(serializers.ModelSerializer):
     class Meta:
         model = FillingScheme
         fields = ["id", "name"]
@@ -31,7 +31,7 @@ class SchemeDimensionsSerializer(serializers.ModelSerializer):
 
 class DimensionsSerializer(serializers.ModelSerializer):
 
-    filling_scheme = SchemeDimensionsSerializer(read_only=True)
+    filling_scheme = SchemeFilterSerializer(read_only=True)
 
     class Meta:
         model = Dimensions
@@ -55,7 +55,7 @@ class FillingSchemeSerializer(serializers.ModelSerializer):
 
 class BodyColourSerializer(serializers.ModelSerializer):
 
-    filling_scheme = SchemeDimensionsSerializer(read_only=True, many=True)
+    filling_scheme = SchemeFilterSerializer(read_only=True, many=True)
 
     class Meta:
         model = BodyColour
@@ -64,8 +64,32 @@ class BodyColourSerializer(serializers.ModelSerializer):
 
 class DoorsSystemSerializer(serializers.ModelSerializer):
 
-    filling_scheme = SchemeDimensionsSerializer(read_only=True, many=True)
+    filling_scheme = SchemeFilterSerializer(read_only=True, many=True)
 
     class Meta:
         model = DoorsSystem
         fields = ["id", "name", "position", "filling_scheme", "description"]
+
+
+class DoorsSystemFilterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DoorsSystem
+        fields = ["id", "name"]
+
+
+class DoorsProfilesSerializer(serializers.ModelSerializer):
+
+    doors_system = DoorsSystemFilterSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = DoorsProfiles
+        fields = ["id", "name", "image", "doors_system", "description", "alt_text"]
+
+
+class DoorhandleSerializer(serializers.ModelSerializer):
+
+    doors_system = DoorsSystemFilterSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Doorhandle
+        fields = ["id", "name", "image", "doors_system", "description", "alt_text"]

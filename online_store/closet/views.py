@@ -19,6 +19,8 @@ from .serializers import (
     BodyColourSerializer,
     ClosetTypeSerializer,
     DimensionsSerializer,
+    DoorhandleSerializer,
+    DoorsProfilesSerializer,
     DoorsSystemSerializer,
     FillingSchemeSerializer,
 )
@@ -80,4 +82,22 @@ class DoorsSystemListView(APIView):
     def get(self, request):
         schemes = DoorsSystem.objects.all()
         serializer = DoorsSystemSerializer(schemes, many=True)
+        return Response(serializer.data)
+
+
+class DoorsProfilesListView(APIView):
+    """Displaying list of doors systems"""
+
+    def get(self, request):
+        schemes = DoorsProfiles.objects.all()
+        serializer = DoorsProfilesSerializer(schemes, many=True)
+        return Response(serializer.data)
+
+
+class DoorhandleListView(APIView):
+    """Displaying list of doors systems"""
+
+    def get(self, request):
+        schemes = Doorhandle.objects.all()
+        serializer = DoorhandleSerializer(schemes, many=True)
         return Response(serializer.data)
