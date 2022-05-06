@@ -20,6 +20,7 @@ from .serializers import (
     ClosetTypeSerializer,
     DimensionsSerializer,
     DoorhandleSerializer,
+    DoorsMaterialsSerializer,
     DoorsProfilesSerializer,
     DoorsSystemSerializer,
     FillingSchemeSerializer,
@@ -100,4 +101,13 @@ class DoorhandleListView(APIView):
     def get(self, request):
         schemes = Doorhandle.objects.all()
         serializer = DoorhandleSerializer(schemes, many=True)
+        return Response(serializer.data)
+
+
+class DoorsMaterialsListView(APIView):
+    """Displaying list of doors systems"""
+
+    def get(self, request):
+        schemes = DoorsMaterials.objects.all()
+        serializer = DoorsMaterialsSerializer(schemes, many=True)
         return Response(serializer.data)

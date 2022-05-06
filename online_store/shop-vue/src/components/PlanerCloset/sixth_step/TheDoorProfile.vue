@@ -6,7 +6,7 @@
 
     <input
       type="radio"
-      name="test_id"
+      name="profile"
       @change="onChange($event)"
       :value="profile_name"
     />

@@ -14,6 +14,7 @@ const state = {
     doorsSystem: "",
     doorProfile: "",
     doorHandle: "",
+    doorMaterials: {},
     doorConfig: "",
     bodyComplectation: "",
     additionalElements: "",
@@ -43,6 +44,22 @@ const mutations = {
   },
   chooseDoorsAmountMut(state, payload) {
     state.config.doorsAmount = payload;
+    let num = 0;
+    if (payload === "Две") {
+      num = 2;
+    }
+    if (payload === "Три") {
+      num = 3;
+    }
+    if (payload === "Четыре") {
+      num = 4;
+    }
+    if (payload === "Пять") {
+      num = 5;
+    }
+    for (let i = 1; i <= num; i++) {
+      state.config.doorMaterials[i] = {};
+    }
   },
   chooseDimensionsWidthMut(state, payload) {
     state.config.dimensions.width.value = payload;
@@ -73,6 +90,22 @@ const mutations = {
   },
   chooseDoorHandleMut(state, payload) {
     state.config.doorHandle = payload;
+  },
+  chooseDoorSectionMut(state, payload) {
+    let listPayload = payload.split(",");
+    let doorNum = listPayload[0];
+    let sectionNum = listPayload[1];
+    state.config.doorMaterials[doorNum] = {};
+    for (let i = 1; i <= sectionNum; i++) {
+      state.config.doorMaterials[doorNum][i] = "";
+    }
+  },
+  chooseDoorMaterialsMut(state, payload) {
+    let listPayload = payload.split(",");
+    let doorNum = listPayload[0];
+    let sectionNum = listPayload[1];
+    let material = listPayload[2];
+    state.config.doorMaterials[doorNum][sectionNum] = material;
   },
 };
 
@@ -122,6 +155,12 @@ const actions = {
   chooseDoorHandle({ commit }, payload) {
     commit("chooseDoorHandleMut", payload);
   },
+  chooseDoorSection({ commit }, payload) {
+    commit("chooseDoorSectionMut", payload);
+  },
+  chooseDoorMaterials({ commit }, payload) {
+    commit("chooseDoorMaterialsMut", payload);
+  },
 };
 
 const getters = {
@@ -155,6 +194,9 @@ const getters = {
   GETDOORHANDLE(state) {
     return state.config.doorHandle;
   },
+  GETDOORMATERIALS(state) {
+    return state.config.doorMaterials;
+  },
 };
 
 export default {
@@ -164,3 +206,8 @@ export default {
   mutations,
   getters,
 };
+
+// function addNumOfDoorsToMaterials() {
+
+//   return aa = 2;
+// };

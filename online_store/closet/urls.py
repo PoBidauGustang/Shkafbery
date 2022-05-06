@@ -10,5 +10,6 @@ urlpatterns = [
     path("step_fifth/", views.DoorsSystemListView.as_view()),
     path("step_sixth_profiles/", views.DoorsProfilesListView.as_view()),
     path("step_sixth_handle/", views.DoorhandleListView.as_view()),
+    path("step_seventh/", views.DoorsMaterialsListView.as_view()),
     # path("closet/<slug:slug>/", views.PostDetailView.as_view()),
 ]

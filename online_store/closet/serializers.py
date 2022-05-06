@@ -93,3 +93,12 @@ class DoorhandleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doorhandle
         fields = ["id", "name", "image", "doors_system", "description", "alt_text"]
+
+
+class DoorsMaterialsSerializer(serializers.ModelSerializer):
+
+    doors_system = DoorsSystemFilterSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = DoorsMaterials
+        fields = ["id", "name", "image", "doors_system", "description", "alt_text"]
