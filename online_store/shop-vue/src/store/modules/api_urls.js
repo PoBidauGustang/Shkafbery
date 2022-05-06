@@ -2,9 +2,10 @@ const state = {
   backendShopUrl: "http://localhost:8000/api/shop",
   backendBlogUrl: "http://localhost:8000/api/blog",
   backendClosetUrl: "http://localhost:8000/api/closet",
+  backendInformationUrl: "http://localhost:8000/api/information",
 };
 const getters = {
-  getServerShopUrl: (state) => {
+  getServerShopUrl(state) {
     return state.backendShopUrl;
   },
   getServerBlogUrl(state) {
@@ -12,6 +13,9 @@ const getters = {
   },
   getServerClosetUrl(state) {
     return state.backendClosetUrl;
+  },
+  getServerInformationUrl(state) {
+    return state.backendInformationUrl;
   },
 };
 
