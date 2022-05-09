@@ -1,5 +1,8 @@
 <template>
   <div>
+    {{ categoriesList }}
+    <p>{{ mainCategories }}</p>
+    <p>!{{ allCategories }}</p>
     <TheMenuCloset
       v-if="isMegaMenuVisibleCloset"
       :linksList="linksClosetList"
@@ -167,6 +170,7 @@ import TheMenuCloset from "./base_mega_menu/TheMenuCloset.vue";
 import TheMenuDoors from "./base_mega_menu/TheMenuDoors.vue";
 import TheMenuMaterials from "./base_mega_menu/TheMenuMaterials.vue";
 import TheMenuServices from "./base_mega_menu/TheMenuServices.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "THeheader",
   components: {
@@ -175,6 +179,9 @@ export default {
     TheMenuMaterials,
     TheMenuServices,
   },
+  created() {
+    this.loadCategoriesList();
+  },
   props: {},
   data() {
     return {
@@ -182,6 +189,9 @@ export default {
       isMegaMenuVisibleDoors: false,
       isMegaMenuVisibleMaterials: false,
       isMegaMenuVisibleServices: false,
+      categoriesList: [],
+      mainCategories: [],
+      allCategories: [],
       linksClosetList: [
         {
           id: "1",
@@ -207,8 +217,57 @@ export default {
       ],
     };
   },
-  computed: {},
+  watch: {
+    categoriesList() {
+      this.filterMainCategories();
+      this.filterAllCategories();
+    },
+    // mainCategories() {
+    //   this.filterAllCategories();
+    // }
+  },
+  computed: {
+    ...mapGetters("api_urls", ["getServerShopUrl"]),
+  },
   methods: {
+    loadCategoriesList() {
+      this.axios
+        .get(`${this.getServerShopUrl}/product_categories`)
+        .then((response) => {
+          this.categoriesList = response.data.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    filterMainCategories() {
+      let categoriesList = this.categoriesList.slice();
+      for (let category in categoriesList) {
+        if (categoriesList[category].attributes.parent === null) {
+          this.mainCategories.push(categoriesList[category]);
+        }
+      }
+    },
+    filterAllCategories() {
+      this.allCategories = JSON.parse(JSON.stringify(this.mainCategories));
+      for (let maincategory in this.mainCategories) {
+        this.allCategories[maincategory].subcategories = [];
+      }
+      for (let maincategory in this.mainCategories) {
+        for (let category in this.categoriesList) {
+          if (this.categoriesList[category].attributes.parent != null) {
+            if (
+              Number(this.categoriesList[category].attributes.parent.id) ===
+              Number(this.mainCategories[maincategory].id)
+            ) {
+              this.allCategories[maincategory].subcategories.push(
+                this.categoriesList[category]
+              );
+            }
+          }
+        }
+      }
+    },
     showMegaMenuCloset() {
       this.isMegaMenuVisibleServices = false;
       this.isMegaMenuVisibleDoors = false;

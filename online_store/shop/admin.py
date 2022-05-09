@@ -21,14 +21,27 @@ class ProductAdminForm(forms.ModelForm):
         fields = "__all__"
 
 
+class CategoryAdminForm(forms.ModelForm):
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Category
+        fields = "__all__"
+
+
 @admin.register(Category)
 class CategoryAdmin(MPTTModelAdmin):
     list_display = [
         "name",
         "parent",
+        "description",
+        "image",
+        "position",
+        "for_main",
         "is_active",
     ]
-    list_editable = ["parent", "is_active"]
+    form = CategoryAdminForm
+    list_editable = ["parent", "is_active", "for_main", "position", "image"]
     prepopulated_fields = {"slug": ("name",)}
 
 

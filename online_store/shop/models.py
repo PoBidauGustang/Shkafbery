@@ -21,6 +21,25 @@ class Category(MPTTModel):
     parent = TreeForeignKey(
         "self", on_delete=models.CASCADE, null=True, blank=True, related_name="children"
     )
+    description = models.TextField(
+        verbose_name="описание", help_text="Not Required", blank=True
+    )
+    for_main = models.BooleanField(
+        verbose_name="для главной?",
+        default=False,
+    )
+    image = models.ImageField(
+        verbose_name="изображение",
+        help_text="Загрузите изображение категории",
+        upload_to="planner/shop/category/%Y/%m/%d",
+        default="planner/default.jpg",
+        blank=True,
+    )
+    position = models.IntegerField(
+        verbose_name="Позиция в категории",
+        null=True,
+        blank=True,
+    )
     is_active = models.BooleanField(default=True)
 
     class MPTTMeta:
