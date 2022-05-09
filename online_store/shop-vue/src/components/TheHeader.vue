@@ -1,9 +1,24 @@
 <template>
   <div>
-    <BaseMegaMenu
-      v-if="isMegaMenuVisible"
-      :links_list="links_list"
-      @closeMegaMenu="closeMegaMenu"
+    <TheMenuCloset
+      v-if="isMegaMenuVisibleCloset"
+      :linksList="linksClosetList"
+      @closeMegaMenu="closeMegaMenuCloset"
+    />
+    <TheMenuDoors
+      v-if="isMegaMenuVisibleDoors"
+      :linksList="linksDoorsList"
+      @closeMegaMenu="closeMegaMenuDoors"
+    />
+    <TheMenuMaterials
+      v-if="isMegaMenuVisibleMaterials"
+      :linksList="linksMaterialsList"
+      @closeMegaMenu="closeMegaMenuMaterials"
+    />
+    <TheMenuServices
+      v-if="isMegaMenuVisibleServices"
+      :linksList="linksServicesList"
+      @closeMegaMenu="closeMegaMenuServices"
     />
     <nav class="header">
       <div class="header_top">
@@ -100,7 +115,7 @@
         <ul class="bottom_menu">
           <li class="bottom_menu_input">
             <!-- <base-mega-menu/> -->
-            <a class="bottom_menu_link" @click="showMegaMenu">
+            <a class="bottom_menu_link" @click="showMegaMenuCloset">
               <span class="btm_link">Шкафы-купе</span>
               <span class="icon_wrapper">
                 <span class="material-icons-outlined md-18">expand_more</span>
@@ -108,7 +123,7 @@
             </a>
           </li>
           <li class="bottom_menu_input">
-            <a class="bottom_menu_link" @click="showMegaMenu">
+            <a class="bottom_menu_link" @click="showMegaMenuDoors">
               <span class="btm_link">Двери-купе</span>
               <span class="icon_wrapper">
                 <span class="material-icons-outlined md-18">expand_more</span>
@@ -121,7 +136,7 @@
             >
           </li>
           <li class="bottom_menu_input">
-            <a class="bottom_menu_link" @click="showMegaMenu">
+            <a class="bottom_menu_link" @click="showMegaMenuMaterials">
               <span class="btm_link">Материалы</span
               ><span class="icon_wrapper">
                 <span class="material-icons-outlined md-18">expand_more</span>
@@ -129,7 +144,7 @@
             </a>
           </li>
           <li class="bottom_menu_input">
-            <a class="bottom_menu_link" @click="showMegaMenu">
+            <a class="bottom_menu_link" @click="showMegaMenuServices">
               <span class="btm_link">Услуги</span
               ><span class="icon_wrapper">
                 <span class="material-icons-outlined md-18">expand_more</span>
@@ -148,30 +163,87 @@
 </template>
 
 <script>
-import BaseMegaMenu from "./BaseMegaMenu";
+import TheMenuCloset from "./base_mega_menu/TheMenuCloset.vue";
+import TheMenuDoors from "./base_mega_menu/TheMenuDoors.vue";
+import TheMenuMaterials from "./base_mega_menu/TheMenuMaterials.vue";
+import TheMenuServices from "./base_mega_menu/TheMenuServices.vue";
 export default {
   name: "THeheader",
   components: {
-    BaseMegaMenu,
+    TheMenuCloset,
+    TheMenuDoors,
+    TheMenuMaterials,
+    TheMenuServices,
   },
   props: {},
   data() {
     return {
-      isMegaMenuVisible: false,
-      links_list: [
-        { id: "1", attributes: "Разде 1" },
-        { id: "2", attributes: "Раздел 2" },
-        { id: "3", attributes: "Раздел 3" },
+      isMegaMenuVisibleCloset: false,
+      isMegaMenuVisibleDoors: false,
+      isMegaMenuVisibleMaterials: false,
+      isMegaMenuVisibleServices: false,
+      linksClosetList: [
+        {
+          id: "1",
+          title: "Отдельностоящие шкафы",
+          route: "/freestanding_closets",
+        },
+        { id: "2", title: "Встроенные шкафы", route: "/built-in_closets" },
+      ],
+      linksDoorsList: [
+        { id: "1", title: "В шкаф", route: "/doors_closet" },
+        { id: "2", title: "В нишу", route: "/doors_opening" },
+        { id: "3", title: "В гардеробную", route: "/doors_dressing_room" },
+      ],
+      linksMaterialsList: [
+        { id: "1", title: "ДСП", route: "/chipboard" },
+        { id: "2", title: "Стекло", route: "/glass" },
+        { id: "3", title: "Другие", route: "/other" },
+      ],
+      linksServicesList: [
+        { id: "1", title: "Распил", route: "/cutting" },
+        { id: "2", title: "Замеры", route: "/measurements" },
+        { id: "3", title: "Установка", route: "/installation" },
       ],
     };
   },
   computed: {},
   methods: {
-    showMegaMenu() {
-      this.isMegaMenuVisible = true;
+    showMegaMenuCloset() {
+      this.isMegaMenuVisibleServices = false;
+      this.isMegaMenuVisibleDoors = false;
+      this.isMegaMenuVisibleMaterials = false;
+      this.isMegaMenuVisibleCloset = true;
     },
-    closeMegaMenu() {
-      this.isMegaMenuVisible = false;
+    closeMegaMenuCloset() {
+      this.isMegaMenuVisibleCloset = false;
+    },
+    showMegaMenuDoors() {
+      this.isMegaMenuVisibleServices = false;
+      this.isMegaMenuVisibleMaterials = false;
+      this.isMegaMenuVisibleCloset = false;
+      this.isMegaMenuVisibleDoors = true;
+    },
+    closeMegaMenuDoors() {
+      this.isMegaMenuVisibleDoors = false;
+    },
+    showMegaMenuMaterials() {
+      this.isMegaMenuVisibleServices = false;
+      this.isMegaMenuVisibleCloset = false;
+      this.isMegaMenuVisibleDoors = false;
+      this.isMegaMenuVisibleMaterials = true;
+    },
+    closeMegaMenuMaterials() {
+      this.isMegaMenuVisibleMaterials = false;
+    },
+    showMegaMenuServices() {
+      this.isMegaMenuVisibleCloset = false;
+      this.isMegaMenuVisibleDoors = false;
+      this.isMegaMenuVisibleMaterials = false;
+      this.isMegaMenuVisibleServices = true;
+    },
+    closeMegaMenuServices() {
+      this.isMegaMenuVisibleServices = false;
     },
   },
 };

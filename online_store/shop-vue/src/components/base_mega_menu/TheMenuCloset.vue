@@ -2,23 +2,40 @@
   <div class="MegaMenu_wrapper" ref="MegaMenu_wrapper">
     <div class="MegaMenu">
       <ul class="MegaMenu_List">
-        <li class="MegaMenu_Category" v-for="link in links_list" :key="link.id">
-          <span class="MegaMenu_input">{{ link.attributes }}</span>
-          <div class="Mega_Menu_Image_Wrapper">
-            <img src="" class="MegaMenu_Image" />
-          </div>
+        <li class="MegaMenu_Category" v-for="link in linksList" :key="link.id">
+          <router-link class="bottom_menu_link" :to="link.route">
+            <span class="MegaMenu_input">{{ link.title }}</span>
+            <div class="Mega_Menu_Image_Wrapper">
+              <img
+                :src="require('../../assets/images/2.jpeg')"
+                alt="img"
+                class="MegaMenu_Image"
+              />
+            </div>
+          </router-link>
         </li>
       </ul>
-      <div class="Mega_Menu_Conf"></div>
+      <div class="Mega_Menu_Conf">
+        <router-link class="bottom_menu_link" to="/closet_planner">
+          <span class="MegaMenu_input">Планировщик шкафа</span>
+          <div class="Mega_Menu_Image_Wrapper">
+            <img
+              :src="require('../../assets/images/2.jpeg')"
+              alt="img"
+              class="MegaMenu_Image"
+            />
+          </div>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MegaMenu",
+  name: "TheMenuCloset",
   props: {
-    links_list: {
+    linksList: {
       type: Object,
       default() {
         return {};

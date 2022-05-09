@@ -1,5 +1,5 @@
 <template>
   <div>
-    <h1>Шкаф купе</h1>
+    <h1>Замеры</h1>
   </div>
 </template>

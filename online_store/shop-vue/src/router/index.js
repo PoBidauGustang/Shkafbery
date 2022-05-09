@@ -73,14 +73,64 @@ const routes = [
     component: () => import("../views/WardrobePage.vue"),
   },
   {
-    path: "/closet",
-    name: "closet",
-    component: () => import("../views/ClosetPage.vue"),
+    path: "/freestanding_closets",
+    name: "FreestandingClosets",
+    component: () => import("../views/FreestandingClosets.vue"),
+  },
+  {
+    path: "/built-in_closets",
+    name: "Built-inClosets",
+    component: () => import("../views/Built-inClosets.vue"),
   },
   {
     path: "/closet_planner",
     name: "ClosetPlanner",
     component: () => import("../views/PlannerCloset.vue"),
+  },
+  {
+    path: "/doors_closet",
+    name: "DoorsCloset",
+    component: () => import("../views/doors/DoorsCloset.vue"),
+  },
+  {
+    path: "/doors_opening",
+    name: "DoorsTheOpening",
+    component: () => import("../views/doors/DoorsTheOpening.vue"),
+  },
+  {
+    path: "/doors_dressing_room",
+    name: "DoorsDressingRoom",
+    component: () => import("../views/doors/DoorsDressingRoom.vue"),
+  },
+  {
+    path: "/cutting",
+    name: "Cutting",
+    component: () => import("../views/services/Cutting.vue"),
+  },
+  {
+    path: "/measurements",
+    name: "Measurements",
+    component: () => import("../views/services/Measurements.vue"),
+  },
+  {
+    path: "/installation",
+    name: "Installation",
+    component: () => import("../views/services/Installation.vue"),
+  },
+  {
+    path: "/chipboard",
+    name: "Chipboard",
+    component: () => import("../views/materials/Chipboard.vue"),
+  },
+  {
+    path: "/glass",
+    name: "Glass",
+    component: () => import("../views/materials/Glass.vue"),
+  },
+  {
+    path: "/other",
+    name: "Other",
+    component: () => import("../views/materials/Other.vue"),
   },
 ];
 
