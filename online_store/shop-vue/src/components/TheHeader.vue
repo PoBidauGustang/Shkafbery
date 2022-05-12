@@ -1,8 +1,9 @@
 <template>
   <div>
-    {{ categoriesList }}
+    <!-- {{ categoriesList }}
     <p>{{ mainCategories }}</p>
-    <p>!{{ allCategories }}</p>
+    <p>!{{ allCategoriesDict }}</p> -->
+    <p>{{ doorsList }}</p>
     <TheMenuCloset
       v-if="isMegaMenuVisibleCloset"
       :linksList="linksClosetList"
@@ -11,6 +12,7 @@
     <TheMenuDoors
       v-if="isMegaMenuVisibleDoors"
       :linksList="linksDoorsList"
+      :dataList="doorsList"
       @closeMegaMenu="closeMegaMenuDoors"
     />
     <TheMenuMaterials
@@ -191,7 +193,9 @@ export default {
       isMegaMenuVisibleServices: false,
       categoriesList: [],
       mainCategories: [],
-      allCategories: [],
+      doorsList: [],
+      // allCategories: [],
+      allCategoriesDict: {},
       linksClosetList: [
         {
           id: "1",
@@ -201,9 +205,9 @@ export default {
         { id: "2", title: "Встроенные шкафы", route: "/built-in_closets" },
       ],
       linksDoorsList: [
-        { id: "1", title: "В шкаф", route: "/doors_closet" },
-        { id: "2", title: "В нишу", route: "/doors_opening" },
-        { id: "3", title: "В гардеробную", route: "/doors_dressing_room" },
+        { id: "0", title: "В шкаф", route: "/doors_closet" },
+        { id: "1", title: "В нишу", route: "/doors_opening" },
+        { id: "2", title: "В гардеробную", route: "/doors_dressing_room" },
       ],
       linksMaterialsList: [
         { id: "1", title: "ДСП", route: "/chipboard" },
@@ -221,15 +225,25 @@ export default {
     categoriesList() {
       this.filterMainCategories();
       this.filterAllCategories();
+      this.makeDoorsList();
     },
-    // mainCategories() {
-    //   this.filterAllCategories();
-    // }
   },
   computed: {
     ...mapGetters("api_urls", ["getServerShopUrl"]),
   },
   methods: {
+    makeDoorsList() {
+      this.doorsList = this.allCategoriesDict["Двери-купе"];
+      this.doorsList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
     loadCategoriesList() {
       this.axios
         .get(`${this.getServerShopUrl}/product_categories`)
@@ -249,22 +263,25 @@ export default {
       }
     },
     filterAllCategories() {
-      this.allCategories = JSON.parse(JSON.stringify(this.mainCategories));
+      // this.allCategories = JSON.parse(JSON.stringify(this.mainCategories));
+      // for (let maincategory in this.mainCategories) {
+      //   this.allCategories[maincategory].subcategories = [];
+      // }
+      let valuesList = [];
       for (let maincategory in this.mainCategories) {
-        this.allCategories[maincategory].subcategories = [];
-      }
-      for (let maincategory in this.mainCategories) {
+        valuesList = [];
         for (let category in this.categoriesList) {
           if (this.categoriesList[category].attributes.parent != null) {
             if (
               Number(this.categoriesList[category].attributes.parent.id) ===
               Number(this.mainCategories[maincategory].id)
             ) {
-              this.allCategories[maincategory].subcategories.push(
-                this.categoriesList[category]
-              );
+              valuesList.push(this.categoriesList[category]);
             }
           }
+          this.allCategoriesDict[
+            this.mainCategories[maincategory].attributes.name
+          ] = valuesList;
         }
       }
     },
