@@ -6,7 +6,7 @@
           <router-link class="bottom_menu_link" :to="link.route">
             <!-- <span class="MegaMenu_input">{{ link.title }}</span> -->
             <span class="MegaMenu_input">{{
-              dataList[link.id].attributes.name
+              doorsList[link.id].attributes.name
             }}</span>
             <div class="Mega_Menu_Image_Wrapper">
               <img
@@ -44,7 +44,7 @@ export default {
         return {};
       },
     },
-    dataList: {
+    doorsList: {
       type: Array,
       default() {
         return [];

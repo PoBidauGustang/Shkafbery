@@ -1,28 +1,34 @@
 <template>
   <div>
-    <!-- {{ categoriesList }}
+    <!-- {{ categoriesList }} -->
     <p>{{ mainCategories }}</p>
-    <p>!{{ allCategoriesDict }}</p> -->
-    <p>{{ doorsList }}</p>
+    <!-- <p>!{{ allCategoriesDict }}</p> -->
+    <p>!!{{ doorsList }}</p>
+    <p>!!{{ closetList }}</p>
+    <p>!!{{ materialsList }}</p>
+    <p>!!{{ servicesList }}</p>
     <TheMenuCloset
       v-if="isMegaMenuVisibleCloset"
       :linksList="linksClosetList"
+      :closetList="closetList"
       @closeMegaMenu="closeMegaMenuCloset"
     />
     <TheMenuDoors
       v-if="isMegaMenuVisibleDoors"
       :linksList="linksDoorsList"
-      :dataList="doorsList"
+      :doorsList="doorsList"
       @closeMegaMenu="closeMegaMenuDoors"
     />
     <TheMenuMaterials
       v-if="isMegaMenuVisibleMaterials"
       :linksList="linksMaterialsList"
+      :materialsList="materialsList"
       @closeMegaMenu="closeMegaMenuMaterials"
     />
     <TheMenuServices
       v-if="isMegaMenuVisibleServices"
       :linksList="linksServicesList"
+      :servicesList="servicesList"
       @closeMegaMenu="closeMegaMenuServices"
     />
     <nav class="header">
@@ -193,16 +199,18 @@ export default {
       isMegaMenuVisibleServices: false,
       categoriesList: [],
       mainCategories: [],
+      closetList: [],
       doorsList: [],
-      // allCategories: [],
+      materialsList: [],
+      servicesList: [],
       allCategoriesDict: {},
       linksClosetList: [
+        { id: "0", title: "Встроенные шкафы", route: "/built-in_closets" },
         {
           id: "1",
           title: "Отдельностоящие шкафы",
           route: "/freestanding_closets",
         },
-        { id: "2", title: "Встроенные шкафы", route: "/built-in_closets" },
       ],
       linksDoorsList: [
         { id: "0", title: "В шкаф", route: "/doors_closet" },
@@ -210,14 +218,14 @@ export default {
         { id: "2", title: "В гардеробную", route: "/doors_dressing_room" },
       ],
       linksMaterialsList: [
-        { id: "1", title: "ДСП", route: "/chipboard" },
-        { id: "2", title: "Стекло", route: "/glass" },
-        { id: "3", title: "Другие", route: "/other" },
+        { id: "0", title: "ДСП", route: "/chipboard" },
+        { id: "1", title: "Стекло", route: "/glass" },
+        // { id: "2", title: "Другие", route: "/other" },
       ],
       linksServicesList: [
-        { id: "1", title: "Распил", route: "/cutting" },
-        { id: "2", title: "Замеры", route: "/measurements" },
-        { id: "3", title: "Установка", route: "/installation" },
+        { id: "0", title: "Замеры", route: "/measurements" },
+        { id: "1", title: "Установка", route: "/installation" },
+        { id: "2", title: "Распил", route: "/cutting" },
       ],
     };
   },
@@ -225,16 +233,55 @@ export default {
     categoriesList() {
       this.filterMainCategories();
       this.filterAllCategories();
+      this.makeClosetList();
       this.makeDoorsList();
+      this.makeMaterialsList();
+      this.makeServicesList();
     },
   },
   computed: {
     ...mapGetters("api_urls", ["getServerShopUrl"]),
   },
   methods: {
+    makeClosetList() {
+      this.closetList = this.allCategoriesDict["Шкаф-купе"];
+      this.closetList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
     makeDoorsList() {
       this.doorsList = this.allCategoriesDict["Двери-купе"];
       this.doorsList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
+    makeMaterialsList() {
+      this.materialsList = this.allCategoriesDict["Материалы"];
+      this.materialsList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
+    makeServicesList() {
+      this.servicesList = this.allCategoriesDict["Услуги"];
+      this.servicesList.sort(function (a, b) {
         if (a.attributes.position > b.attributes.position) {
           return 1;
         }
