@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-header />
+    <the-header class="the_header" />
     <router-view />
   </div>
 </template>
@@ -20,4 +20,8 @@ export default {
 
 <style>
 @import "assets/css/index.css";
+.the_header {
+  position: sticky;
+  top: 0;
+}
 </style>

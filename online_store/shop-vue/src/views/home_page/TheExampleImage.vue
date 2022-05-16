@@ -7,7 +7,6 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
 export default {
   name: "TheExampleImage",
   data() {
@@ -35,11 +34,6 @@ export default {
       },
     },
   },
-  created() {},
-  computed: {
-    // ...mapGetters("api_urls", ["getServerShopUrl", "getServerInformationUrl"]),
-  },
-  methods: {},
 };
 </script>
 
