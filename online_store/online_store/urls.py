@@ -22,6 +22,9 @@ from django.urls.conf import include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
+    path("auth/", include("djoser.urls")),
+    path("auth/", include("djoser.urls.authtoken")),
+    path("auth/", include("djoser.urls.jwt")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("api/shop/", include("shop.urls")),
     path("api/blog/", include("blog.urls")),

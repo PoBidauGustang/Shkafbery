@@ -90,9 +90,9 @@
           ><span class="material-icons-outlined md-24">favorite_border</span></a
         >
       </div>
-      <a class="login" href="/"
+      <router-link class="login" to="/login"
         ><span class="material-icons-outlined md-24">person</span
-        ><span class="login_text">Войти</span></a
+        ><span class="login_text">Войти</span></router-link
       >
     </div>
     <!-- <div class="bottom_menu"> -->

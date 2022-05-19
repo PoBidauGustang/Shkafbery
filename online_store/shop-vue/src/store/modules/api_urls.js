@@ -3,6 +3,7 @@ const state = {
   backendBlogUrl: "http://localhost:8000/api/blog",
   backendClosetUrl: "http://localhost:8000/api/closet",
   backendInformationUrl: "http://localhost:8000/api/information",
+  backendAuthUrl: "http://localhost:8000/auth/token",
 };
 const getters = {
   getServerShopUrl(state) {
@@ -16,6 +17,9 @@ const getters = {
   },
   getServerInformationUrl(state) {
     return state.backendInformationUrl;
+  },
+  getServerAuthUrl(state) {
+    return state.backendAuthUrl;
   },
 };
 
