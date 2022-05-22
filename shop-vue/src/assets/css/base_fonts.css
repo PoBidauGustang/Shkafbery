@@ -1,0 +1,63 @@
+h1 {
+  font-family: "PT Root UI";
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 72px;
+}
+
+h2 {
+  font-family: "PT Root UI";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+h3 {
+  font-family: "PT Root UI";
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+ul {
+  font-family: "PT Root UI";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+ol {
+  font-family: "PT Root UI";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+li {
+  font-family: "PT Root UI";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+p {
+  font-family: "PT Root UI";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+strong {
+  font-family: "PT Root UI";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+}

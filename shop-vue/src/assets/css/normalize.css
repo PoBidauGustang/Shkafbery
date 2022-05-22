@@ -1,0 +1,151 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'PT Root UI', sans-serif;
+  scroll-behavior: smooth;
+  padding: 0px;
+  margin: 0px;
+}
+
+h3 {
+  margin: 0px;
+}
+
+h2 {
+  margin: 0px;
+}
+
+details summary::-webkit-details-marker {
+  display: none
+}
+
+details > summary {
+  list-style: none;
+}
+
+.body_large {
+   font-family: 'PT Root UI', sans-serif;
+   font-size: 18px;
+   line-height: 28px;
+   font-weight: 400;
+}
+
+.body_medium {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+}
+
+.promt_large {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.promt_medium {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+}
+
+.links_large {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 500;
+}
+
+.links_medium {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+}
+
+.links_promt_large {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.links_promt_medium {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+}
+
+.label_large {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 700;
+}
+
+.label_medium {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+}
+
+.label_small {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+}
+
+.title_large {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 500;
+}
+
+.title_medium {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+}
+
+.head_text_large {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 400;
+}
+
+.head_text_medium {
+    font-family: 'PT Root UI', sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+}
+
+.headline {
+   font-family: 'Akrobat', sans-serif;
+   font-style: normal;
+   font-weight: 800;
+   font-size: 32px;
+   line-height: 32px;
+   text-transform: uppercase;
+}
+
+.display_large {
+   font-family: 'Akrobat', sans-serif;
+   font-style: normal;
+   font-weight: 800;
+   font-size: 72px;
+   line-height: 72px;
+   text-transform: uppercase;
+}
