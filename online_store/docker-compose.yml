@@ -1,45 +1,24 @@
 version: '3.9'
 
 services:
-  django:
-    container_name: sb_rest
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    command: bash -c "python /usr/src/sb_rest/manage.py migrate --noinput &&
-              python /usr/src/sb_rest/manage.py runserver 0.0.0.0:8000"
+  web:
+    # container_name: app
+    build: ./
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/usr/src/sb_rest/
+      - .:/usr/src/app/
     ports:
       - 8000:8000
-    links:
-      - sb_db:sb_db
-    # env_file:
-    #   - ./.env.dev
-    depends_on:
-      - sb_db
-    networks:
-      - djangonetwork
-  sb_db:
+    env_file:
+      - ./.env.dev
+  db:
     image: postgres:13.7-alpine
-    ports:
-      - '5432'
-    environment:
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
-    networks:
-      - djangonetwork
     volumes:
-      - sb_pg_data:/var/lib/postgresql/data/
-    # environment:
-    #   - POSTGRES_USER=django_user
-    #   - POSTGRES_PASSWORD=django_pass
-    #   - POSTGRES_DB=django_movie_dev
+      - db_postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=django_user
+      - POSTGRES_PASSWORD=django_pass
+      - POSTGRES_DB=django_shkaf_prod
 
 volumes:
-  sb_pg_data:
-
-networks:
-  djangonetwork:
-    driver: bridge
+  db_postgres_data:

@@ -1,17 +1,31 @@
 FROM python:3.9
 
+# WORKDIR /usr/src/sb_rest
+WORKDIR /usr/src/app
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /usr/src/sb_rest
-
-COPY ./requirements.txt /usr/src/requirements.txt
+RUN apt update \
+    && apt install netcat -y
+RUN apt upgrade -y && apt install postgresql gcc python3-dev musl-dev -y
 RUN pip install --upgrade pip
-RUN pip install -r /usr/src/requirements.txt
 
-COPY . /usr/src/sb_rest
+COPY ./req.txt .
+RUN pip install -r req.txt
 
-EXPOSE 8000
+COPY ./entrypoint.sh .
+
+COPY . .
+# COPY . /usr/src/sb_rest
+
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+# EXPOSE 8000
+
+
+
+
+
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 
