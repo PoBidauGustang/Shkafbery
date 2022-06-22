@@ -7,7 +7,7 @@ db.sqlite3
 
 venv_store
 
-settings.py
+# settings.py
 prod_settings.py
 local_settings.py
 
