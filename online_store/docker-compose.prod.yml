@@ -23,7 +23,7 @@ services:
       - ./.env.prod.db
   vue:
     build:
-      context: ../vue-shkaf
+      context: ../shop-vue
       dockerfile: Dockerfile.prod
     volumes:
       - vue_dist:/app/dist
