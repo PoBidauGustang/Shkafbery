@@ -14,7 +14,6 @@ export default {
     return {
       login: "",
       password: "",
-      // bla: '33sfsd'
     };
   },
   computed: {
@@ -22,55 +21,30 @@ export default {
   },
   methods: {
     setLogin() {
-      // const a = JSON.stringify(this.login)
-      // const b = JSON.stringify(this.password)
-      // this.login = (typeof this.login)
-      // const data = JSON.stringify({username: this.login, password: this.password});
       const options = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      // alert(this.login)
-      // this.axios({
-      //   method: 'POST',
-      //   url: `${this.getServerAuthUrl}/login/`,
-      //   // headers: {"Content-Type": "multipart/form-data; boundary=<calculated when request is sent>"},
-      //   headers: {"Content-Type": 'multipart/form-data'},
-      //   data: {
-      //     username: "user1",
-      //     password: "123pass1"
-      //   },
-      // });
       this.axios
 
         .post(
           `${this.getServerAuthUrl}/login/`,
           {
-            // .post(`${this.getServerAuthUrl}/login`, data, options)
-            // data: {
-            username: "user2",
-            password: "123pass2",
-            // },
-            // username: a,
-            // password: b,
+            username: this.login,
+            password: this.password,
           },
           options
         )
         .then((response) => {
-          alert("Спасибо что Вы с нами");
           sessionStorage.setItem(
             "auth_token",
-            response.data.attributes.auth_token
+            response.data.data.attributes.auth_token
           );
           this.$router.push({ name: "home" });
+          alert("Мы здесь");
         })
-        .catch((error) => console.log(error.response.request));
-      // .catch((error) => {
-      //   // if (error === 400) {
-      //     console.error(error);
-      //   // }
-      // });
+        .catch((error) => console.log(error.response));
     },
   },
 };

@@ -20,12 +20,12 @@ from django.urls import path
 from django.urls.conf import include
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("api-auth/", include("rest_framework.urls")),
-    path("auth/", include("djoser.urls")),
-    path("auth/", include("djoser.urls.authtoken")),
-    path("auth/", include("djoser.urls.jwt")),
-    path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("api/admin/", admin.site.urls),
+    path("api/api-auth/", include("rest_framework.urls")),
+    path("api/auth/", include("djoser.urls")),
+    path("api/auth/", include("djoser.urls.authtoken")),
+    path("api/auth/", include("djoser.urls.jwt")),
+    path("api/ckeditor/", include("ckeditor_uploader.urls")),
     path("api/shop/", include("shop.urls")),
     path("api/blog/", include("blog.urls")),
     path("api/closet/", include("closet.urls")),
