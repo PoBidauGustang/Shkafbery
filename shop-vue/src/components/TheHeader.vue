@@ -83,8 +83,10 @@
         </svg>
       </div>
       <div class="navbar_wrapper">
-        <a class="cart" href="/"
-          ><span class="material-icons-outlined md-24">shopping_cart</span></a
+        <router-link class="cart" to="/cart"
+          ><span class="material-icons-outlined md-24"
+            >shopping_cart</span
+          ></router-link
         >
         <a class="cart" href="/"
           ><span class="material-icons-outlined md-24">favorite_border</span></a
