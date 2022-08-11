@@ -2,17 +2,34 @@
   <div>
     <h1>Гардеробная</h1>
     <div>{{ wardrobes }}</div>
+    <div class="Product_Page">
+      <TheProductView
+        v-for="product in wardrobes"
+        :key="product.id"
+        :product_title="product.attributes.title"
+        :product_regular_price="product.attributes.regular_price"
+        :product_data="product"
+        @addToCart="addToCart"
+      />
+    </div>
+    <div>{{ GETALLITEMS }}</div>
+    <button @click="saveItems">Добавить в корзину</button>
+
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import TheProductView from "../components/TheProductView.vue";
 export default {
   name: "WardrobePage",
-  components: {},
+  components: {
+    TheProductView,
+  },
   data() {
     return {
       wardrobes: [],
+      b: 111,
     };
   },
   created() {
@@ -23,6 +40,18 @@ export default {
     ...mapGetters("api_urls", ["getServerShopUrl"]),
   },
   methods: {
+    ...mapActions("cart", [
+      "saveItems",
+      "switchToPreviousStep",
+    ]),
+    // ...mapActions("cart", ["saveItems"]),
+    // addToCart(product) {
+    //   console.log(product);
+    //   this.saveItems(product);
+    addToCart(b) {
+      console.log(b);
+      this.saveItems(b);
+    },
     loadWardrobes() {
       this.axios
         .get(`${this.getServerShopUrl}/products/16`)

@@ -1,29 +1,31 @@
 const state = {
-  cart: {},
+  cart: 1,
 };
 
 const mutations = {
-  saveItemsMut(state, payload) {
-    state.allCategories = payload;
+  saveItemsMut(state) {
+    // state.cart.push(payload);
+    state.cart++;
+
   },
 };
 
 const actions = {
-  saveItems({ commit }, payload) {
-    commit("saveItemsMut", payload);
+  saveItems({ commit }) {
+    commit("saveItemsMut");
   },
 };
 
 const getters = {
   GETALLITEMS(state) {
-    return state.cart;
+    return (state.cart);
   },
 };
 
 export default {
   namespaced: true,
   state,
-  mutations,
   actions,
+  mutations,
   getters,
 };
