@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Гардеробная</h1>
-    <div>{{ wardrobes }}</div>
+    <!-- <div>{{ wardrobes }}</div> -->
     <div class="Product_Page">
       <TheProductView
         v-for="product in wardrobes"
@@ -13,8 +13,7 @@
       />
     </div>
     <div>{{ GETALLITEMS }}</div>
-    <button @click="saveItems">Добавить в корзину</button>
-
+    <!-- <button @click="increment">Добавить в корзину</button> -->
   </div>
 </template>
 
@@ -34,23 +33,22 @@ export default {
   },
   created() {
     this.loadWardrobes();
+    // this.loadCart();
   },
   computed: {
     ...mapGetters("cart", ["GETALLITEMS"]),
     ...mapGetters("api_urls", ["getServerShopUrl"]),
   },
   methods: {
-    ...mapActions("cart", [
-      "saveItems",
-      "switchToPreviousStep",
-    ]),
+    ...mapActions("cart", ["saveItem", "loadCart"]),
+    // ...mapActions("test", ["increment"]),
     // ...mapActions("cart", ["saveItems"]),
     // addToCart(product) {
     //   console.log(product);
     //   this.saveItems(product);
     addToCart(b) {
-      console.log(b);
-      this.saveItems(b);
+      // console.log(b);
+      this.saveItem(b);
     },
     loadWardrobes() {
       this.axios

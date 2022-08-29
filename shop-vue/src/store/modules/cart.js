@@ -1,24 +1,46 @@
 const state = {
-  cart: 1,
+  cart: {},
 };
 
 const mutations = {
-  saveItemsMut(state) {
-    // state.cart.push(payload);
-    state.cart++;
-
+  saveItemMut(state, payload) {
+    let itemLocalStorage = localStorage.getItem(payload.id);
+    if (itemLocalStorage) {
+      state.cart[payload.id] = {
+        item: payload,
+        quantity: JSON.parse(itemLocalStorage) + 1,
+      };
+    } else {
+      state.cart[payload.id] = {
+        item: payload,
+        quantity: 1,
+      };
+    }
+    localStorage.setItem(
+      payload.id,
+      JSON.stringify(state.cart[payload.id].quantity)
+    );
+  },
+  loadCartMut(state) {
+    let itemsLocalStorage = JSON.stringify(localStorage);
+    if (itemsLocalStorage) {
+      state.cart = itemsLocalStorage;
+    }
   },
 };
 
 const actions = {
-  saveItems({ commit }) {
-    commit("saveItemsMut");
+  saveItem({ commit }, payload) {
+    commit("saveItemMut", payload);
+  },
+  loadCart({ commit }) {
+    commit("loadCartMut");
   },
 };
 
 const getters = {
   GETALLITEMS(state) {
-    return (state.cart);
+    return state.cart;
   },
 };
 

@@ -1,10 +1,15 @@
 const state = {
-  test: 1
+  test: JSON.parse(localStorage.getItem("testvalue")),
 };
 
 const mutations = {
   incrementMut(state) {
+    let testvalue = localStorage.getItem("testvalue");
+    if (testvalue) {
+      state.test = JSON.parse(testvalue);
+    }
     state.test++;
+    localStorage.setItem("testvalue", JSON.stringify(state.test));
   },
 };
 

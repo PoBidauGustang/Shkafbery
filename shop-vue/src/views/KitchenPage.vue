@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>Кухни</h1>
-    <div>{{ TEST }}</div>
+    <div v-if="TEST">{{ TEST }}</div>
+    <div v-else>0</div>
     <button @click="increment">Добавить в тест</button>
   </div>
 </template>
@@ -10,15 +11,12 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Kitchen",
-  components: {
-  },
+  components: {},
   computed: {
     ...mapGetters("test", ["TEST"]),
   },
   methods: {
-    ...mapActions("test", [
-      "increment",
-    ]),
+    ...mapActions("test", ["increment"]),
   },
 };
 </script>
