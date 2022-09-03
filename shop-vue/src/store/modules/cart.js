@@ -1,14 +1,16 @@
+let cartVar = localStorage.getItem("cart");
+
 const state = {
-  cart: {},
+  cart: cartVar ? JSON.parse(cartVar) : {},
 };
 
 const mutations = {
   saveItemMut(state, payload) {
-    let itemLocalStorage = localStorage.getItem(payload.id);
-    if (itemLocalStorage) {
+    let item = state.cart[payload.id];
+    if (item) {
       state.cart[payload.id] = {
         item: payload,
-        quantity: JSON.parse(itemLocalStorage) + 1,
+        quantity: state.cart[payload.id].quantity + 1,
       };
     } else {
       state.cart[payload.id] = {
@@ -16,25 +18,16 @@ const mutations = {
         quantity: 1,
       };
     }
-    localStorage.setItem(
-      payload.id,
-      JSON.stringify(state.cart[payload.id].quantity)
-    );
   },
-  loadCartMut(state) {
-    let itemsLocalStorage = JSON.stringify(localStorage);
-    if (itemsLocalStorage) {
-      state.cart = itemsLocalStorage;
-    }
+  saveDataMut(state) {
+    localStorage.setItem("cart", JSON.stringify(state.cart));
   },
 };
 
 const actions = {
   saveItem({ commit }, payload) {
     commit("saveItemMut", payload);
-  },
-  loadCart({ commit }) {
-    commit("loadCartMut");
+    commit("saveDataMut");
   },
 };
 
