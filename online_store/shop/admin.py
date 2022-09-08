@@ -6,6 +6,9 @@ from mptt.admin import MPTTModel, MPTTModelAdmin, TreeRelatedFieldListFilter
 
 from .models import (
     Category,
+    Color,
+    ColorImage,
+    ColorPrice,
     Product,
     ProductImage,
     ProductSpecification,
@@ -27,6 +30,47 @@ class CategoryAdminForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = "__all__"
+
+
+# class ProductSpecificationInline(admin.TabularInline):
+#     model = ProductSpecification
+
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1
+    readonly_fields = ("get_image",)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} width="100" height="110"')
+
+    get_image.short_description = "Изображение"
+
+
+class ColorImageInline(admin.TabularInline):
+    model = ColorImage
+    extra = 1
+    readonly_fields = ("get_image",)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} width="100" height="110"')
+
+    get_image.short_description = "Изображение"
+
+
+class ProductSpecificationValueInline(admin.TabularInline):
+    model = ProductSpecificationValue
+
+
+class ColorPriceInline(admin.TabularInline):
+    model = ColorPrice
+    list_display = [
+        "product",
+        "color",
+        "price_percent",
+    ]
+    readonly_fields = ("product",)
+    extra = 2
 
 
 @admin.register(Category)
@@ -52,28 +96,9 @@ class ProductSpecificationAdmin(admin.ModelAdmin):
     filter_horizontal = ("category",)
 
 
-class ProductSpecificationInline(admin.TabularInline):
-    model = ProductSpecification
-
-
 @admin.register(ProductSpecificationValue)
 class ProductSpecificationValueAdmin(admin.ModelAdmin):
     list_filter = ("specification",)
-
-
-class ProductImageInline(admin.TabularInline):
-    model = ProductImage
-    extra = 1
-    readonly_fields = ("get_image",)
-
-    def get_image(self, obj):
-        return mark_safe(f'<img src={obj.image.url} width="100" height="110"')
-
-    get_image.short_description = "Изображение"
-
-
-class ProductSpecificationValueInline(admin.TabularInline):
-    model = ProductSpecificationValue
 
 
 @admin.register(Product)
@@ -95,7 +120,37 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [
         ProductSpecificationValueInline,
         ProductImageInline,
+        ColorPriceInline,
     ]
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
     save_as = True
+
+
+@admin.register(Color)
+class ColorAdmin(admin.ModelAdmin):
+    model = Category
+    list_filter = (("category", TreeRelatedFieldListFilter),)
+    filter_horizontal = ("category",)
+    list_display = [
+        "name",
+        "is_active",
+    ]
+    list_editable = ["is_active"]
+
+
+@admin.register(ColorPrice)
+class ColorPriceAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "product",
+        "color",
+        "price_percent",
+    ]
+    list_editable = [
+        "price_percent",
+    ]
+    list_filter = ("product",)
+    inlines = [
+        ColorImageInline,
+    ]

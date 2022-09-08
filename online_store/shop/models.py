@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
@@ -209,3 +210,78 @@ class ProductImage(models.Model):
     class Meta:
         verbose_name = "Изображение"
         verbose_name_plural = "Изображения"
+
+
+class Color(models.Model):
+    """
+    The Product colors
+    """
+
+    name = models.CharField(
+        verbose_name="Название", help_text="Required", max_length=255, unique=True
+    )
+    category = models.ManyToManyField(
+        Category,
+        verbose_name="категория",
+        related_name="products_color_category",
+    )
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Цвет товара"
+        verbose_name_plural = "Цвета товаров"
+
+    def __str__(self):
+        return self.name
+
+
+class ColorImage(models.Model):
+    """
+    The Product Color table.
+    """
+
+    color = models.ForeignKey(
+        "ColorPrice", on_delete=models.CASCADE, related_name="color_image"
+    )
+    image = models.ImageField(
+        verbose_name="Цвет",
+        help_text="Загрузите фото цвета товара",
+        upload_to="products/colors/%Y/%m/%d",
+        default="products/colors/default.jpg",
+        blank=True,
+    )
+    alt_text = models.CharField(
+        verbose_name="Альтернативный текст",
+        help_text="Пожалуйста, добавьте альтернативный текст",
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Фото цвета товара"
+        verbose_name_plural = "Фото цветов товаров"
+
+
+class ColorPrice(models.Model):
+    """
+    The price of product`s color in percent.
+    """
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    color = models.ForeignKey(
+        Color,
+        verbose_name="Цвет",
+        on_delete=models.RESTRICT,
+    )
+    price_percent = models.IntegerField(
+        validators=[MinValueValidator(-100), MaxValueValidator(100)],
+        verbose_name="Добавленная стоимость в %",
+        help_text="Изменение цены товара за цвет в %",
+        default=0,
+    )
+
+    class Meta:
+        verbose_name = "Изменение стоимости товара за цвет"
+        verbose_name_plural = "Изменение стоимости товаров за цвета"
