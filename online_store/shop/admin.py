@@ -13,6 +13,9 @@ from .models import (
     ProductImage,
     ProductSpecification,
     ProductSpecificationValue,
+    Dimensions,
+    DimensionsValue,
+    # DimensionsPrice,
 )
 
 
@@ -73,6 +76,11 @@ class ColorPriceInline(admin.TabularInline):
     extra = 2
 
 
+class DimensionsValueInline(admin.TabularInline):
+    model = DimensionsValue
+    extra = 1
+
+
 @admin.register(Category)
 class CategoryAdmin(MPTTModelAdmin):
     list_display = [
@@ -121,6 +129,7 @@ class ProductAdmin(admin.ModelAdmin):
         ProductSpecificationValueInline,
         ProductImageInline,
         ColorPriceInline,
+        DimensionsValueInline,
     ]
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
@@ -154,3 +163,10 @@ class ColorPriceAdmin(admin.ModelAdmin):
     inlines = [
         ColorImageInline,
     ]
+
+
+@admin.register(Dimensions)
+class DimensionsAdmin(admin.ModelAdmin):
+    model = Category
+    list_filter = (("category", TreeRelatedFieldListFilter),)
+    filter_horizontal = ("category",)

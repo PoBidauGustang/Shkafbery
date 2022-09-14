@@ -57,29 +57,6 @@ class Category(MPTTModel):
         return self.name
 
 
-class ProductSpecification(models.Model):
-    """
-    The Product Specification Table contains product
-    specifiction or features for the product types.
-    """
-
-    name = models.CharField(
-        verbose_name="Имя", help_text="Required", max_length=255, unique=True
-    )
-    category = models.ManyToManyField(
-        Category,
-        verbose_name="категория",
-        related_name="products_specification_category",
-    )
-
-    class Meta:
-        verbose_name = "Спецификация товара"
-        verbose_name_plural = "Спецификации товаров"
-
-    def __str__(self):
-        return self.name
-
-
 class Product(models.Model):
     """
     The Product table contining all product items.
@@ -128,7 +105,6 @@ class Product(models.Model):
     is_active = models.BooleanField(
         verbose_name="Видимость товара",
         help_text="Изменить видимость товара",
-        # null=True,
         default=True,
     )
     created_at = models.DateTimeField("Создан", auto_now_add=True, editable=False)
@@ -147,35 +123,50 @@ class Product(models.Model):
         return self.title
 
 
+class ProductSpecification(models.Model):
+    """
+    The Product Specification Table contains product
+    specifiction or features for the product types.
+    """
+
+    name = models.CharField(
+        verbose_name="Имя", help_text="Required", max_length=255, unique=True
+    )
+    category = models.ManyToManyField(
+        Category,
+        verbose_name="категория",
+        related_name="products_specification_category",
+    )
+
+    class Meta:
+        verbose_name = "Свойство товара"
+        verbose_name_plural = "Свойства товаров"
+
+    def __str__(self):
+        return self.name
+
+
 class ProductSpecificationValue(models.Model):
     """
     The Product Specification Value table holds each of the
     products individual specification or bespoke features.
     """
 
-    # def get_total_cost(self):
-    #     results = self.Product.objects.all()
-    #     end = []
-    #     for result in results:
-    #         end += result.category.all()
-    #     return end
-
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     specification = models.ForeignKey(
         ProductSpecification,
         verbose_name="Свойство",
         on_delete=models.RESTRICT,
-        # limit_choices_to={'category': get_total_cost(product)},
     )
     value = models.CharField(
         verbose_name="значение",
-        help_text="Значение характеристики товара (maximum of 255 words)",
+        help_text="Значение свойства товара (maximum of 255 words)",
         max_length=255,
     )
 
     class Meta:
-        verbose_name = "Значение характеристики товара"
-        verbose_name_plural = "Значения характеристик товаров"
+        verbose_name = "Значение свойства товара"
+        verbose_name_plural = "Значения свойства товаров"
 
     def __str__(self):
         return self.value
@@ -283,5 +274,55 @@ class ColorPrice(models.Model):
     )
 
     class Meta:
-        verbose_name = "Изменение стоимости товара за цвет"
-        verbose_name_plural = "Изменение стоимости товаров за цвета"
+        verbose_name = "Изменение цены товара за цвет"
+        verbose_name_plural = "Изменение цен товаров за цвета"
+
+
+class Dimensions(models.Model):
+    """
+    The Product dimensions
+    """
+
+    name = models.CharField(
+        verbose_name="Название", help_text="Required", max_length=255, unique=True
+    )
+    category = models.ManyToManyField(
+        Category,
+        verbose_name="категория",
+        related_name="products_dimensions_category",
+    )
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Размер товара"
+        verbose_name_plural = "Размеры товаров"
+
+    def __str__(self):
+        return self.name
+
+
+class DimensionsValue(models.Model):
+    """
+    The Product Dimensions Value table holds values with it`s price change of all dimesion types.
+    """
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    dimension = models.ForeignKey(
+        Dimensions,
+        verbose_name="Размеры",
+        on_delete=models.RESTRICT,
+    )
+    value = models.CharField(
+        verbose_name="Значение",
+        help_text="Значение размера товара в мм, для п.м. указывается ширина 1 п.м, для ШГВ - ШхГхВ, для ДШ - ДхШ",
+        max_length=255,
+    )
+    price_change = models.IntegerField(
+        verbose_name="Изменение цены от размера",
+        help_text="Изменение цены товара от размеров",
+        default=0,
+    )
+
+    class Meta:
+        verbose_name = "Значение размера и изменение цены"
+        verbose_name_plural = "Значения размеров изменение цен"
