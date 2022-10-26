@@ -15,6 +15,7 @@ from .models import (
     ProductSpecificationValue,
     Dimensions,
     DimensionsValue,
+    CategoryImage,
     # DimensionsPrice,
 )
 
@@ -41,6 +42,17 @@ class CategoryAdminForm(forms.ModelForm):
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
+    extra = 1
+    readonly_fields = ("get_image",)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} width="100" height="110"')
+
+    get_image.short_description = "Изображение"
+
+
+class CategoryImageInline(admin.TabularInline):
+    model = CategoryImage
     extra = 1
     readonly_fields = ("get_image",)
 
@@ -94,6 +106,7 @@ class CategoryAdmin(MPTTModelAdmin):
     ]
     form = CategoryAdminForm
     list_editable = ["parent", "is_active", "for_main", "position", "image"]
+    inlines = [CategoryImageInline]
     prepopulated_fields = {"slug": ("name",)}
 
 

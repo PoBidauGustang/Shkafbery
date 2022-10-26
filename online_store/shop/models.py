@@ -203,6 +203,41 @@ class ProductImage(models.Model):
         verbose_name_plural = "Изображения"
 
 
+class CategoryImage(models.Model):
+    """
+    The Category Image table.
+    """
+
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="category_image"
+    )
+    image = models.ImageField(
+        verbose_name="Изображение",
+        help_text="Загрузите изображение категории",
+        upload_to="products_category/%Y/%m/%d",
+        default="products/default.jpg",
+        blank=True,
+    )
+    alt_text = models.CharField(
+        verbose_name="Альтернативный текст",
+        help_text="Пожалуйста, добавьте альтернативный текст",
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    is_active = models.BooleanField(default=True)
+    for_main = models.BooleanField(
+        verbose_name="для меню?",
+        default=False,
+    )
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Изображение"
+        verbose_name_plural = "Изображения"
+
+
 class Color(models.Model):
     """
     The Product colors

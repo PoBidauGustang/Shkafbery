@@ -178,27 +178,28 @@ export default {
       servicesList: [],
       allCategoriesDict: {},
       linksClosetList: [
-        { id: "0", title: "Встроенные шкафы", route: "/built-in_closets" },
         {
-          id: "1",
+          id: "0",
           title: "Отдельностоящие шкафы",
           route: "/freestanding_closets",
         },
+        { id: "1", title: "Встроенные шкафы", route: "/built-in_closets" },
       ],
       linksDoorsList: [
-        { id: "0", title: "В шкаф", route: "/doors_closet" },
-        { id: "1", title: "В нишу", route: "/doors_opening" },
-        { id: "2", title: "В гардеробную", route: "/doors_dressing_room" },
+        // { id: "0", title: "В шкаф", route: "/doors_closet" },
+        { id: "0", title: "Двери в гардероб", route: "/doors_dressing_room" },
+        { id: "1", title: "Двери в нишу", route: "/doors_opening" },
       ],
       linksMaterialsList: [
         { id: "0", title: "ДСП", route: "/chipboard" },
-        { id: "1", title: "Стекло", route: "/glass" },
+        { id: "1", title: "Зеркала", route: "/glass" },
         // { id: "2", title: "Другие", route: "/other" },
       ],
       linksServicesList: [
         { id: "0", title: "Замеры", route: "/measurements" },
         { id: "1", title: "Установка", route: "/installation" },
         { id: "2", title: "Распил", route: "/cutting" },
+        { id: "3", title: "Кромкование", route: "/cutting" },
       ],
     };
   },
