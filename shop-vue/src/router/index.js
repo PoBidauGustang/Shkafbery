@@ -68,6 +68,11 @@ const routes = [
     component: () => import("../views/MaterialPageSingle.vue"),
   },
   {
+    path: "/accessories",
+    name: "Accessories",
+    component: () => import("../views/accessories/Accessories.vue"),
+  },
+  {
     path: "/kitchen",
     name: "kitchen",
     component: () => import("../views/KitchenPage.vue"),
@@ -76,6 +81,11 @@ const routes = [
     path: "/wardrobe",
     name: "wardrobe",
     component: () => import("../views/WardrobePage.vue"),
+  },
+  {
+    path: "/closets",
+    name: "Closets",
+    component: () => import("../views/Closets.vue"),
   },
   {
     path: "/freestanding_closets",
@@ -128,9 +138,9 @@ const routes = [
     component: () => import("../views/materials/Chipboard.vue"),
   },
   {
-    path: "/glass",
-    name: "Glass",
-    component: () => import("../views/materials/Glass.vue"),
+    path: "/mirror",
+    name: "Mirror",
+    component: () => import("../views/materials/Mirror.vue"),
   },
   {
     path: "/other",

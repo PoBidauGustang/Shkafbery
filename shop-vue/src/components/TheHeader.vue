@@ -1,5 +1,11 @@
 <template>
   <div>
+    <TheMenuCatalog
+      v-if="isMegaMenuVisibleCatalog"
+      :linksList="linksCatalogList"
+      :catalogDict="catalogDict"
+      @closeMegaMenu="closeMegaMenuCloset"
+    />
     <TheMenuCloset
       v-if="isMegaMenuVisibleCloset"
       :linksList="linksClosetList"
@@ -100,6 +106,14 @@
     <!-- <div class="bottom_menu"> -->
     <ul class="bottom_menu">
       <li class="bottom_menu_input">
+        <a class="bottom_menu_link" @click="showMegaMenuCatalog">
+          <span class="btm_link">Каталог</span
+          ><span class="icon_wrapper">
+            <span class="material-icons-outlined md-18">expand_more</span>
+          </span>
+        </a>
+      </li>
+      <li class="bottom_menu_input">
         <!-- <base-mega-menu/> -->
         <a class="bottom_menu_link" @click="showMegaMenuCloset">
           <span class="btm_link">Шкафы-купе</span>
@@ -109,17 +123,17 @@
         </a>
       </li>
       <li class="bottom_menu_input">
+        <router-link class="bottom_menu_link" to="/wardrobe"
+          >Гардеробные</router-link
+        >
+      </li>
+      <li class="bottom_menu_input">
         <a class="bottom_menu_link" @click="showMegaMenuDoors">
           <span class="btm_link">Двери-купе</span>
           <span class="icon_wrapper">
             <span class="material-icons-outlined md-18">expand_more</span>
           </span>
         </a>
-      </li>
-      <li class="bottom_menu_input">
-        <router-link class="bottom_menu_link" to="/wardrobe"
-          >Гардеробные</router-link
-        >
       </li>
       <li class="bottom_menu_input">
         <a class="bottom_menu_link" @click="showMegaMenuMaterials">
@@ -137,9 +151,9 @@
           </span>
         </a>
       </li>
-      <li class="bottom_menu_input">
+      <!-- <li class="bottom_menu_input">
         <router-link class="bottom_menu_link" to="/kitchen">Кухни</router-link>
-      </li>
+      </li> -->
     </ul>
     <!-- </div> -->
     <!-- </nav> -->
@@ -147,6 +161,7 @@
 </template>
 
 <script>
+import TheMenuCatalog from "./base_mega_menu/TheMenuCatalog.vue";
 import TheMenuCloset from "./base_mega_menu/TheMenuCloset.vue";
 import TheMenuDoors from "./base_mega_menu/TheMenuDoors.vue";
 import TheMenuMaterials from "./base_mega_menu/TheMenuMaterials.vue";
@@ -155,6 +170,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "THeheader",
   components: {
+    TheMenuCatalog,
     TheMenuCloset,
     TheMenuDoors,
     TheMenuMaterials,
@@ -170,13 +186,24 @@ export default {
       isMegaMenuVisibleDoors: false,
       isMegaMenuVisibleMaterials: false,
       isMegaMenuVisibleServices: false,
+      isMegaMenuVisibleCatalog: false,
       categoriesList: [],
       mainCategories: [],
+      catalogDict: {},
       closetList: [],
       doorsList: [],
       materialsList: [],
       servicesList: [],
       allCategoriesDict: {},
+      linksCatalogList: [
+        { id: "0", title: "Шкафы-купе", route: "/closets" },
+        { id: "1", title: "Гардеробная", route: "/wardrobe" },
+        { id: "2", title: "Двери-купе", route: "/doors_closet" },
+        { id: "3", title: "Материалы", route: "/materials" },
+        { id: "4", title: "Фурнитура", route: "/accessories" },
+        { id: "5", title: "Услуги", route: "/services" },
+        { id: "6", title: "Кухни", route: "/kitchen" },
+      ],
       linksClosetList: [
         {
           id: "0",
@@ -192,7 +219,7 @@ export default {
       ],
       linksMaterialsList: [
         { id: "0", title: "ДСП", route: "/chipboard" },
-        { id: "1", title: "Зеркала", route: "/glass" },
+        { id: "1", title: "Зеркала", route: "/mirror" },
         // { id: "2", title: "Другие", route: "/other" },
       ],
       linksServicesList: [
@@ -205,8 +232,9 @@ export default {
   },
   watch: {
     categoriesList() {
-      this.filterMainCategories();
+      this.getMainCategories();
       this.filterAllCategories();
+      this.makeCatalogDict();
       this.makeClosetList();
       this.makeDoorsList();
       this.makeMaterialsList();
@@ -215,9 +243,13 @@ export default {
   },
   computed: {
     ...mapGetters("api_urls", ["getServerShopUrl"]),
+    ...mapGetters("data", ["GETALLCATEGORIES"]),
   },
   methods: {
-    ...mapActions("data", ["saveAllCategories"]),
+    ...mapActions("data", ["saveAllCategories", "saveMainCategories"]),
+    makeCatalogDict() {
+      this.catalogDict = this.allCategoriesDict;
+    },
     makeClosetList() {
       this.closetList = this.allCategoriesDict["Шкаф-купе"];
       this.closetList.sort(function (a, b) {
@@ -276,13 +308,23 @@ export default {
           console.error(error);
         });
     },
-    filterMainCategories() {
+    getMainCategories() {
       let categoriesList = this.categoriesList.slice();
       for (let category in categoriesList) {
         if (categoriesList[category].attributes.parent === null) {
           this.mainCategories.push(categoriesList[category]);
         }
       }
+      this.mainCategories.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+      this.saveMainCategories(this.mainCategories);
     },
     filterAllCategories() {
       // this.allCategories = JSON.parse(JSON.stringify(this.mainCategories));
@@ -308,11 +350,22 @@ export default {
       }
       this.saveAllCategories(this.allCategoriesDict);
     },
+    showMegaMenuCatalog() {
+      this.isMegaMenuVisibleServices = false;
+      this.isMegaMenuVisibleDoors = false;
+      this.isMegaMenuVisibleMaterials = false;
+      this.isMegaMenuVisibleCloset = false;
+      this.isMegaMenuVisibleCatalog = true;
+    },
+    closeMegaMenuCatalog() {
+      this.isMegaMenuVisibleCatalog = false;
+    },
     showMegaMenuCloset() {
       this.isMegaMenuVisibleServices = false;
       this.isMegaMenuVisibleDoors = false;
       this.isMegaMenuVisibleMaterials = false;
       this.isMegaMenuVisibleCloset = true;
+      this.isMegaMenuVisibleCatalog = false;
     },
     closeMegaMenuCloset() {
       this.isMegaMenuVisibleCloset = false;
@@ -322,6 +375,7 @@ export default {
       this.isMegaMenuVisibleMaterials = false;
       this.isMegaMenuVisibleCloset = false;
       this.isMegaMenuVisibleDoors = true;
+      this.isMegaMenuVisibleCatalog = false;
     },
     closeMegaMenuDoors() {
       this.isMegaMenuVisibleDoors = false;
@@ -331,6 +385,7 @@ export default {
       this.isMegaMenuVisibleCloset = false;
       this.isMegaMenuVisibleDoors = false;
       this.isMegaMenuVisibleMaterials = true;
+      this.isMegaMenuVisibleCatalog = false;
     },
     closeMegaMenuMaterials() {
       this.isMegaMenuVisibleMaterials = false;
@@ -340,6 +395,7 @@ export default {
       this.isMegaMenuVisibleDoors = false;
       this.isMegaMenuVisibleMaterials = false;
       this.isMegaMenuVisibleServices = true;
+      this.isMegaMenuVisibleCatalog = false;
     },
     closeMegaMenuServices() {
       this.isMegaMenuVisibleServices = false;

@@ -1,5 +1,5 @@
 <template>
   <div>
-    <h1>Стекло</h1>
+    <h1>Шкафы-купе</h1>
   </div>
 </template>

@@ -37,7 +37,8 @@ class Category(MPTTModel):
         blank=True,
     )
     position = models.IntegerField(
-        verbose_name="Позиция в категории",
+        verbose_name="Позиция в род.категории",
+        help_text="Позиция в родительской категории главного меню",
         null=True,
         blank=True,
     )
