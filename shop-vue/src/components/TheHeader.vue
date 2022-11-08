@@ -4,31 +4,31 @@
       v-if="isMegaMenuVisibleCatalog"
       :linksList="linksCatalogList"
       :catalogDict="catalogDict"
-      @closeMegaMenu="closeMegaMenuCatalog"
+      @closeMegaMenu="closeMegaMenu"
     />
     <TheMenuCloset
       v-if="isMegaMenuVisibleCloset"
       :linksList="linksClosetList"
       :closetList="closetList"
-      @closeMegaMenu="closeMegaMenuCloset"
+      @closeMegaMenu="closeMegaMenu"
     />
     <TheMenuDoors
       v-if="isMegaMenuVisibleDoors"
       :linksList="linksDoorsList"
       :doorsList="doorsList"
-      @closeMegaMenu="closeMegaMenuDoors"
+      @closeMegaMenu="closeMegaMenu"
     />
     <TheMenuMaterials
       v-if="isMegaMenuVisibleMaterials"
       :linksList="linksMaterialsList"
       :materialsList="materialsList"
-      @closeMegaMenu="closeMegaMenuMaterials"
+      @closeMegaMenu="closeMegaMenu"
     />
     <TheMenuServices
       v-if="isMegaMenuVisibleServices"
       :linksList="linksServicesList"
       :servicesList="servicesList"
-      @closeMegaMenu="closeMegaMenuServices"
+      @closeMegaMenu="closeMegaMenu"
     />
     <!-- <nav class="header"> -->
     <div class="header_top">
@@ -397,8 +397,12 @@ export default {
       this.isMegaMenuVisibleServices = true;
       this.isMegaMenuVisibleCatalog = false;
     },
-    closeMegaMenuServices() {
+    closeMegaMenu() {
+      this.isMegaMenuVisibleCloset = false;
+      this.isMegaMenuVisibleDoors = false;
+      this.isMegaMenuVisibleMaterials = false;
       this.isMegaMenuVisibleServices = false;
+      this.isMegaMenuVisibleCatalog = false;
     },
   },
 };

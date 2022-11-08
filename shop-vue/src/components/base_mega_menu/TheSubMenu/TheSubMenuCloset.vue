@@ -5,13 +5,11 @@
   >
     <div class="all_product_category_open_header">Шкафы купе</div>
     <ul class="all_product_category_open_list">
-      <li
-        class="all_product_category_open_list_item"
-        v-for="link in linksList"
-        :key="link.id"
-      >
+      <li v-for="link in linksList" :key="link.id" @click="closeSubMenu">
         <router-link class="bottom_menu_link" :to="link.route">
-          <span>{{ dataList[link.id].attributes.name }}</span>
+          <span class="all_product_category_open_list_item">{{
+            dataList[link.id].attributes.name
+          }}</span>
           <span>{{ dataList[link.id].attributes.slug }}</span>
         </router-link>
       </li>

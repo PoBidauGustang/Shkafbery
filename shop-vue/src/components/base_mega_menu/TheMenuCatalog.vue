@@ -4,45 +4,37 @@
       v-if="isSubMenuVisibleCloset"
       :linksList="linksClosetList"
       :dataList="closetList"
-      @closeSubMenu="closeSubMenuCloset"
+      @closeSubMenu="closeSubMenu"
     />
     <TheSubMenuDoors
       v-if="isSubMenuVisibleDoors"
       :linksList="linksDoorsList"
       :dataList="doorsList"
-      @closeSubMenu="closeSubMenuDoors"
+      @closeSubMenu="closeSubMenu"
     />
     <TheSubMenuMaterials
       v-if="isSubMenuVisibleMaterials"
       :linksList="linksMaterialsList"
       :dataList="materialsList"
-      @closeSubMenu="closeSubMenuMaterials"
+      @closeSubMenu="closeSubMenu"
     />
     <TheSubMenuServices
       v-if="isSubMenuVisibleServices"
       :linksList="linksServicesList"
       :dataList="servicesList"
-      @closeSubMenu="closeSubMenuServices"
+      @closeSubMenu="closeSubMenu"
     />
     <TheSubMenuAccessories
       v-if="isSubMenuVisibleAccessories"
       :linksList="linksAccessoriesList"
       :dataList="accessoriesList"
-      @closeSubMenu="closeSubMenuAccessories"
+      @closeSubMenu="closeSubMenu"
     />
     <ul class="all_products_list">
-      <!-- <li
-        class="all_pruducts_list_item"
-        v-for="link in linksList"
-        :key="link.id"
-        @click="showMegaMenuCloset"
-      >
-        <router-link class="" :to="link.route">
-          <span class="">{{ GETMAINCATEGORIES[link.id].attributes.name }}</span>
-          <div v-html="GETMAINCATEGORIES[link.id].attributes.description"></div>
-          <div>{{ GETMAINCATEGORIES[link.id].attributes.image }}</div>
-        </router-link>
-      </li> -->
+      <li class="all_pruducts_list_item">
+        <div>Каталог</div>
+        <div @click="closeMegaMenu">Закрыть</div>
+      </li>
       <li class="all_pruducts_list_item">
         <a @click="showSubMenuCloset">
           <span>{{ linksList[0].title }}</span>
@@ -50,7 +42,7 @@
       </li>
       <li class="all_pruducts_list_item">
         <router-link :to="linksList[1].route">
-          <span>{{ linksList[1].title }}</span>
+          <span @click="closeMegaMenu">{{ linksList[1].title }}</span>
         </router-link>
       </li>
       <li class="all_pruducts_list_item">
@@ -75,7 +67,7 @@
       </li>
       <li class="all_pruducts_list_item">
         <router-link :to="linksList[6].route">
-          <span>{{ linksList[6].title }}</span>
+          <span @click="closeMegaMenu">{{ linksList[6].title }}</span>
         </router-link>
       </li>
     </ul>
@@ -245,18 +237,12 @@ export default {
       this.isSubMenuVisibleCloset = true;
       this.isSubMenuVisibleAccessories = false;
     },
-    closeSubMenuCloset() {
-      this.isSubMenuVisibleCloset = false;
-    },
     showSubMenuDoors() {
       this.isSubMenuVisibleServices = false;
       this.isSubMenuVisibleDoors = true;
       this.isSubMenuVisibleMaterials = false;
       this.isSubMenuVisibleCloset = false;
       this.isSubMenuVisibleAccessories = false;
-    },
-    closeSubMenuDoors() {
-      this.isSubMenuVisibleCloset = false;
     },
     showSubMenuMaterials() {
       this.isSubMenuVisibleServices = false;
@@ -265,18 +251,12 @@ export default {
       this.isSubMenuVisibleCloset = false;
       this.isSubMenuVisibleAccessories = false;
     },
-    closeSubMenuMaterials() {
-      this.isSubMenuVisibleCloset = false;
-    },
     showSubMenuServices() {
       this.isSubMenuVisibleServices = true;
       this.isSubMenuVisibleDoors = false;
       this.isSubMenuVisibleMaterials = false;
       this.isSubMenuVisibleCloset = false;
       this.isSubMenuVisibleAccessories = false;
-    },
-    closeSubMenuServices() {
-      this.isSubMenuVisibleCloset = false;
     },
     showSubMenuAccessories() {
       this.isSubMenuVisibleServices = false;
@@ -285,7 +265,12 @@ export default {
       this.isSubMenuVisibleCloset = false;
       this.isSubMenuVisibleAccessories = true;
     },
-    closeSubMenuAccessories() {
+    closeSubMenu() {
+      this.closeMegaMenu();
+      this.isSubMenuVisibleServices = false;
+      this.isSubMenuVisibleDoors = false;
+      this.isSubMenuVisibleMaterials = false;
+      this.isSubMenuVisibleCloset = false;
       this.isSubMenuVisibleAccessories = false;
     },
   },

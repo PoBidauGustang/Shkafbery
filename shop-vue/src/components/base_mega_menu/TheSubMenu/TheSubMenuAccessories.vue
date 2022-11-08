@@ -9,6 +9,7 @@
         class="all_product_category_open_list_item"
         v-for="link in linksList"
         :key="link.id"
+        @click="closeSubMenu"
       >
         <router-link class="bottom_menu_link" :to="link.route">
           <span>{{ dataList[link.id].attributes.name }}</span>

@@ -2,7 +2,12 @@
   <div class="MegaMenu_wrapper" ref="MegaMenu_wrapper">
     <div class="MegaMenu">
       <ul class="MegaMenu_List">
-        <li class="MegaMenu_Category" v-for="link in linksList" :key="link.id">
+        <li
+          class="MegaMenu_Category"
+          v-for="link in linksList"
+          :key="link.id"
+          @click="closeMegaMenu"
+        >
           <router-link class="bottom_menu_link" :to="link.route">
             <!-- <span class="MegaMenu_input">{{ link.title }}</span> -->
             <span class="MegaMenu_input">{{
