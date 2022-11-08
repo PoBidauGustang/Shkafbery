@@ -68,6 +68,16 @@ const routes = [
     component: () => import("../views/MaterialPageSingle.vue"),
   },
   {
+    path: "/shelfs",
+    name: "Shelfs",
+    component: () => import("../views/accessories/Shelfs.vue"),
+  },
+  {
+    path: "/box",
+    name: "Box",
+    component: () => import("../views/accessories/Box.vue"),
+  },
+  {
     path: "/accessories",
     name: "Accessories",
     component: () => import("../views/accessories/Accessories.vue"),

@@ -1,46 +1,103 @@
 <template>
-  <div class="MegaMenu_wrapper" ref="MegaMenu_wrapper">
-    <div class="MegaMenu">
-      <ul class="MegaMenu_List">
-        <!-- <div>{{ catalogDict }}</div>
-        <div>{{ GETALLCATEGORIES }}</div>
-        <div>{{ GETMAINCATEGORIES }}</div> -->
-        <li class="MegaMenu_Category" v-for="link in linksList" :key="link.id">
-          <router-link class="bottom_menu_link" :to="link.route">
-            <!-- <span class="MegaMenu_input">{{ link.title }}</span> -->
-            <span class="MegaMenu_input">{{
-              GETMAINCATEGORIES[link.id].attributes.name
-            }}</span>
-            <div class="Mega_Menu_Image_Wrapper">
-              <img
-                :src="require('../../assets/images/2.jpeg')"
-                alt="img"
-                class="MegaMenu_Image"
-              />
-            </div>
-          </router-link>
-        </li>
-      </ul>
-      <!-- <div class="Mega_Menu_Conf">
-        <router-link class="bottom_menu_link" to="/closet_planner">
-          <span class="MegaMenu_input">Планировщик шкафа</span>
-          <div class="Mega_Menu_Image_Wrapper">
-            <img
-              :src="require('../../assets/images/2.jpeg')"
-              alt="img"
-              class="MegaMenu_Image"
-            />
-          </div>
+  <div class="all_products_wrapper" ref="all_products_wrapper">
+    <TheSubMenuCloset
+      v-if="isSubMenuVisibleCloset"
+      :linksList="linksClosetList"
+      :dataList="closetList"
+      @closeSubMenu="closeSubMenuCloset"
+    />
+    <TheSubMenuDoors
+      v-if="isSubMenuVisibleDoors"
+      :linksList="linksDoorsList"
+      :dataList="doorsList"
+      @closeSubMenu="closeSubMenuDoors"
+    />
+    <TheSubMenuMaterials
+      v-if="isSubMenuVisibleMaterials"
+      :linksList="linksMaterialsList"
+      :dataList="materialsList"
+      @closeSubMenu="closeSubMenuMaterials"
+    />
+    <TheSubMenuServices
+      v-if="isSubMenuVisibleServices"
+      :linksList="linksServicesList"
+      :dataList="servicesList"
+      @closeSubMenu="closeSubMenuServices"
+    />
+    <TheSubMenuAccessories
+      v-if="isSubMenuVisibleAccessories"
+      :linksList="linksAccessoriesList"
+      :dataList="accessoriesList"
+      @closeSubMenu="closeSubMenuAccessories"
+    />
+    <ul class="all_products_list">
+      <!-- <li
+        class="all_pruducts_list_item"
+        v-for="link in linksList"
+        :key="link.id"
+        @click="showMegaMenuCloset"
+      >
+        <router-link class="" :to="link.route">
+          <span class="">{{ GETMAINCATEGORIES[link.id].attributes.name }}</span>
+          <div v-html="GETMAINCATEGORIES[link.id].attributes.description"></div>
+          <div>{{ GETMAINCATEGORIES[link.id].attributes.image }}</div>
         </router-link>
-      </div> -->
-    </div>
+      </li> -->
+      <li class="all_pruducts_list_item">
+        <a @click="showSubMenuCloset">
+          <span>{{ linksList[0].title }}</span>
+        </a>
+      </li>
+      <li class="all_pruducts_list_item">
+        <router-link :to="linksList[1].route">
+          <span>{{ linksList[1].title }}</span>
+        </router-link>
+      </li>
+      <li class="all_pruducts_list_item">
+        <a @click="showSubMenuDoors">
+          <span>{{ linksList[2].title }}</span>
+        </a>
+      </li>
+      <li class="all_pruducts_list_item">
+        <a @click="showSubMenuMaterials">
+          <span>{{ linksList[3].title }}</span>
+        </a>
+      </li>
+      <li class="all_pruducts_list_item">
+        <a @click="showSubMenuAccessories">
+          <span>{{ linksList[4].title }}</span>
+        </a>
+      </li>
+      <li class="all_pruducts_list_item">
+        <a @click="showSubMenuServices">
+          <span>{{ linksList[5].title }}</span>
+        </a>
+      </li>
+      <li class="all_pruducts_list_item">
+        <router-link :to="linksList[6].route">
+          <span>{{ linksList[6].title }}</span>
+        </router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import TheSubMenuCloset from "./TheSubMenu/TheSubMenuCloset.vue";
+import TheSubMenuDoors from "./TheSubMenu/TheSubMenuDoors.vue";
+import TheSubMenuMaterials from "./TheSubMenu/TheSubMenuMaterials.vue";
+import TheSubMenuServices from "./TheSubMenu/TheSubMenuServices.vue";
+import TheSubMenuAccessories from "./TheSubMenu/TheSubMenuAccessories.vue";
 export default {
   name: "TheMenuCatalog",
+  components: {
+    TheSubMenuCloset,
+    TheSubMenuDoors,
+    TheSubMenuMaterials,
+    TheSubMenuServices,
+    TheSubMenuAccessories,
+  },
   props: {
     linksList: {
       type: Object,
@@ -56,7 +113,63 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      isSubMenuVisibleCloset: false,
+      isSubMenuVisibleDoors: false,
+      isSubMenuVisibleMaterials: false,
+      isSubMenuVisibleServices: false,
+      isSubMenuVisibleAccessories: false,
+      closetList: [],
+      doorsList: [],
+      materialsList: [],
+      servicesList: [],
+      accessoriesList: [],
+      linksClosetList: [
+        {
+          id: "0",
+          title: "Отдельностоящие шкафы",
+          route: "/freestanding_closets",
+        },
+        { id: "1", title: "Встроенные шкафы", route: "/built-in_closets" },
+      ],
+      linksDoorsList: [
+        // { id: "0", title: "В шкаф", route: "/doors_closet" },
+        { id: "0", title: "Двери в гардероб", route: "/doors_dressing_room" },
+        { id: "1", title: "Двери в нишу", route: "/doors_opening" },
+      ],
+      linksMaterialsList: [
+        { id: "0", title: "ДСП", route: "/chipboard" },
+        { id: "1", title: "Зеркала", route: "/mirror" },
+        // { id: "2", title: "Другие", route: "/other" },
+      ],
+      linksServicesList: [
+        { id: "0", title: "Замеры", route: "/measurements" },
+        { id: "1", title: "Установка", route: "/installation" },
+        { id: "2", title: "Распил", route: "/cutting" },
+        { id: "3", title: "Кромкование", route: "/cutting" },
+      ],
+      linksAccessoriesList: [
+        { id: "0", title: "Полки", route: "/shelfs" },
+        { id: "1", title: "Ящики", route: "/box" },
+      ],
+    };
+  },
+  watch: {
+    isSubMenuVisibleCloset() {
+      this.makeClosetList();
+    },
+    isSubMenuVisibleDoors() {
+      this.makeDoorsList();
+    },
+    isSubMenuVisibleMaterials() {
+      this.makeMaterialsList();
+    },
+    isSubMenuVisibleServices() {
+      this.makeServicesList();
+    },
+    isSubMenuVisibleAccessories() {
+      this.makeAccessoriesList();
+    },
   },
   computed: {
     ...mapGetters("data", ["GETALLCATEGORIES", "GETMAINCATEGORIES"]),
@@ -65,11 +178,121 @@ export default {
     closeMegaMenu() {
       this.$emit("closeMegaMenu");
     },
+    makeClosetList() {
+      this.closetList = this.GETALLCATEGORIES["Шкаф-купе"];
+      this.closetList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
+    makeDoorsList() {
+      this.doorsList = this.GETALLCATEGORIES["Двери-купе"];
+      this.doorsList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
+    makeMaterialsList() {
+      this.materialsList = this.GETALLCATEGORIES["Материалы"];
+      this.materialsList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
+    makeServicesList() {
+      this.servicesList = this.GETALLCATEGORIES["Услуги"];
+      this.servicesList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
+    makeAccessoriesList() {
+      this.accessoriesList = this.GETALLCATEGORIES["Фурнитура"];
+      this.accessoriesList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
+    showSubMenuCloset() {
+      this.isSubMenuVisibleServices = false;
+      this.isSubMenuVisibleDoors = false;
+      this.isSubMenuVisibleMaterials = false;
+      this.isSubMenuVisibleCloset = true;
+      this.isSubMenuVisibleAccessories = false;
+    },
+    closeSubMenuCloset() {
+      this.isSubMenuVisibleCloset = false;
+    },
+    showSubMenuDoors() {
+      this.isSubMenuVisibleServices = false;
+      this.isSubMenuVisibleDoors = true;
+      this.isSubMenuVisibleMaterials = false;
+      this.isSubMenuVisibleCloset = false;
+      this.isSubMenuVisibleAccessories = false;
+    },
+    closeSubMenuDoors() {
+      this.isSubMenuVisibleCloset = false;
+    },
+    showSubMenuMaterials() {
+      this.isSubMenuVisibleServices = false;
+      this.isSubMenuVisibleDoors = false;
+      this.isSubMenuVisibleMaterials = true;
+      this.isSubMenuVisibleCloset = false;
+      this.isSubMenuVisibleAccessories = false;
+    },
+    closeSubMenuMaterials() {
+      this.isSubMenuVisibleCloset = false;
+    },
+    showSubMenuServices() {
+      this.isSubMenuVisibleServices = true;
+      this.isSubMenuVisibleDoors = false;
+      this.isSubMenuVisibleMaterials = false;
+      this.isSubMenuVisibleCloset = false;
+      this.isSubMenuVisibleAccessories = false;
+    },
+    closeSubMenuServices() {
+      this.isSubMenuVisibleCloset = false;
+    },
+    showSubMenuAccessories() {
+      this.isSubMenuVisibleServices = false;
+      this.isSubMenuVisibleDoors = false;
+      this.isSubMenuVisibleMaterials = false;
+      this.isSubMenuVisibleCloset = false;
+      this.isSubMenuVisibleAccessories = true;
+    },
+    closeSubMenuAccessories() {
+      this.isSubMenuVisibleAccessories = false;
+    },
   },
   mounted() {
     let vm = this;
     document.addEventListener("click", function (item) {
-      if (item.target === vm.$refs["MegaMenu_wrapper"]) {
+      if (item.target === vm.$refs["all_products_wrapper"]) {
         vm.closeMegaMenu();
       }
     });
@@ -78,75 +301,39 @@ export default {
 </script>
 
 <style>
-.MegaMenu_wrapper {
-  background: rgba(64, 64, 64, 0.4);
+.all_products_wrapper {
   position: fixed;
   right: 0;
   left: 0;
-  top: 180px;
-  bottom: 0;
-  width: 100vw;
-}
-
-.MegaMenu {
+  top: 120px;
+  bottom: 30px;
+  width: 80vw;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  background-color: #f0f0f0;
-  grid-column-gap: 24px;
-  position: fixed;
-  top: 180px;
-  padding-top: 32px;
-  padding-bottom: 48px;
-  padding-left: 48px;
-  padding-right: 48px;
-  width: 100%;
+  margin-right: 24px;
+  margin-left: 24px;
+  background: rgba(64, 64, 64, 0.4);
 }
 
-.MegaMenu_List {
-  grid-column: span 9;
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-column-gap: 24px;
-  grid-auto-rows: max-content;
-}
-
-.MegaMenu_Category {
+.all_products_list {
   grid-column: span 3;
   display: flex;
-  flex-direction: column-reverse;
-  background-color: #ffffff;
-  padding: 16px;
-  border-radius: 12px;
-}
-
-.MegaMenu_input {
-  color: #1e1b16;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 24px;
-}
-
-.Mega_Menu_Image_Wrapper {
-  aspect-ratio: 16 / 9;
-  min-height: 0;
-  padding-bottom: 16px;
-}
-
-.MegaMenu_Image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.Mega_Menu_Conf {
-  grid-column: 10 / span 3;
-  display: flex;
   flex-direction: column;
-  padding-top: 12px;
-  padding-bottom: 16px;
+  list-style: none;
+  min-height: 100vh;
+  border-right: 1px solid;
+}
+
+.all_pruducts_list_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  min-height: 60px;
   padding-left: 16px;
+  padding-top: 12px;
   padding-right: 16px;
-  background-color: #ffffff;
-  border-radius: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid;
 }
 </style>

@@ -4,7 +4,7 @@
       v-if="isMegaMenuVisibleCatalog"
       :linksList="linksCatalogList"
       :catalogDict="catalogDict"
-      @closeMegaMenu="closeMegaMenuCloset"
+      @closeMegaMenu="closeMegaMenuCatalog"
     />
     <TheMenuCloset
       v-if="isMegaMenuVisibleCloset"
@@ -490,7 +490,7 @@ export default {
   padding-right: 40px;
   padding-top: 16px;
   padding-bottom: 16px;
-  position: sticky;
+  /* position: sticky; */
   top: 0px;
 }
 
@@ -581,7 +581,7 @@ export default {
   padding-left: 24px;
   padding-right: 24px;
   height: 60px;
-  position: sticky;
+  /* position: sticky; */
   top: 80px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.32);
 }
