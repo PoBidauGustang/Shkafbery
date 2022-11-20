@@ -3,7 +3,11 @@ from unicodedata import category
 from rest_framework import serializers
 
 from .models import (
+    DimensionsValue,
     Category,
+    Color,
+    ColorImage,
+    ColorPrice,
     Product,
     ProductImage,
     ProductSpecification,
@@ -29,16 +33,61 @@ class CategoryListSerializer(serializers.ModelSerializer):
         fields = ("id", "name", "description", "image", "parent", "position")
 
 
-class ProductListSerializer(serializers.ModelSerializer):
-    """Product"""
-
-    category = serializers.SlugRelatedField(
-        slug_field="name", read_only=True, many=True
-    )
+class ProductImageSerializer(serializers.ModelSerializer):
+    """Product Image"""
 
     class Meta:
-        model = Product
-        exclude = ("is_active",)
+        model = ProductImage
+        fields = ("id", "image", "alt_text")
+
+
+class ProductSpecificationValueSerializer(serializers.ModelSerializer):
+    """Product specification value"""
+
+    specification = serializers.SlugRelatedField(
+        slug_field="name", read_only=True)
+
+    class Meta:
+        model = ProductSpecificationValue
+        fields = ("id", "specification", "value")
+
+
+class ColorImageSerializer(serializers.ModelSerializer):
+    """Color"""
+
+    class Meta:
+        model = ColorImage
+        fields = ("id", "image", "alt_text", "is_active")
+
+
+class ColorSerializer(serializers.ModelSerializer):
+    """Color"""
+
+    color_image = ColorImageSerializer(read_only=True, many=True)
+    class Meta:
+        model = Color
+        fields = ("id", "name", "color_image")
+
+
+class ColorPriceSerializer(serializers.ModelSerializer):
+    """Color Price"""
+
+    color = ColorSerializer(read_only=True)
+
+    class Meta:
+        model = ColorPrice
+        fields = ("id", "color", "price_percent")
+
+
+class DimensionsValueSerializer(serializers.ModelSerializer):
+    """Dimensions Value"""
+
+    dimension = serializers.SlugRelatedField(
+        slug_field="name", read_only=True)
+
+    class Meta:
+        model = DimensionsValue
+        fields = ("id", "value", "dimension", "price_change")
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -47,6 +96,26 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(
         slug_field="name", read_only=True, many=True
     )
+    product_image = ProductImageSerializer(many=True)
+    product_specification_value = ProductSpecificationValueSerializer(many=True)
+    color_price = ColorPriceSerializer(many=True)
+    dimensions_value = DimensionsValueSerializer(many=True)
+
+    class Meta:
+        model = Product
+        exclude = ("is_active",)
+
+
+class ProductListSerializer(serializers.ModelSerializer):
+    """Products list"""
+
+    category = serializers.SlugRelatedField(
+        slug_field="name", read_only=True, many=True
+    )
+    product_image = ProductImageSerializer(many=True)
+    product_specification_value = ProductSpecificationValueSerializer(many=True)
+    color_price = ColorPriceSerializer(many=True)
+    dimensions_value = DimensionsValueSerializer(many=True)
 
     class Meta:
         model = Product

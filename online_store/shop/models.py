@@ -60,7 +60,7 @@ class Category(MPTTModel):
 
 class Product(models.Model):
     """
-    The Product table contining all product items.
+    The Product table containing all product items.
     """
 
     title = models.CharField(
@@ -153,7 +153,7 @@ class ProductSpecificationValue(models.Model):
     products individual specification or bespoke features.
     """
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_specification_value")
     specification = models.ForeignKey(
         ProductSpecification,
         verbose_name="Свойство",
@@ -268,7 +268,8 @@ class ColorImage(models.Model):
     """
 
     color = models.ForeignKey(
-        "ColorPrice", on_delete=models.CASCADE, related_name="color_image"
+        "Color", on_delete=models.CASCADE, related_name="color_image"
+        # "ColorPrice", on_delete=models.CASCADE, related_name="color_image"
     )
     image = models.ImageField(
         verbose_name="Цвет",
@@ -296,7 +297,7 @@ class ColorPrice(models.Model):
     The price of product`s color in percent.
     """
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="color_price")
     color = models.ForeignKey(
         Color,
         verbose_name="Цвет",
@@ -342,7 +343,7 @@ class DimensionsValue(models.Model):
     The Product Dimensions Value table holds values with it`s price change of all dimesion types.
     """
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="dimensions_value")
     dimension = models.ForeignKey(
         Dimensions,
         verbose_name="Размеры",

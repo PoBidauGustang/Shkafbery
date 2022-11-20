@@ -159,7 +159,9 @@ class ColorAdmin(admin.ModelAdmin):
         "is_active",
     ]
     list_editable = ["is_active"]
-
+    inlines = [
+        ColorImageInline,
+    ]
 
 @admin.register(ColorPrice)
 class ColorPriceAdmin(admin.ModelAdmin):
@@ -173,9 +175,9 @@ class ColorPriceAdmin(admin.ModelAdmin):
         "price_percent",
     ]
     list_filter = ("product",)
-    inlines = [
-        ColorImageInline,
-    ]
+    # inlines = [
+    #     ColorImageInline,
+    # ]
 
 
 @admin.register(Dimensions)
