@@ -3,7 +3,7 @@ const state = {
   backendBlogUrl: "http://127.0.0.1:8000/api/blog",
   backendClosetUrl: "http://127.0.0.1:8000/api/closet",
   backendInformationUrl: "http://127.0.0.1:8000/api/information",
-  backendAuthUrl: "http://127.0.0.1:8000/auth/token",
+  backendAuthUrl: "http://127.0.0.1:8000/api/auth/token",
   // backendShopUrl: "http://185.46.11.192/api/shop",
   // backendBlogUrl: "http://185.46.11.192/api/blog",
   // backendClosetUrl: "http://185.46.11.192/api/closet",

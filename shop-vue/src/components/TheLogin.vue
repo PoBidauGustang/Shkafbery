@@ -41,10 +41,10 @@ export default {
             "auth_token",
             response.data.data.attributes.auth_token
           );
-          this.$router.push({ name: "home" });
+          this.$router.push({ name: "wardrobe" });
           alert("Мы здесь");
         })
-        .catch((error) => console.log(error.response));
+        .catch((error) => console.log(error, error.response));
     },
   },
 };
