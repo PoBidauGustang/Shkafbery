@@ -153,7 +153,9 @@ class ProductSpecificationValue(models.Model):
     products individual specification or bespoke features.
     """
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_specification_value")
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="product_specification_value"
+    )
     specification = models.ForeignKey(
         ProductSpecification,
         verbose_name="Свойство",
@@ -195,7 +197,8 @@ class ProductImage(models.Model):
         null=True,
         blank=True,
     )
-    is_feature = models.BooleanField(default=False)
+    main = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -268,7 +271,9 @@ class ColorImage(models.Model):
     """
 
     color = models.ForeignKey(
-        "Color", on_delete=models.CASCADE, related_name="color_image"
+        "Color",
+        on_delete=models.CASCADE,
+        related_name="color_image"
         # "ColorPrice", on_delete=models.CASCADE, related_name="color_image"
     )
     image = models.ImageField(
@@ -297,7 +302,9 @@ class ColorPrice(models.Model):
     The price of product`s color in percent.
     """
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="color_price")
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="color_price"
+    )
     color = models.ForeignKey(
         Color,
         verbose_name="Цвет",
@@ -343,7 +350,9 @@ class DimensionsValue(models.Model):
     The Product Dimensions Value table holds values with it`s price change of all dimesion types.
     """
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="dimensions_value")
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="dimensions_value"
+    )
     dimension = models.ForeignKey(
         Dimensions,
         verbose_name="Размеры",

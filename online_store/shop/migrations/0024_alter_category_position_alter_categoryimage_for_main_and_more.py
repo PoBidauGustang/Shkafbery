@@ -7,33 +7,50 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0023_categoryimage'),
+        ("shop", "0023_categoryimage"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='category',
-            name='position',
-            field=models.IntegerField(blank=True, help_text='Позиция в родительской категории главного меню', null=True, verbose_name='Позиция в род.категории'),
+            model_name="category",
+            name="position",
+            field=models.IntegerField(
+                blank=True,
+                help_text="Позиция в родительской категории главного меню",
+                null=True,
+                verbose_name="Позиция в род.категории",
+            ),
         ),
         migrations.AlterField(
-            model_name='categoryimage',
-            name='for_main',
-            field=models.BooleanField(default=False, verbose_name='для меню?'),
+            model_name="categoryimage",
+            name="for_main",
+            field=models.BooleanField(default=False, verbose_name="для меню?"),
         ),
         migrations.AlterField(
-            model_name='colorimage',
-            name='color',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='color_image', to='shop.color'),
+            model_name="colorimage",
+            name="color",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="color_image",
+                to="shop.color",
+            ),
         ),
         migrations.AlterField(
-            model_name='colorprice',
-            name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='color_price', to='shop.product'),
+            model_name="colorprice",
+            name="product",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="color_price",
+                to="shop.product",
+            ),
         ),
         migrations.AlterField(
-            model_name='productspecificationvalue',
-            name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_specification_value', to='shop.product'),
+            model_name="productspecificationvalue",
+            name="product",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="product_specification_value",
+                to="shop.product",
+            ),
         ),
     ]

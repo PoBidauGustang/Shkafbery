@@ -15,6 +15,22 @@ from .models import (
 )
 
 
+class ImageActiveSerializer(serializers.ListSerializer):
+    """Фильтр изображений, только active"""
+
+    def to_representation(self, data):
+        data = data.filter(is_active=True)
+        return super().to_representation(data)
+
+
+class ImageMainSerializer(serializers.ListSerializer):
+    """Фильтр изображений, только main"""
+
+    def to_representation(self, data):
+        data = data.filter(main=True)
+        return super().to_representation(data)
+
+
 class ParentCategoryFilterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -37,15 +53,24 @@ class ProductImageSerializer(serializers.ModelSerializer):
     """Product Image"""
 
     class Meta:
+        list_serializer_class = ImageActiveSerializer
         model = ProductImage
-        fields = ("id", "image", "alt_text")
+        fields = ("id", "image", "is_active", "main", "alt_text")
+
+
+class ProductMainImageSerializer(serializers.ModelSerializer):
+    """Product Image"""
+
+    class Meta:
+        list_serializer_class = ImageMainSerializer
+        model = ProductImage
+        fields = ("id", "image", "is_active", "main", "alt_text")
 
 
 class ProductSpecificationValueSerializer(serializers.ModelSerializer):
     """Product specification value"""
 
-    specification = serializers.SlugRelatedField(
-        slug_field="name", read_only=True)
+    specification = serializers.SlugRelatedField(slug_field="name", read_only=True)
 
     class Meta:
         model = ProductSpecificationValue
@@ -64,6 +89,7 @@ class ColorSerializer(serializers.ModelSerializer):
     """Color"""
 
     color_image = ColorImageSerializer(read_only=True, many=True)
+
     class Meta:
         model = Color
         fields = ("id", "name", "color_image")
@@ -82,8 +108,7 @@ class ColorPriceSerializer(serializers.ModelSerializer):
 class DimensionsValueSerializer(serializers.ModelSerializer):
     """Dimensions Value"""
 
-    dimension = serializers.SlugRelatedField(
-        slug_field="name", read_only=True)
+    dimension = serializers.SlugRelatedField(slug_field="name", read_only=True)
 
     class Meta:
         model = DimensionsValue
@@ -93,9 +118,10 @@ class DimensionsValueSerializer(serializers.ModelSerializer):
 class ProductDetailSerializer(serializers.ModelSerializer):
     """Product"""
 
-    category = serializers.SlugRelatedField(
-        slug_field="name", read_only=True, many=True
-    )
+    # category = serializers.SlugRelatedField(
+    #     slug_field="name", read_only=True, many=True
+    # )
+    category = ParentCategoryFilterSerializer(read_only=True, many=True)
     product_image = ProductImageSerializer(many=True)
     product_specification_value = ProductSpecificationValueSerializer(many=True)
     color_price = ColorPriceSerializer(many=True)
@@ -103,20 +129,21 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        exclude = ("is_active",)
+        exclude = ("is_active", "created_at", "updated_at")
 
 
 class ProductListSerializer(serializers.ModelSerializer):
     """Products list"""
 
-    category = serializers.SlugRelatedField(
-        slug_field="name", read_only=True, many=True
-    )
-    product_image = ProductImageSerializer(many=True)
-    product_specification_value = ProductSpecificationValueSerializer(many=True)
-    color_price = ColorPriceSerializer(many=True)
-    dimensions_value = DimensionsValueSerializer(many=True)
+    # category = serializers.SlugRelatedField(
+    #     slug_field="name", read_only=True, many=True
+    # )
+    category = ParentCategoryFilterSerializer(read_only=True, many=True)
+    product_image = ProductMainImageSerializer(read_only=True, many=True)
+    # product_specification_value = ProductSpecificationValueSerializer(many=True)
+    # color_price = ColorPriceSerializer(many=True)
+    # dimensions_value = DimensionsValueSerializer(many=True)
 
     class Meta:
         model = Product
-        exclude = ("is_active",)
+        exclude = ("is_active", "created_at", "updated_at")

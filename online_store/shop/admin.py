@@ -163,6 +163,7 @@ class ColorAdmin(admin.ModelAdmin):
         ColorImageInline,
     ]
 
+
 @admin.register(ColorPrice)
 class ColorPriceAdmin(admin.ModelAdmin):
     list_display = [
