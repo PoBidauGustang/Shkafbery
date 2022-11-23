@@ -25,8 +25,12 @@ class Category(MPTTModel):
     description = models.TextField(
         verbose_name="описание", help_text="Not Required", blank=True
     )
-    for_main = models.BooleanField(
-        verbose_name="для главной?",
+    for_main_menu = models.BooleanField(
+        verbose_name="для главного меню",
+        default=False,
+    )
+    for_side_menu = models.BooleanField(
+        verbose_name="для бокового меню",
         default=False,
     )
     image = models.ImageField(
