@@ -1,9 +1,12 @@
 <template>
   <div>
     <div v-if="data.attributes.name == 'Гардеробные'">
-      <router-link to="/wardrobe">Гардеробные</router-link>
+      <!-- <router-link to="/wardrobe">Гардеробные</router-link> -->
+      <router-link :to="'/category/' + data.attributes.slug">{{
+        data.attributes.name
+      }}</router-link>
     </div>
-    <div>{{ data.attributes.name }}</div>
+    <div v-else>{{ data.attributes.name }}</div>
     <!-- <ul class="MegaMenu_List">
         <li
           class="MegaMenu_Category"
@@ -47,7 +50,7 @@
 
 <script>
 export default {
-  name: "TheMenu",
+  name: "MainMenu",
   props: {
     data: {
       type: Object,

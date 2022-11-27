@@ -93,6 +93,11 @@ const routes = [
     component: () => import("../views/WardrobePage.vue"),
   },
   {
+    path: "/category/:slug",
+    name: "category",
+    component: () => import("../views/Category.vue"),
+  },
+  {
     path: "/closets",
     name: "Closets",
     component: () => import("../views/Closets.vue"),
