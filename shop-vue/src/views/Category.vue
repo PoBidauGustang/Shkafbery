@@ -2,6 +2,9 @@
   <div>
     <h1>ТЕКУЩАЯ КАТЕГОРИЯ - {{ $route.params.slug }}</h1>
     <!-- <div>{{ wardrobes }}</div> -->
+    <div v-for="categ in GETMAINCATEGORIES" :key="categ.id">
+      {{ categ }}
+    </div>
     <div class="Product_Page">
       <TheProductView
         v-for="product in wardrobes"
@@ -38,6 +41,7 @@ export default {
   computed: {
     ...mapGetters("cart", ["GETALLITEMS"]),
     ...mapGetters("api_urls", ["getServerShopUrl"]),
+    ...mapGetters("data", ["GETCHILDCATEGORIES", "GETMAINCATEGORIES"]),
   },
   methods: {
     ...mapActions("cart", ["saveItem", "loadCart"]),

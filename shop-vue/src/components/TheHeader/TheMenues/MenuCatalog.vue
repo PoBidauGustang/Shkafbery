@@ -1,95 +1,13 @@
 <template>
-  <div class="all_products_wrapper" ref="all_products_wrapper">
-    <TheSubMenuCloset
-      v-if="isSubMenuVisibleCloset"
-      :linksList="linksClosetList"
-      :dataList="closetList"
-      @closeSubMenu="closeSubMenu"
-    />
-    <TheSubMenuDoors
-      v-if="isSubMenuVisibleDoors"
-      :linksList="linksDoorsList"
-      :dataList="doorsList"
-      @closeSubMenu="closeSubMenu"
-    />
-    <TheSubMenuMaterials
-      v-if="isSubMenuVisibleMaterials"
-      :linksList="linksMaterialsList"
-      :dataList="materialsList"
-      @closeSubMenu="closeSubMenu"
-    />
-    <TheSubMenuServices
-      v-if="isSubMenuVisibleServices"
-      :linksList="linksServicesList"
-      :dataList="servicesList"
-      @closeSubMenu="closeSubMenu"
-    />
-    <TheSubMenuAccessories
-      v-if="isSubMenuVisibleAccessories"
-      :linksList="linksAccessoriesList"
-      :dataList="accessoriesList"
-      @closeSubMenu="closeSubMenu"
-    />
-    <ul class="all_products_list">
-      <li class="all_pruducts_list_item">
-        <div>Каталог</div>
-        <div @click="closeMegaMenu">Закрыть</div>
-      </li>
-      <li class="all_pruducts_list_item">
-        <a @click="showSubMenuCloset">
-          <span>{{ linksList[0].title }}</span>
-        </a>
-      </li>
-      <li class="all_pruducts_list_item">
-        <router-link :to="linksList[1].route">
-          <span @click="closeMegaMenu">{{ linksList[1].title }}</span>
-        </router-link>
-      </li>
-      <li class="all_pruducts_list_item">
-        <a @click="showSubMenuDoors">
-          <span>{{ linksList[2].title }}</span>
-        </a>
-      </li>
-      <li class="all_pruducts_list_item">
-        <a @click="showSubMenuMaterials">
-          <span>{{ linksList[3].title }}</span>
-        </a>
-      </li>
-      <li class="all_pruducts_list_item">
-        <a @click="showSubMenuAccessories">
-          <span>{{ linksList[4].title }}</span>
-        </a>
-      </li>
-      <li class="all_pruducts_list_item">
-        <a @click="showSubMenuServices">
-          <span>{{ linksList[5].title }}</span>
-        </a>
-      </li>
-      <li class="all_pruducts_list_item">
-        <router-link :to="linksList[6].route">
-          <span @click="closeMegaMenu">{{ linksList[6].title }}</span>
-        </router-link>
-      </li>
-    </ul>
-  </div>
+  <div>katalog</div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import TheSubMenuCloset from "./TheSubMenu/TheSubMenuCloset.vue";
-import TheSubMenuDoors from "./TheSubMenu/TheSubMenuDoors.vue";
-import TheSubMenuMaterials from "./TheSubMenu/TheSubMenuMaterials.vue";
-import TheSubMenuServices from "./TheSubMenu/TheSubMenuServices.vue";
-import TheSubMenuAccessories from "./TheSubMenu/TheSubMenuAccessories.vue";
+
 export default {
-  name: "TheMenuCatalog",
-  components: {
-    TheSubMenuCloset,
-    TheSubMenuDoors,
-    TheSubMenuMaterials,
-    TheSubMenuServices,
-    TheSubMenuAccessories,
-  },
+  name: "MenuCatalog",
+  components: {},
   props: {
     linksList: {
       type: Object,

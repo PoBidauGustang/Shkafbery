@@ -1,11 +1,12 @@
 const state = {
   allCategories: {},
+  childCategories: {},
   mainCategories: [],
 };
 
 const mutations = {
-  saveAllCategoriesMut(state, payload) {
-    state.allCategories = payload;
+  saveChildCategoriesMut(state, payload) {
+    state.childCategories = payload;
   },
   saveMainCategoriesMut(state, payload) {
     state.mainCategories = payload;
@@ -13,8 +14,8 @@ const mutations = {
 };
 
 const actions = {
-  saveAllCategories({ commit }, payload) {
-    commit("saveAllCategoriesMut", payload);
+  saveChildCategories({ commit }, payload) {
+    commit("saveChildCategoriesMut", payload);
   },
   saveMainCategories({ commit }, payload) {
     commit("saveMainCategoriesMut", payload);
@@ -22,8 +23,8 @@ const actions = {
 };
 
 const getters = {
-  GETALLCATEGORIES(state) {
-    return state.allCategories;
+  GETCHILDCATEGORIES(state) {
+    return state.childCategories;
   },
   GETMAINCATEGORIES(state) {
     return state.mainCategories;

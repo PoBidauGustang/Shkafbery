@@ -26,20 +26,20 @@ export default {
     return {
       categoriesList: [],
       mainCategories: [],
-      allCategoriesDict: {},
+      childCategoriesDict: {},
     };
   },
   watch: {
     categoriesList() {
       this.getMainCategories();
-      this.filterAllCategoriesDict();
+      this.getChildCategoriesDict();
     },
   },
   computed: {
     ...mapGetters("api_urls", ["getServerShopUrl"]),
   },
   methods: {
-    ...mapActions("data", ["saveAllCategories", "saveMainCategories"]),
+    ...mapActions("data", ["saveChildCategories", "saveMainCategories"]),
     loadCategoriesList() {
       this.axios
         .get(`${this.getServerShopUrl}/product_categories`)
@@ -57,6 +57,19 @@ export default {
           this.mainCategories.push(categoriesList[category]);
         }
       }
+      for (let mainCategory in this.mainCategories) {
+        this.mainCategories[mainCategory]["child_free"] = true;
+
+        for (let category in this.categoriesList) {
+          if (
+            this.categoriesList[category].attributes.parent &&
+            this.categoriesList[category].attributes.parent.id ===
+              Number(this.mainCategories[mainCategory].id)
+          ) {
+            this.mainCategories[mainCategory]["child_free"] = false;
+          }
+        }
+      }
       this.mainCategories.sort(function (a, b) {
         if (a.attributes.position > b.attributes.position) {
           return 1;
@@ -68,7 +81,7 @@ export default {
       });
       this.saveMainCategories(this.mainCategories);
     },
-    filterAllCategoriesDict() {
+    getChildCategoriesDict() {
       let valuesList = [];
       for (let maincategory in this.mainCategories) {
         valuesList = [];
@@ -81,12 +94,12 @@ export default {
               valuesList.push(this.categoriesList[category]);
             }
           }
-          this.allCategoriesDict[
+          this.childCategoriesDict[
             this.mainCategories[maincategory].attributes.name
           ] = valuesList;
         }
       }
-      this.saveAllCategories(this.allCategoriesDict);
+      this.saveChildCategories(this.childCategoriesDict);
     },
   },
 };

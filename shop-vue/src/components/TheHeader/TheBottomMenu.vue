@@ -1,34 +1,38 @@
 <template>
-  <div class="btm_link">
-    <div>
-      <div @click="close">BUTTON</div>
-      <div>Test</div>
+  <div>
+    <ul class="bottom_menu">
+      <!-- <div @click="close">BUTTON</div>
+        <div>Test</div> -->
       <!-- <div>{{ GETMAINCATEGORIES }}</div> -->
       <!-- <div>{{ filteredMainMenuCategories }}</div> -->
-      <ul
+      <li class="bottom_menu_input">
+        <MenuCatalog />
+      </li>
+      <li
         class="bottom_menu_input"
         v-for="category in filteredMainMenuCategories"
         :key="category.id"
       >
-        <span class="btm_link" v-if="category.attributes.for_main_menu == true">
-          <MainMenu :data="category" @click="close" />
+        <span v-if="category.attributes.for_main_menu == true">
+          <MainMenu :category="category" />
         </span>
-      </ul>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import MainMenu from "./TheMenues/MainMenu.vue";
+import MenuCatalog from "./TheMenues/MenuCatalog.vue";
 export default {
   name: "BottomMenu",
   components: {
     MainMenu,
+    MenuCatalog,
   },
   data() {
     return {
-      visible: false,
       filteredMainMenuCategories: {},
     };
   },
@@ -38,14 +42,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("test", ["TEST"]),
     ...mapGetters("data", ["GETMAINCATEGORIES"]),
   },
   methods: {
     ...mapActions("test", ["increment"]),
-    close() {
-      this.visible = !this.visible;
-    },
     filterMainMenuCategories() {
       for (let category in this.GETMAINCATEGORIES) {
         if (this.GETMAINCATEGORIES[category].attributes.for_main_menu == true) {
@@ -91,26 +91,5 @@ export default {
 .bottom_menu_input:last-child a {
   margin-right: -24px;
   padding-right: 24px;
-}
-
-.bottom_menu_link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: #000000;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-  text-align: center;
-}
-
-.bottom_menu_link:hover {
-  background: #f0eef1;
-}
-
-.btm_link {
-  padding-left: 4px;
-  padding-right: 4px;
 }
 </style>

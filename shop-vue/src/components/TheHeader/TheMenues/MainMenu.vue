@@ -1,12 +1,65 @@
 <template>
   <div>
-    <div v-if="data.attributes.name == 'Гардеробные'">
-      <!-- <router-link to="/wardrobe">Гардеробные</router-link> -->
-      <router-link :to="'/category/' + data.attributes.slug">{{
-        data.attributes.name
-      }}</router-link>
+    <div v-if="category.child_free === true">
+      <router-link
+        class="bottom_menu_link"
+        :to="'/category/' + category.attributes.slug"
+        >{{ category.attributes.name }}</router-link
+      >
     </div>
-    <div v-else>{{ data.attributes.name }}</div>
+    <div v-else @click="switchMainSubMenuVisability">
+      <!-- <a class="bottom_menu_link" @click="showMegaMenuCloset"> -->
+      <a class="bottom_menu_link">
+        <span class="btm_link">{{ category.attributes.name }}</span>
+        <span class="icon_wrapper">
+          <span class="material-icons-outlined md-18">expand_more</span>
+        </span>
+      </a>
+    </div>
+    <div class="MegaMenu_wrapper" v-if="mainSubMenuVisible">
+      <div class="MegaMenu">
+        <ul class="MegaMenu_List">
+          <li class="MegaMenu_Category" v-for="cat in dataList" :key="cat.id">
+            <MainSubMenu
+              :categoryData="cat"
+              @switchMainSubMenuVisability="switchMainSubMenuVisability"
+            />
+          </li>
+          <li
+            v-if="category.id == 6"
+            @click="switchMainSubMenuVisability"
+            class="Mega_Menu_Conf"
+          >
+            <router-link class="bottom_menu_link" to="/closet_planner">
+              <span class="MegaMenu_input">Планировщик шкафа</span>
+              <div class="Mega_Menu_Image_Wrapper">
+                <img
+                  :src="require('../../../assets/images/2.jpeg')"
+                  alt="img"
+                  class="MegaMenu_Image"
+                />
+              </div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- <div v-if="category.attributes.id == '6'" class="Mega_Menu_Conf">
+      <router-link
+        class="bottom_menu_link"
+        to="/closet_planner"
+      >
+        <span class="MegaMenu_input">Планировщик шкафа</span>
+        <div class="Mega_Menu_Image_Wrapper">
+          <img
+            :src="require('../../../assets/images/2.jpeg')"
+            alt="img"
+            class="MegaMenu_Image"
+          />
+        </div>
+      </router-link>
+    </div> -->
+    <!-- <div>{{ dataList[0] }}</div>  -->
     <!-- <ul class="MegaMenu_List">
         <li
           class="MegaMenu_Category"
@@ -49,10 +102,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import MainSubMenu from "./MainSubMenu.vue";
 export default {
   name: "MainMenu",
+  components: {
+    MainSubMenu,
+  },
   props: {
-    data: {
+    category: {
       type: Object,
       default() {
         return {};
@@ -66,14 +124,38 @@ export default {
     // },
   },
   data() {
-    return {};
+    return {
+      dataList: [],
+      mainSubMenuVisible: false,
+    };
+  },
+  computed: {
+    ...mapGetters("data", ["GETCHILDCATEGORIES"]),
   },
   methods: {
-    // closeMegaMenu() {
-    //   this.$emit("closeMegaMenu");
-    // },
+    makeDataList() {
+      this.dataList = this.GETCHILDCATEGORIES[this.category.attributes.name];
+      this.dataList.sort(function (a, b) {
+        if (a.attributes.position > b.attributes.position) {
+          return 1;
+        }
+        if (a.attributes.position < b.attributes.position) {
+          return -1;
+        }
+        return 0;
+      });
+    },
+    switchMainSubMenuVisability() {
+      this.mainSubMenuVisible = !this.mainSubMenuVisible;
+    },
+    turnoffAllMainSubMenuVisability() {
+      if (this.mainSubMenuVisible) {
+        this.mainSubMenuVisible = false;
+      }
+    },
   },
   mounted() {
+    this.makeDataList();
     // let vm = this;
     // document.addEventListener("click", function (item) {
     //   if (item.target === vm.$refs["MegaMenu_wrapper"]) {
@@ -85,7 +167,28 @@ export default {
 </script>
 
 <style>
-/* .MegaMenu_wrapper {
+.bottom_menu_link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+}
+
+.bottom_menu_link:hover {
+  background: #f0eef1;
+}
+
+.btm_link {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.MegaMenu_wrapper {
   background: rgba(64, 64, 64, 0.4);
   position: fixed;
   right: 0;
@@ -155,5 +258,5 @@ export default {
   padding-right: 16px;
   background-color: #ffffff;
   border-radius: 12px;
-} */
+}
 </style>
