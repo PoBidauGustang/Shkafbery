@@ -1,221 +1,183 @@
 <template>
-  <div>katalog</div>
+  <div>
+    <!-- <ul class="all_products_list">
+      <li class="all_pruducts_list_item">
+        <div>Каталог</div>
+        <div @click="closeMegaMenu">Закрыть</div>
+      </li>
+    </ul> -->
+    <div @click="switchSideMenuVisability">
+      <a class="catalog" @click="showMegaMenuCatalog">
+        <span class="btm_link">Каталог</span
+        ><span class="icon_wrapper">
+          <span class="material-icons-outlined md-18">expand_more</span>
+          <span @click="closeSideMenuVisability">Закрыть</span>
+        </span>
+      </a>
+    </div>
+    <div class="all_products_wrapper" v-if="sideMenuVisability">
+      <ul class="all_products_list">
+        <li
+          class="all_pruducts_list_item"
+          v-for="category in GETMAINCATEGORIES"
+          :key="category.id"
+        >
+          <span v-if="category.attributes.for_side_menu == true">
+            <CatalogSideMenu :category="category" />
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-
+import CatalogSideMenu from "./CatalogSideMenu.vue";
 export default {
   name: "MenuCatalog",
-  components: {},
-  props: {
-    linksList: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
-    catalogDict: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
+  components: {
+    CatalogSideMenu,
   },
   data() {
     return {
-      isSubMenuVisibleCloset: false,
-      isSubMenuVisibleDoors: false,
-      isSubMenuVisibleMaterials: false,
-      isSubMenuVisibleServices: false,
-      isSubMenuVisibleAccessories: false,
-      closetList: [],
-      doorsList: [],
-      materialsList: [],
-      servicesList: [],
-      accessoriesList: [],
-      linksClosetList: [
-        {
-          id: "0",
-          title: "Отдельностоящие шкафы",
-          route: "/freestanding_closets",
-        },
-        { id: "1", title: "Встроенные шкафы", route: "/built-in_closets" },
-      ],
-      linksDoorsList: [
-        // { id: "0", title: "В шкаф", route: "/doors_closet" },
-        { id: "0", title: "Двери в гардероб", route: "/doors_dressing_room" },
-        { id: "1", title: "Двери в нишу", route: "/doors_opening" },
-      ],
-      linksMaterialsList: [
-        { id: "0", title: "ДСП", route: "/chipboard" },
-        { id: "1", title: "Зеркала", route: "/mirror" },
-        // { id: "2", title: "Другие", route: "/other" },
-      ],
-      linksServicesList: [
-        { id: "0", title: "Замеры", route: "/measurements" },
-        { id: "1", title: "Установка", route: "/installation" },
-        { id: "2", title: "Распил", route: "/cutting" },
-        { id: "3", title: "Кромкование", route: "/cutting" },
-      ],
-      linksAccessoriesList: [
-        { id: "0", title: "Полки", route: "/shelfs" },
-        { id: "1", title: "Ящики", route: "/box" },
-      ],
+      sideMenuVisability: false,
     };
   },
-  watch: {
-    isSubMenuVisibleCloset() {
-      this.makeClosetList();
-    },
-    isSubMenuVisibleDoors() {
-      this.makeDoorsList();
-    },
-    isSubMenuVisibleMaterials() {
-      this.makeMaterialsList();
-    },
-    isSubMenuVisibleServices() {
-      this.makeServicesList();
-    },
-    isSubMenuVisibleAccessories() {
-      this.makeAccessoriesList();
-    },
-  },
+  watch: {},
   computed: {
     ...mapGetters("data", ["GETCHILDCATEGORIES", "GETMAINCATEGORIES"]),
   },
   methods: {
-    closeMegaMenu() {
-      this.$emit("closeMegaMenu");
+    switchSideMenuVisability() {
+      this.sideMenuVisability = !this.sideMenuVisability;
     },
-    makeClosetList() {
-      this.closetList = this.GETCHILDCATEGORIES["Шкаф-купе"];
-      this.closetList.sort(function (a, b) {
-        if (a.attributes.position > b.attributes.position) {
-          return 1;
-        }
-        if (a.attributes.position < b.attributes.position) {
-          return -1;
-        }
-        return 0;
-      });
+    closeSideMenuVisability() {
+      this.sideMenuVisability = false;
     },
-    makeDoorsList() {
-      this.doorsList = this.GETCHILDCATEGORIES["Двери-купе"];
-      this.doorsList.sort(function (a, b) {
-        if (a.attributes.position > b.attributes.position) {
-          return 1;
-        }
-        if (a.attributes.position < b.attributes.position) {
-          return -1;
-        }
-        return 0;
-      });
-    },
-    makeMaterialsList() {
-      this.materialsList = this.GETCHILDCATEGORIES["Материалы"];
-      this.materialsList.sort(function (a, b) {
-        if (a.attributes.position > b.attributes.position) {
-          return 1;
-        }
-        if (a.attributes.position < b.attributes.position) {
-          return -1;
-        }
-        return 0;
-      });
-    },
-    makeServicesList() {
-      this.servicesList = this.GETCHILDCATEGORIES["Услуги"];
-      this.servicesList.sort(function (a, b) {
-        if (a.attributes.position > b.attributes.position) {
-          return 1;
-        }
-        if (a.attributes.position < b.attributes.position) {
-          return -1;
-        }
-        return 0;
-      });
-    },
-    makeAccessoriesList() {
-      this.accessoriesList = this.GETCHILDCATEGORIES["Фурнитура"];
-      this.accessoriesList.sort(function (a, b) {
-        if (a.attributes.position > b.attributes.position) {
-          return 1;
-        }
-        if (a.attributes.position < b.attributes.position) {
-          return -1;
-        }
-        return 0;
-      });
-    },
-    showSubMenuCloset() {
-      this.isSubMenuVisibleServices = false;
-      this.isSubMenuVisibleDoors = false;
-      this.isSubMenuVisibleMaterials = false;
-      this.isSubMenuVisibleCloset = true;
-      this.isSubMenuVisibleAccessories = false;
-    },
-    showSubMenuDoors() {
-      this.isSubMenuVisibleServices = false;
-      this.isSubMenuVisibleDoors = true;
-      this.isSubMenuVisibleMaterials = false;
-      this.isSubMenuVisibleCloset = false;
-      this.isSubMenuVisibleAccessories = false;
-    },
-    showSubMenuMaterials() {
-      this.isSubMenuVisibleServices = false;
-      this.isSubMenuVisibleDoors = false;
-      this.isSubMenuVisibleMaterials = true;
-      this.isSubMenuVisibleCloset = false;
-      this.isSubMenuVisibleAccessories = false;
-    },
-    showSubMenuServices() {
-      this.isSubMenuVisibleServices = true;
-      this.isSubMenuVisibleDoors = false;
-      this.isSubMenuVisibleMaterials = false;
-      this.isSubMenuVisibleCloset = false;
-      this.isSubMenuVisibleAccessories = false;
-    },
-    showSubMenuAccessories() {
-      this.isSubMenuVisibleServices = false;
-      this.isSubMenuVisibleDoors = false;
-      this.isSubMenuVisibleMaterials = false;
-      this.isSubMenuVisibleCloset = false;
-      this.isSubMenuVisibleAccessories = true;
-    },
-    closeSubMenu() {
-      this.closeMegaMenu();
-      this.isSubMenuVisibleServices = false;
-      this.isSubMenuVisibleDoors = false;
-      this.isSubMenuVisibleMaterials = false;
-      this.isSubMenuVisibleCloset = false;
-      this.isSubMenuVisibleAccessories = false;
-    },
-  },
-  mounted() {
-    let vm = this;
-    document.addEventListener("click", function (item) {
-      if (item.target === vm.$refs["all_products_wrapper"]) {
-        vm.closeMegaMenu();
-      }
-    });
   },
 };
 </script>
 
 <style>
+.catalog {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "PT Root UI", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  padding-top: 20px;
+  padding-bottom: 19px;
+  padding-left: 24px;
+  padding-right: 0px;
+  border-right: 1px solid;
+}
+
+.bottom_menu_link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+}
+
+.bottom_menu_link:hover {
+  background: #f0eef1;
+}
+
+.btm_link {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.MegaMenu_wrapper {
+  background: rgba(64, 64, 64, 0.4);
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 180px;
+  bottom: 0;
+  width: 100vw;
+}
+
+.MegaMenu {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  background-color: #f0f0f0;
+  grid-column-gap: 24px;
+  position: fixed;
+  top: 180px;
+  padding-top: 32px;
+  padding-bottom: 48px;
+  padding-left: 48px;
+  padding-right: 48px;
+  width: 100%;
+}
+
+.MegaMenu_List {
+  grid-column: span 9;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-column-gap: 24px;
+  grid-auto-rows: max-content;
+}
+
+.MegaMenu_Category {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.MegaMenu_input {
+  color: #1e1b16;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.Mega_Menu_Image_Wrapper {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  padding-bottom: 16px;
+}
+
+.MegaMenu_Image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.Mega_Menu_Conf {
+  grid-column: 10 / span 3;
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
 .all_products_wrapper {
   position: fixed;
   right: 0;
   left: 0;
-  top: 120px;
-  bottom: 30px;
-  width: 80vw;
+  top: 0;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  margin-right: 24px;
-  margin-left: 24px;
-  background: rgba(64, 64, 64, 0.4);
+  height: 100vh;
 }
 
 .all_products_list {

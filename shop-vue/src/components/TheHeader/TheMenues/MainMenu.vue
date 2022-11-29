@@ -19,7 +19,11 @@
     <div class="MegaMenu_wrapper" v-if="mainSubMenuVisible">
       <div class="MegaMenu">
         <ul class="MegaMenu_List">
-          <li class="MegaMenu_Category" v-for="cat in dataList" :key="cat.id">
+          <li
+            class="MegaMenu_Category"
+            v-for="cat in subCategoriesList"
+            :key="cat.id"
+          >
             <MainSubMenu
               :categoryData="cat"
               @switchMainSubMenuVisability="switchMainSubMenuVisability"
@@ -44,60 +48,6 @@
         </ul>
       </div>
     </div>
-    <!-- <div v-if="category.attributes.id == '6'" class="Mega_Menu_Conf">
-      <router-link
-        class="bottom_menu_link"
-        to="/closet_planner"
-      >
-        <span class="MegaMenu_input">Планировщик шкафа</span>
-        <div class="Mega_Menu_Image_Wrapper">
-          <img
-            :src="require('../../../assets/images/2.jpeg')"
-            alt="img"
-            class="MegaMenu_Image"
-          />
-        </div>
-      </router-link>
-    </div> -->
-    <!-- <div>{{ dataList[0] }}</div>  -->
-    <!-- <ul class="MegaMenu_List">
-        <li
-          class="MegaMenu_Category"
-          v-for="link in linksList"
-          :key="link.id"
-          @click="closeMegaMenu"
-        >
-          <router-link class="bottom_menu_link" :to="link.route">
-            <span class="MegaMenu_input">{{ link.title }}</span>
-            <span class="MegaMenu_input">{{
-              closetList[link.id].attributes.name
-            }}</span>
-            <div class="Mega_Menu_Image_Wrapper">
-              <img
-                :src="require('../../assets/images/2.jpeg')"
-                alt="img"
-                class="MegaMenu_Image"
-              />
-            </div>
-          </router-link>
-        </li>
-      </ul>
-      <div class="Mega_Menu_Conf">
-        <router-link
-          @click="closeMegaMenu"
-          class="bottom_menu_link"
-          to="/closet_planner"
-        >
-          <span class="MegaMenu_input">Планировщик шкафа</span>
-          <div class="Mega_Menu_Image_Wrapper">
-            <img
-              :src="require('../../assets/images/2.jpeg')"
-              alt="img"
-              class="MegaMenu_Image"
-            />
-          </div>
-        </router-link>
-      </div> -->
   </div>
 </template>
 
@@ -116,16 +66,10 @@ export default {
         return {};
       },
     },
-    // closetList: {
-    //   type: Array,
-    //   default() {
-    //     return [];
-    //   },
-    // },
   },
   data() {
     return {
-      dataList: [],
+      subCategoriesList: [],
       mainSubMenuVisible: false,
     };
   },
@@ -133,9 +77,10 @@ export default {
     ...mapGetters("data", ["GETCHILDCATEGORIES"]),
   },
   methods: {
-    makeDataList() {
-      this.dataList = this.GETCHILDCATEGORIES[this.category.attributes.name];
-      this.dataList.sort(function (a, b) {
+    makeSubCategoriesList() {
+      this.subCategoriesList =
+        this.GETCHILDCATEGORIES[this.category.attributes.name];
+      this.subCategoriesList.sort(function (a, b) {
         if (a.attributes.position > b.attributes.position) {
           return 1;
         }
@@ -155,7 +100,7 @@ export default {
     },
   },
   mounted() {
-    this.makeDataList();
+    this.makeSubCategoriesList();
     // let vm = this;
     // document.addEventListener("click", function (item) {
     //   if (item.target === vm.$refs["MegaMenu_wrapper"]) {

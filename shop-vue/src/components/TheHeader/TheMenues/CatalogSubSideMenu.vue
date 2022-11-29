@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "MainSubMenu",
+  name: "CatalogSubSideMenu",
   props: {
     categoryData: {
       type: Object,
