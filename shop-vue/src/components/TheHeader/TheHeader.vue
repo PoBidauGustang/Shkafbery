@@ -39,12 +39,17 @@ export default {
     ...mapGetters("api_urls", ["getServerShopUrl"]),
   },
   methods: {
-    ...mapActions("data", ["saveChildCategories", "saveMainCategories"]),
+    ...mapActions("data", [
+      "saveAllCategories",
+      "saveChildCategories",
+      "saveMainCategories",
+    ]),
     loadCategoriesList() {
       this.axios
         .get(`${this.getServerShopUrl}/product_categories`)
         .then((response) => {
           this.categoriesList = response.data.data;
+          this.saveAllCategories(this.categoriesList);
         })
         .catch(function (error) {
           console.error(error);

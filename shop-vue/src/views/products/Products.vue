@@ -1,37 +1,49 @@
 <template>
   <div>
-    <h1>Товары</h1>
+    <h3>Товары:</h3>
+    <ul>
+      <li v-for="product in productsList" :key="product.id">
+        <ProductView :product="product" />
+      </li>
+    </ul>
     <div class="Product_Page">
-      <TheProductView
+      <!-- <TheProductView
         v-for="product in products"
         :key="product.id"
         :product_title="product.attributes.title"
         :product_regular_price="product.attributes.regular_price"
         :product_data="product"
         @addToCart="addToCart"
-      />
+      /> -->
     </div>
-    <div>{{ GETALLITEMS }}</div>
+    <!-- <div>{{ GETALLITEMS }}</div> -->
     <!-- <button @click="increment">Добавить в корзину</button> -->
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import TheProductView from "../../components/TheProductView.vue";
+import ProductView from "./ProductView.vue";
 export default {
-  name: "ProductsPage",
+  name: "Products",
   components: {
-    TheProductView,
+    ProductView,
   },
   data() {
     return {
       products: [],
-      b: 111,
     };
   },
+  props: {
+    productsList: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
   created() {
-    this.loadProducts();
+    // this.loadProducts();
   },
   computed: {
     ...mapGetters("cart", ["GETALLITEMS"]),
@@ -42,16 +54,16 @@ export default {
     addToCart(b) {
       this.saveItem(b);
     },
-    loadProducts() {
-      this.axios
-        .get(`${this.getServerShopUrl}/products`)
-        .then((response) => {
-          this.products = response.data.data;
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-    },
+    // loadProducts() {
+    //   this.axios
+    //     .get(`${this.getServerShopUrl}/products`)
+    //     .then((response) => {
+    //       this.products = response.data.data;
+    //     })
+    //     .catch(function (error) {
+    //       console.error(error);
+    //     });
+    // },
   },
 };
 </script>

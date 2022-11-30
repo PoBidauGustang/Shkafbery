@@ -48,14 +48,9 @@ const routes = [
     component: () => import("../views/PostPageSingle.vue"),
   },
   {
-    path: "/products",
-    name: "Products",
-    component: () => import("../views/products/Products.vue"),
-  },
-  {
     path: "/product/:id",
     name: "product",
-    component: () => import("../views/ProductPageSingle.vue"),
+    component: () => import("../views/products/ProductPage.vue"),
   },
   {
     path: "/materials",
@@ -95,7 +90,7 @@ const routes = [
   {
     path: "/category/:slug",
     name: "category",
-    component: () => import("../views/Category.vue"),
+    component: () => import("../views/products/Category.vue"),
   },
   {
     path: "/closets",
