@@ -1,33 +1,43 @@
 <template>
-  <div>
-    <!-- <ul class="all_products_list">
-      <li class="all_pruducts_list_item">
-        <div>Каталог</div>
-        <div @click="closeMegaMenu">Закрыть</div>
-      </li>
-    </ul> -->
+  <div class="">
     <div @click="switchSideMenuVisability">
-      <a class="catalog" @click="showMegaMenuCatalog">
-        <span class="btm_link">Каталог</span
-        ><span class="icon_wrapper">
-          <span class="material-icons-outlined md-18">expand_more</span>
-          <span @click="closeSideMenuVisability">Закрыть</span>
+      <a class="" @click="showMegaMenuCatalog">
+        <span class="">Каталог</span
+        ><span class="">
+          <!-- <span @click="closeSideMenuVisability">Закрыть</span> -->
         </span>
       </a>
     </div>
-    <div class="all_products_wrapper" v-if="sideMenuVisability">
-      <ul class="all_products_list">
-        <li
-          class="all_pruducts_list_item"
-          v-for="category in GETMAINCATEGORIES"
-          :key="category.id"
-        >
-          <span v-if="category.attributes.for_side_menu == true">
-            <CatalogSideMenu :category="category" />
-          </span>
-        </li>
-      </ul>
-    </div>
+    <teleport to="body">
+      <div class="all_products_wrapper" v-if="sideMenuVisability">
+        <div class="all_products_list_wrapper">
+          <div class="all_products_list_header">
+            <span>Каталог</span>
+            <div class="icon_button_close">
+              <span
+                class="material-symbols-outlined"
+                @click="closeSideMenuVisability"
+                >close</span
+              >
+            </div>
+          </div>
+          <ul class="all_products_list">
+            <li
+              class="all_pruducts_list_item_wrapper"
+              v-for="category in GETMAINCATEGORIES"
+              :key="category.id"
+            >
+              <!-- <span > -->
+              <CatalogSideMenu
+                v-if="category.attributes.for_side_menu == true"
+                :category="category"
+              />
+              <!-- </span> -->
+            </li>
+          </ul>
+        </div>
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -60,7 +70,109 @@ export default {
 </script>
 
 <style>
-.catalog {
+.all_products_wrapper {
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  height: 100vh;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* body {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  height: 100vh;
+  padding-left: 24px;
+  padding-right: 24px;
+} */
+
+.all_products_list_wrapper {
+  grid-column: span 3;
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-rows: 64px 1fr;
+  list-style: none;
+  border-right: 1px solid;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-left: -24px;
+  padding-bottom: 64px;
+  background-color: #ffffff;
+}
+
+.all_products_list_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  padding-left: 40px;
+  padding-top: 12px;
+  padding-right: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid;
+}
+
+.icon_button_close {
+  display: flex;
+  padding: 8px;
+  border-radius: 100px;
+}
+
+.all_products_list {
+  display: grid;
+  grid-auto-rows: minmax(72px, max-content);
+  list-style: none;
+}
+
+.all_pruducts_list_item_wrapper {
+  border-bottom: 1px solid;
+}
+
+.all_pruducts_list_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding-left: 40px;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+}
+
+.all_pruducts_list_item_image_meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.all_pruducts_list_item_image {
+  overflow: hidden;
+  width: 56px;
+  aspect-ratio: 1 / 1;
+  margin-right: 16px;
+  border-radius: 8px;
+}
+
+.all_pruducts_list_item_image img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* .catalog {
   grid-column: span 2;
   display: flex;
   justify-content: center;
@@ -200,5 +312,5 @@ export default {
   padding-right: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid;
-}
+} */
 </style>

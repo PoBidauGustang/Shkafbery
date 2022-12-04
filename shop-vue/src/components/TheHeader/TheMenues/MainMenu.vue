@@ -1,29 +1,23 @@
 <template>
   <div>
     <div v-if="category.child_free === true">
-      <router-link
-        class="bottom_menu_link"
-        :to="'/category/' + category.attributes.slug"
-        >{{ category.attributes.name }}</router-link
-      >
+      <router-link class="" :to="'/category/' + category.attributes.slug">{{
+        category.attributes.name
+      }}</router-link>
     </div>
     <div v-else @click="switchMainSubMenuVisability">
       <!-- <a class="bottom_menu_link" @click="showMegaMenuCloset"> -->
-      <a class="bottom_menu_link">
-        <span class="btm_link">{{ category.attributes.name }}</span>
-        <span class="icon_wrapper">
-          <span class="material-icons-outlined md-18">expand_more</span>
+      <a class="">
+        <span class="">{{ category.attributes.name }}</span>
+        <span class="">
+          <span class="material-symbols-outlined">expand_more</span>
         </span>
       </a>
     </div>
-    <div class="MegaMenu_wrapper" v-if="mainSubMenuVisible">
-      <div class="MegaMenu">
-        <ul class="MegaMenu_List">
-          <li
-            class="MegaMenu_Category"
-            v-for="cat in subCategoriesList"
-            :key="cat.id"
-          >
+    <div class="" v-if="mainSubMenuVisible">
+      <div class="">
+        <ul class="">
+          <li class="" v-for="cat in subCategoriesList" :key="cat.id">
             <MainSubMenu
               :categoryData="cat"
               @switchMainSubMenuVisability="switchMainSubMenuVisability"
@@ -32,15 +26,15 @@
           <li
             v-if="category.id == 6"
             @click="switchMainSubMenuVisability"
-            class="Mega_Menu_Conf"
+            class=""
           >
-            <router-link class="bottom_menu_link" to="/closet_planner">
-              <span class="MegaMenu_input">Планировщик шкафа</span>
-              <div class="Mega_Menu_Image_Wrapper">
+            <router-link class="" to="/closet_planner">
+              <span class="">Планировщик шкафа</span>
+              <div class="">
                 <img
                   :src="require('../../../assets/images/2.jpeg')"
                   alt="img"
-                  class="MegaMenu_Image"
+                  class=""
                 />
               </div>
             </router-link>
@@ -112,7 +106,7 @@ export default {
 </script>
 
 <style>
-.bottom_menu_link {
+/* .bottom_menu_link {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,5 +197,5 @@ export default {
   padding-right: 16px;
   background-color: #ffffff;
   border-radius: 12px;
-}
+} */
 </style>

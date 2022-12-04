@@ -1,15 +1,12 @@
 <template>
-  <div>
-    <ul class="bottom_menu">
-      <!-- <div @click="close">BUTTON</div>
-        <div>Test</div> -->
-      <!-- <div>{{ GETMAINCATEGORIES }}</div> -->
-      <!-- <div>{{ filteredMainMenuCategories }}</div> -->
-      <li class="bottom_menu_input">
-        <MenuCatalog />
-      </li>
+  <div class="the_bottom_menu">
+    <button class="catalog_bottom_menu">
+      <span class="material-symbols-outlined">widgets</span>
+      <span><MenuCatalog /></span>
+    </button>
+    <ul class="main_menu">
       <li
-        class="bottom_menu_input"
+        class="main_menu_item"
         v-for="category in filteredMainMenuCategories"
         :key="category.id"
       >
@@ -59,7 +56,69 @@ export default {
 </script>
 
 <style>
-.bottom_menu {
+.the_bottom_menu {
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  border-bottom: 1px solid;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.catalog_bottom_menu {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Golos Ui", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  padding-top: 20px;
+  padding-bottom: 19px;
+  padding-left: 24px;
+  margin-left: -24px;
+  padding-right: 0px;
+  border-right: 1px solid;
+  gap: 8px;
+}
+
+.main_menu {
+  grid-column: span 10;
+  grid-template-columns: repeat(10, 1fr);
+  display: grid;
+  list-style: none;
+}
+
+.main_menu_item {
+  grid-column: span 2;
+  border-right: 1px solid;
+}
+
+.main_menu_item:last-child {
+  border-right: 0px;
+}
+
+.main_menu_item:last-child a {
+  padding-right: 24px;
+  margin-right: -24px;
+}
+
+.main_menu_item a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-family: "Golos Ui", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: black;
+  padding-top: 20px;
+  padding-bottom: 19px;
+}
+
+/* .bottom_menu {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   list-style: none;
@@ -67,9 +126,9 @@ export default {
   background-color: #ffffff;
   padding-left: 24px;
   padding-right: 24px;
-  height: 60px;
-  /* position: sticky; */
-  top: 80px;
+  height: 60px; */
+/* position: sticky; */
+/* top: 80px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.32);
 }
 
@@ -91,5 +150,5 @@ export default {
 .bottom_menu_input:last-child a {
   margin-right: -24px;
   padding-right: 24px;
-}
+} */
 </style>

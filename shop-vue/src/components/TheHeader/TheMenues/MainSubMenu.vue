@@ -1,15 +1,12 @@
 <template>
   <div @click="switchMainSubMenuVisability">
-    <router-link
-      class="bottom_menu_link"
-      :to="'/category/' + categoryData.attributes.slug"
-    >
-      <span class="MegaMenu_input">{{ categoryData.attributes.name }}</span>
-      <div class="Mega_Menu_Image_Wrapper">
+    <router-link class="" :to="'/category/' + categoryData.attributes.slug">
+      <span class="">{{ categoryData.attributes.name }}</span>
+      <div class="">
         <img
           :src="require('../../../assets/images/2.jpeg')"
           alt="img"
-          class="MegaMenu_Image"
+          class=""
         />
       </div>
     </router-link>

@@ -1,53 +1,69 @@
 <template>
-  <div
-    class="all_product_category_open_wrapper"
-    ref="all_product_category_open_wrapper"
-  >
-    <div v-if="category.child_free === true">
-      <router-link
-        class="bottom_menu_link"
-        :to="'/category/' + category.attributes.slug"
-        >{{ category.attributes.name }}</router-link
-      >
+  <div class="">
+    <div class="all_pruducts_list_item" v-if="category.child_free === true">
+      <router-link class="" :to="'/category/' + category.attributes.slug">
+        <div class="all_pruducts_list_item_image_meta">
+          <div class="all_pruducts_list_item_image">
+            <img
+              :src="require('../../../assets/images/2.jpeg')"
+              alt="img"
+              class=""
+            />
+          </div>
+          {{ category.attributes.name }}
+        </div>
+      </router-link>
     </div>
-    <div v-else @click="switchSideSubMenuVisability">
-      <a class="bottom_menu_link">
-        <span class="btm_link">{{ category.attributes.name }}</span>
-        <span class="icon_wrapper">
-          <span class="material-icons-outlined md-18">expand_more</span>
-        </span>
-      </a>
-    </div>
-    <div v-if="sideSubMenuVisability">
-      <ul class="all_product_category_open_list">
-        <li
-          class="MegaMenu_Category"
-          v-for="cat in subCategoriesList"
-          :key="cat.id"
-        >
-          <CatalogSubSideMenu
-            :categoryData="cat"
-            @switchSideSubMenuVisability="switchSideSubMenuVisability"
-          />
-        </li>
-        <li
-          v-if="category.id == 6"
-          @click="switchSideSubMenuVisability"
-          class="Mega_Menu_Conf"
-        >
-          <router-link class="bottom_menu_link" to="/closet_planner">
-            <span class="MegaMenu_input">Планировщик шкафа</span>
-            <div class="Mega_Menu_Image_Wrapper">
+    <div class="" v-else @click="switchSideSubMenuVisability">
+      <a class="all_pruducts_list_item">
+        <span class="">
+          <div class="all_pruducts_list_item_image_meta">
+            <div class="all_pruducts_list_item_image">
               <img
                 :src="require('../../../assets/images/2.jpeg')"
                 alt="img"
-                class="MegaMenu_Image"
+                class=""
               />
             </div>
-          </router-link>
-        </li>
-      </ul>
+            {{ category.attributes.name }}
+          </div>
+        </span>
+        <span class="">
+          <span class="material-symbols-outlined">expand_more</span>
+        </span>
+      </a>
     </div>
+    <teleport to="body">
+      <div
+        class="all_product_category_open_wrapper"
+        v-if="sideSubMenuVisability"
+      >
+        <ul class="">
+          <li class="" v-for="cat in subCategoriesList" :key="cat.id">
+            <CatalogSubSideMenu
+              :categoryData="cat"
+              @switchSideSubMenuVisability="switchSideSubMenuVisability"
+            />
+          </li>
+          <li
+            v-if="category.id == 6"
+            @click="switchSideSubMenuVisability"
+            class=""
+          >
+            <router-link class="" to="/closet_planner">
+              <span class="">Планировщик шкафа</span>
+              <div class="">
+                <img
+                  :src="require('../../../assets/images/2.jpeg')"
+                  alt="img"
+                  class=""
+                />
+              </div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -101,7 +117,82 @@ export default {
 </script>
 
 <style>
+.div_zaebal {
+  width: 100%;
+  height: 100%;
+}
+
 .all_product_category_open_wrapper {
+  grid-column: 4 / span 9;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: minmax(64px, max-content);
+  grid-auto-rows: max-content;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #f8f8f8;
+  padding-bottom: 64px;
+  margin-right: -24px;
+}
+
+.all_product_category_open_header {
+  grid-row: 1;
+  grid-column: span 9;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding-left: 16px;
+  padding-right: 40px;
+  border-bottom: 1px solid;
+}
+
+.all_product_category_open_list {
+  grid-row: 2;
+  grid-column: span 9;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-column-gap: 32px;
+  grid-auto-rows: max-content;
+  grid-row-gap: 32px;
+  list-style: none;
+  padding-top: 16px;
+  padding-right: 40px;
+  padding-left: 16px;
+}
+
+.all_product_category_open_list_item {
+  grid-column: span 3;
+}
+
+.all_product_category_open_list_product {
+  display: flex;
+  flex-direction: column;
+}
+
+.all_product_category_open_list_image {
+  overflow: hidden;
+  aspect-ratio: 4 / 2;
+  margin-bottom: 16px;
+}
+
+.all_product_category_open_list_image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.all_product_category_open_all {
+  grid-row: 3;
+  grid-column: 7 / 13;
+  margin-top: 32px;
+  margin-right: 40px;
+}
+
+/* .all_product_category_open_wrapper {
   grid-column: 4 / span 9;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
@@ -134,5 +225,5 @@ export default {
   grid-column: span 3;
   aspect-ratio: 1 / 1;
   background-color: tomato;
-}
+} */
 </style>

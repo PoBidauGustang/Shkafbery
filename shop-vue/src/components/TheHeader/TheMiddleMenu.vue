@@ -1,9 +1,9 @@
 <template>
-  <div class="header_middle">
-    <button class="search">
-      <span class="material-icons-outlined md-24">search</span>
+  <div class="header_middle_wrapper">
+    <button class="header_middle_search_button">
+      <span class="material-symbols-outlined">search</span>
     </button>
-    <div class="logo">
+    <div class="header_middle_logo_wrapper">
       <svg
         width="216"
         height="48"
@@ -17,20 +17,40 @@
         />
       </svg>
     </div>
-    <div class="navbar_wrapper">
-      <router-link class="cart" to="/cart"
-        ><span class="material-icons-outlined md-24"
+    <ul class="header_middle_bar_wrapper">
+      <li class="header_middle_bar_item">
+        <a href="/">
+          <span class="material-symbols-outlined">shopping_cart</span
+          ><span class="header_middle_bar_item_lnk">Корзина</span>
+        </a>
+      </li>
+      <li class="header_middle_bar_item">
+        <a href="/">
+          <span class="material-symbols-outlined">favorite</span
+          ><span class="header_middle_bar_item_lnk">Избранное</span>
+        </a>
+      </li>
+      <li class="header_middle_bar_item">
+        <a href="/login">
+          <span class="material-symbols-outlined">person</span
+          ><span class="header_middle_bar_item_lnk">Войти</span>
+        </a>
+      </li>
+    </ul>
+    <!-- <div class="header_middle_bar_wrapper">
+      <router-link class="" to="/cart"
+        ><span class=""
           >shopping_cart</span
         ></router-link
       >
-      <a class="cart" href="/"
-        ><span class="material-icons-outlined md-24">favorite_border</span></a
+      <a class="" href="/"
+        ><span class="">favorite_border</span></a
       >
-    </div>
-    <router-link class="login" to="/login"
-      ><span class="material-icons-outlined md-24">person</span
-      ><span class="login_text">Войти</span></router-link
-    >
+    </div> -->
+    <!-- <router-link class="" to="/login"
+      ><span class="">person</span
+      ><span class="">Войти</span></router-link
+    > -->
   </div>
 </template>
 
@@ -42,7 +62,60 @@ export default {
 </script>
 
 <style>
-.header_middle {
+.header_middle_wrapper {
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  background-color: #1c1c1c;
+  padding-left: 24px;
+  padding-right: 24px;
+  max-height: 80px;
+}
+
+.header_middle_search_button {
+  display: flex;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 100px;
+}
+
+.header_middle_logo_wrapper {
+  justify-content: center;
+  grid-column: 5 / 9;
+  display: flex;
+}
+
+.header_middle_bar_wrapper {
+  grid-column: 9 / 13;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  list-style: none;
+}
+
+.header_middle_bar_item {
+  grid-column: span 1;
+}
+
+.header_middle_bar_item a {
+  grid-column: span 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.header_middle_bar_item_lnk {
+  padding-top: 8px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+}
+/* .header_middle {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-column-gap: 32px;
@@ -50,9 +123,9 @@ export default {
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 16px;
-  padding-bottom: 16px;
-  /* position: sticky; */
-  top: 0px;
+  padding-bottom: 16px; */
+/* position: sticky; */
+/* top: 0px;
 }
 
 .navbar_wrapper {
@@ -131,5 +204,5 @@ export default {
   grid-column-end: span 4;
   justify-self: center;
   align-self: center;
-}
+} */
 </style>
