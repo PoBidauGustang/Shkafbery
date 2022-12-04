@@ -7,7 +7,7 @@
     <div>
       <CategoryWorkExample :category="currentCategory" />
     </div>
-    <div>
+    <div v-if="productsList.length">
       <Products :productsList="productsList" />
     </div>
     <!-- <div>{{ productsList }}</div> -->
@@ -15,7 +15,7 @@
     <!-- <div v-for="categ in GETMAINCATEGORIES" :key="categ.id">
       {{ categ }}
     </div> -->
-    <!-- <div>{{ GETALLITEMS }}</div> -->
+    <!-- <div>{{ GETMAINCATEGORIES }}</div> -->
     <!-- <button @click="increment">Добавить в корзину</button> -->
   </div>
 </template>

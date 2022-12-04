@@ -140,9 +140,9 @@ class ProductListSerializer(serializers.ModelSerializer):
     # )
     category = ParentCategoryFilterSerializer(read_only=True, many=True)
     product_image = ProductMainImageSerializer(read_only=True, many=True)
-    # product_specification_value = ProductSpecificationValueSerializer(many=True)
-    # color_price = ColorPriceSerializer(many=True)
-    # dimensions_value = DimensionsValueSerializer(many=True)
+    product_specification_value = ProductSpecificationValueSerializer(many=True)
+    color_price = ColorPriceSerializer(many=True)
+    dimensions_value = DimensionsValueSerializer(many=True)
 
     class Meta:
         model = Product
