@@ -3,8 +3,18 @@
     <h3>Товары:</h3>
     <div>
       Фильтры:
+      <p>цена</p>
       <input type="number" v-model="minInputPrice" placeholder="0" />
       <input type="number" v-model="maxInputPrice" placeholder="0" />
+      <p>ширина</p>
+      <input type="number" v-model="minInputWidth" placeholder="0" />
+      <input type="number" v-model="maxInputWidth" placeholder="0" />
+      <p>глубина</p>
+      <input type="number" v-model="minInputDepth" placeholder="0" />
+      <input type="number" v-model="maxInputDepth" placeholder="0" />
+      <p>высота</p>
+      <input type="number" v-model="minInputHeight" placeholder="0" />
+      <input type="number" v-model="maxInputHeight" placeholder="0" />
     </div>
     <ul>
       <li v-for="product in filteredProducts" :key="product.id">
@@ -40,6 +50,10 @@ export default {
       maxInputPrice: null,
       minInputWidth: null,
       maxInputWidth: null,
+      minInputDepth: null,
+      maxInputDepth: null,
+      minInputHeight: null,
+      maxInputHeight: null,
     };
   },
   props: {
@@ -60,12 +74,123 @@ export default {
       let tempProducts = this.productsList;
 
       if (this.minInputPrice) {
-        console.log(1);
         tempProducts = tempProducts.filter((item) => {
           return item.attributes.regular_price >= this.minInputPrice;
         });
       }
-
+      if (this.maxInputPrice) {
+        tempProducts = tempProducts.filter((item) => {
+          return item.attributes.regular_price <= this.maxInputPrice;
+        });
+      }
+      if (this.minInputWidth) {
+        tempProducts = tempProducts.filter((item) => {
+          let switcher = false;
+          for (let dimension_dict in item.attributes.dimensions_value) {
+            if (
+              Number(
+                item.attributes.dimensions_value[dimension_dict].value.split(
+                  "-"
+                )[0]
+              ) >= this.minInputWidth
+            ) {
+              switcher = true;
+              break;
+            }
+          }
+          return switcher;
+        });
+      }
+      if (this.maxInputWidth) {
+        tempProducts = tempProducts.filter((item) => {
+          let switcher = false;
+          for (let dimension_dict in item.attributes.dimensions_value) {
+            if (
+              Number(
+                item.attributes.dimensions_value[dimension_dict].value.split(
+                  "-"
+                )[0]
+              ) <= this.maxInputWidth
+            ) {
+              switcher = true;
+              break;
+            }
+          }
+          return switcher;
+        });
+      }
+      if (this.minInputDepth) {
+        tempProducts = tempProducts.filter((item) => {
+          let switcher = false;
+          for (let dimension_dict in item.attributes.dimensions_value) {
+            if (
+              Number(
+                item.attributes.dimensions_value[dimension_dict].value.split(
+                  "-"
+                )[1]
+              ) >= this.minInputDepth
+            ) {
+              switcher = true;
+              break;
+            }
+          }
+          return switcher;
+        });
+      }
+      if (this.maxInputDepth) {
+        tempProducts = tempProducts.filter((item) => {
+          let switcher = false;
+          for (let dimension_dict in item.attributes.dimensions_value) {
+            if (
+              Number(
+                item.attributes.dimensions_value[dimension_dict].value.split(
+                  "-"
+                )[1]
+              ) <= this.maxInputDepth
+            ) {
+              switcher = true;
+              break;
+            }
+          }
+          return switcher;
+        });
+      }
+      if (this.minInputHeight) {
+        tempProducts = tempProducts.filter((item) => {
+          let switcher = false;
+          for (let dimension_dict in item.attributes.dimensions_value) {
+            if (
+              Number(
+                item.attributes.dimensions_value[dimension_dict].value.split(
+                  "-"
+                )[2]
+              ) >= this.minInputHeight
+            ) {
+              switcher = true;
+              break;
+            }
+          }
+          return switcher;
+        });
+      }
+      if (this.maxInputHeight) {
+        tempProducts = tempProducts.filter((item) => {
+          let switcher = false;
+          for (let dimension_dict in item.attributes.dimensions_value) {
+            if (
+              Number(
+                item.attributes.dimensions_value[dimension_dict].value.split(
+                  "-"
+                )[2]
+              ) <= this.maxInputHeight
+            ) {
+              switcher = true;
+              break;
+            }
+          }
+          return switcher;
+        });
+      }
       return tempProducts;
     },
   },
