@@ -3,18 +3,50 @@
     <h3>Товары:</h3>
     <div>
       Фильтры:
-      <p>цена</p>
-      <input type="number" v-model="minInputPrice" placeholder="0" />
-      <input type="number" v-model="maxInputPrice" placeholder="0" />
-      <p>ширина</p>
-      <input type="number" v-model="minInputWidth" placeholder="0" />
-      <input type="number" v-model="maxInputWidth" placeholder="0" />
-      <p>глубина</p>
-      <input type="number" v-model="minInputDepth" placeholder="0" />
-      <input type="number" v-model="maxInputDepth" placeholder="0" />
-      <p>высота</p>
-      <input type="number" v-model="minInputHeight" placeholder="0" />
-      <input type="number" v-model="maxInputHeight" placeholder="0" />
+      <div v-if="productsList[0].attributes.regular_price.length">
+        <p>цена</p>
+        <input type="number" v-model="minInputPrice" placeholder="0" />
+        <input type="number" v-model="maxInputPrice" placeholder="0" />
+      </div>
+      <div v-if="productsList[0].attributes.dimensions_value.length">
+        <div
+          v-if="
+            productsList[0].attributes.dimensions_value[0].dimension[0] == 'Ш'
+          "
+        >
+          <!-- <div> -->
+          <p>ширина</p>
+          <input type="number" v-model="minInputWidth" placeholder="0" />
+          <input type="number" v-model="maxInputWidth" placeholder="0" />
+        </div>
+        <div
+          v-if="
+            productsList[0].attributes.dimensions_value[0].dimension[1] == 'Г'
+          "
+        >
+          <p>глубина</p>
+          <input type="number" v-model="minInputDepth" placeholder="0" />
+          <input type="number" v-model="maxInputDepth" placeholder="0" />
+        </div>
+        <div
+          v-if="
+            productsList[0].attributes.dimensions_value[0].dimension[2] == 'В'
+          "
+        >
+          <p>высота</p>
+          <input type="number" v-model="minInputHeight" placeholder="0" />
+          <input type="number" v-model="maxInputHeight" placeholder="0" />
+        </div>
+        <div
+          v-if="
+            productsList[0].attributes.dimensions_value[0].dimension == 'п.м.'
+          "
+        >
+          <p>ширина п.м.</p>
+          <input type="number" v-model="minInputPM" placeholder="0" />
+          <input type="number" v-model="maxInputPM" placeholder="0" />
+        </div>
+      </div>
     </div>
     <ul>
       <li v-for="product in filteredProducts" :key="product.id">
@@ -54,6 +86,8 @@ export default {
       maxInputDepth: null,
       minInputHeight: null,
       maxInputHeight: null,
+      minInputPM: null,
+      maxInputPM: null,
     };
   },
   props: {
@@ -183,6 +217,36 @@ export default {
                   "-"
                 )[2]
               ) <= this.maxInputHeight
+            ) {
+              switcher = true;
+              break;
+            }
+          }
+          return switcher;
+        });
+      }
+      if (this.minInputPM) {
+        tempProducts = tempProducts.filter((item) => {
+          let switcher = false;
+          for (let dimension_dict in item.attributes.dimensions_value) {
+            if (
+              Number(item.attributes.dimensions_value[dimension_dict].value) >=
+              this.minInputPM
+            ) {
+              switcher = true;
+              break;
+            }
+          }
+          return switcher;
+        });
+      }
+      if (this.maxInputPM) {
+        tempProducts = tempProducts.filter((item) => {
+          let switcher = false;
+          for (let dimension_dict in item.attributes.dimensions_value) {
+            if (
+              Number(item.attributes.dimensions_value[dimension_dict].value) <=
+              this.maxInputPM
             ) {
               switcher = true;
               break;
