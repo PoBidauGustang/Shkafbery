@@ -1,6 +1,7 @@
 <template>
   <div>
     <router-link :to="'/product/' + product.id">
+      <p>{{ product.attributes.title }}</p>
       <li v-for="line in product.attributes" :key="line">
         {{ line }}
       </li>

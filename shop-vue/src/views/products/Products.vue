@@ -47,12 +47,47 @@
           <input type="number" v-model="maxInputPM" placeholder="0" />
         </div>
       </div>
+      <div v-if="productsList[0].attributes.color_price.length">
+        <p>цвета</p>
+        <div>choosed colors: {{ choosedColors }}</div>
+        <input
+          type="checkbox"
+          @click="checkAllColors()"
+          v-model="isCheckAllColors"
+        />
+        Check All
+        <ul>
+          <li v-for="color in getColors" :key="color.id">
+            <input
+              type="checkbox"
+              :value="color"
+              :id="color"
+              v-model="choosedColors"
+              @change="updateCheckallColors()"
+            />
+            <label :for="color">{{ color }}</label>
+          </li>
+        </ul>
+        <!-- <input type="checkbox" id="jack" value="Jack" v-model="checkedNames"> -->
+
+        <!-- <input type="checkbox" value="color 2" v-model="choosedColors" /> -->
+        <!-- <label for="color1">color 1</label> -->
+        <!-- <input type="number" v-model="maxInputPrice" placeholder="0" /> -->
+      </div>
     </div>
-    <ul>
+
+    <!-- {{filteredProducts}} -->
+    <ul v-if="filteredProducts.length">
       <li v-for="product in filteredProducts" :key="product.id">
         <ProductView :product="product" />
       </li>
     </ul>
+    <!-- <ul v-else>
+      
+      <li v-for="product in productsList" :key="product.id">
+        <ProductView :product="product" />
+      </li>
+    </ul> -->
     <!-- <div class="Product_Page">
       <TheProductView
         v-for="product in products"
@@ -88,6 +123,8 @@ export default {
       maxInputHeight: null,
       minInputPM: null,
       maxInputPM: null,
+      choosedColors: [],
+      isCheckAllColors: false,
     };
   },
   props: {
@@ -100,11 +137,41 @@ export default {
   },
   created() {
     // this.loadProducts();
+    this.checkAllColors();
+    // this.filteredProducts;
   },
+  // mounted() {
+  //   // this.loadProducts();
+  //   this.checkAllColors();
+  //   // this.filteredProducts;
+  // },
   computed: {
     ...mapGetters("cart", ["GETALLITEMS"]),
     ...mapGetters("api_urls", ["getServerShopUrl"]),
+    getColors() {
+      let colorsList = [];
+      for (let item in this.productsList) {
+        if (this.productsList[item].attributes.color_price) {
+          for (let colorData in this.productsList[item].attributes
+            .color_price) {
+            if (
+              !colorsList.includes(
+                this.productsList[item].attributes.color_price[colorData].color
+                  .name
+              )
+            ) {
+              colorsList.push(
+                this.productsList[item].attributes.color_price[colorData].color
+                  .name
+              );
+            }
+          }
+        }
+      }
+      return colorsList;
+    },
     filteredProducts() {
+      console.log(1);
       let tempProducts = this.productsList;
 
       if (this.minInputPrice) {
@@ -115,6 +182,22 @@ export default {
       if (this.maxInputPrice) {
         tempProducts = tempProducts.filter((item) => {
           return item.attributes.regular_price <= this.maxInputPrice;
+        });
+      }
+      if (this.choosedColors.length) {
+        tempProducts = tempProducts.filter((item) => {
+          let switcher = false;
+          for (let colorDict in item.attributes.color_price) {
+            if (
+              this.choosedColors.includes(
+                item.attributes.color_price[colorDict].color.name
+              )
+            ) {
+              switcher = true;
+              break;
+            }
+          }
+          return switcher;
         });
       }
       if (this.minInputWidth) {
@@ -262,6 +345,22 @@ export default {
     ...mapActions("cart", ["saveItem", "loadCart"]),
     addToCart(b) {
       this.saveItem(b);
+    },
+    checkAllColors() {
+      this.isCheckAllColors = !this.isCheckAllColors;
+      this.choosedColors = [];
+      if (this.isCheckAllColors) {
+        for (let key in this.getColors) {
+          this.choosedColors.push(this.getColors[key]);
+        }
+      }
+    },
+    updateCheckallColors() {
+      if (this.choosedColors.length == this.getColors.length) {
+        this.isCheckAllColors = true;
+      } else {
+        this.isCheckAllColors = false;
+      }
     },
     // onChangeWidth(event) {
     //   this.chooseDimensionsWidth(event.target.value);
