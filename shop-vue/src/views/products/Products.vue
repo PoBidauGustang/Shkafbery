@@ -2,6 +2,10 @@
   <div>
     <h3>Товары:</h3>
     <div>
+      Сортировка:
+      <button v-on:click="ascending = !ascending">i`m a sort button</button>
+    </div>
+    <div>
       Фильтры:
       <div v-if="productsList[0].attributes.regular_price.length">
         <p>цена</p>
@@ -52,10 +56,10 @@
         <div>choosed colors: {{ choosedColors }}</div>
         <input
           type="checkbox"
-          @click="checkAllColors()"
+          @click="resetAllColors()"
           v-model="isCheckAllColors"
         />
-        Check All
+        Reset
         <ul>
           <li v-for="color in getColors" :key="color.id">
             <input
@@ -125,6 +129,7 @@ export default {
       maxInputPM: null,
       choosedColors: [],
       isCheckAllColors: false,
+      ascending: true,
     };
   },
   props: {
@@ -137,14 +142,9 @@ export default {
   },
   created() {
     // this.loadProducts();
-    this.checkAllColors();
-    // this.filteredProducts;
+    // this.checkAllColors();
+    // this.resetAllColors();
   },
-  // mounted() {
-  //   // this.loadProducts();
-  //   this.checkAllColors();
-  //   // this.filteredProducts;
-  // },
   computed: {
     ...mapGetters("cart", ["GETALLITEMS"]),
     ...mapGetters("api_urls", ["getServerShopUrl"]),
@@ -168,10 +168,10 @@ export default {
           }
         }
       }
+      this.resetAllColors();
       return colorsList;
     },
     filteredProducts() {
-      console.log(1);
       let tempProducts = this.productsList;
 
       if (this.minInputPrice) {
@@ -338,6 +338,16 @@ export default {
           return switcher;
         });
       }
+      if (this.ascending) {
+        tempProducts = tempProducts.sort((a, b) => {
+          return a.attributes.regular_price - b.attributes.regular_price;
+        });
+      }
+      if (!this.ascending) {
+        tempProducts = tempProducts.sort((a, b) => {
+          return b.attributes.regular_price - a.attributes.regular_price;
+        });
+      }
       return tempProducts;
     },
   },
@@ -346,8 +356,8 @@ export default {
     addToCart(b) {
       this.saveItem(b);
     },
-    checkAllColors() {
-      this.isCheckAllColors = !this.isCheckAllColors;
+    resetAllColors() {
+      this.isCheckAllColors = false;
       this.choosedColors = [];
       if (this.isCheckAllColors) {
         for (let key in this.getColors) {
