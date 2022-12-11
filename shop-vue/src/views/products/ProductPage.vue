@@ -1,18 +1,31 @@
 <template>
   <div v-if="isProductFetched">
     <h2>{{ productData.attributes.title }}</h2>
-    <span v-html="productData.attributes.description"></span>
-    <span>, {{ productData.attributes.dimensions_value[0].value }}</span>
-    <div>{{ productData.attributes.regular_price }} ₽</div>
+    <span
+      v-if="productData.attributes.description"
+      v-html="productData.attributes.description"
+    ></span>
+    <span v-if="productData.attributes.description">, </span>
+    <span v-if="choosedDimesion">{{ choosedDimesion.value }}, </span>
+    <span v-else>
+      {{ productData.attributes.dimensions_value[0].value }},
+    </span>
+    <span v-if="choosedColor">{{ choosedColor.color.name }}</span>
+    <span v-else>
+      {{ productData.attributes.color_price[0].color.name }}
+    </span>
+    <div v-if="productData.attributes.regular_price">{{ updatedPrice }} ₽</div>
     <div>Описание</div>
     <div>Характеристики</div>
-    <span
-      >Вариантов размeров: {{ productData.attributes.dimensions_value.length }},
-      вариантов цветов: {{ productData.attributes.color_price.length }}</span
+    <span v-if="productData.attributes.dimensions_value.length"
+      >Вариантов размeров:
+      {{ productData.attributes.dimensions_value.length }}</span
+    >
+    <span v-if="productData.attributes.color_price.length"
+      >, вариантов цветов: {{ productData.attributes.color_price.length }}</span
     >
     <div>
-    <!-- <div> -->
-      <span @click="dimensionsVisability=!dimensionsVisability"
+      <span @click="dimensionsVisability = !dimensionsVisability"
         >Выберите размер ({{
           productData.attributes.dimensions_value.length
         }})</span
@@ -25,7 +38,7 @@
           >
             <input
               type="radio"
-              :value="dimension.value"
+              :value="dimension"
               :id="dimension"
               v-model="choosedDimesion"
             />
@@ -33,14 +46,53 @@
           </li>
         </ul>
       </div>
-      <div v-if="choosedDimesion.length" @click="dimensionsVisability=!dimensionsVisability">{{ choosedDimesion }} мм</div>
-      <div v-else @click="dimensionsVisability=!dimensionsVisability">
-        {{ productData.attributes.dimensions_value[0].value }} мм
+      <div
+        v-if="choosedDimesion"
+        @click="dimensionsVisability = !dimensionsVisability"
+      >
+        {{ choosedDimesion.value }}
+      </div>
+      <div v-else @click="dimensionsVisability = !dimensionsVisability">
+        {{ productData.attributes.dimensions_value[0].value }}
+      </div>
+      <p></p>
+      <span @click="colorsVisability = !colorsVisability"
+        >Выберите цвет ({{ productData.attributes.color_price.length }})</span
+      >
+      <div v-if="colorsVisability">
+        <ul>
+          <li
+            v-for="color in productData.attributes.color_price"
+            :key="color.id"
+          >
+            <input
+              type="radio"
+              :value="color"
+              :id="color"
+              v-model="choosedColor"
+            />
+            <label :for="color">{{ color.color.name }}</label>
+          </li>
+        </ul>
+      </div>
+      <div v-if="choosedColor" @click="colorsVisability = !colorsVisability">
+        {{ choosedColor.color.name }}
+      </div>
+      <div v-else @click="colorsVisability = !colorsVisability">
+        {{ productData.attributes.color_price[0].color.name }}
       </div>
     </div>
-    <p v-for="(value, key) in productData.attributes" :key="value">
-      {{ key }}: {{ value }}
-    </p>
+    <div v-if="productData.attributes.description">
+      {{ productData.attributes.description }}
+    </div>
+    <div v-if="productData.attributes.product_specification_value.length">
+      <div
+        v-for="value in productData.attributes.product_specification_value"
+        :key="value"
+      >
+        {{ value.specification }}: {{ value.value }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -52,8 +104,10 @@ export default {
   data() {
     return {
       productData: [],
-      dimensionsVisability: true,
-      choosedDimesion: "",
+      dimensionsVisability: false,
+      colorsVisability: false,
+      choosedDimesion: null,
+      choosedColor: null,
       isProductFetched: false,
     };
   },
@@ -62,6 +116,18 @@ export default {
   },
   computed: {
     ...mapGetters("api_urls", ["getServerShopUrl"]),
+    updatedPrice() {
+      let price = Number(
+        Number(this.productData.attributes.regular_price).toFixed()
+      );
+      if (this.choosedDimesion) {
+        price = Number(price) + this.choosedDimesion.price_change;
+      }
+      if (this.choosedColor) {
+        price = Number(price) * (1 + this.choosedColor.price_percent * 0.01);
+      }
+      return Number(price.toFixed());
+    },
   },
   methods: {
     async loadProduct() {
