@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Товары:</h3>
-    <div>
+    <div v-if="productsList[0].attributes.regular_price.length">
       Сортировка:
       <button v-on:click="ascending = !ascending">i`m a sort button</button>
     </div>
@@ -140,11 +140,7 @@ export default {
       },
     },
   },
-  created() {
-    // this.loadProducts();
-    // this.checkAllColors();
-    // this.resetAllColors();
-  },
+  created() {},
   computed: {
     ...mapGetters("cart", ["GETALLITEMS"]),
     ...mapGetters("api_urls", ["getServerShopUrl"]),
@@ -372,19 +368,6 @@ export default {
         this.isCheckAllColors = false;
       }
     },
-    // onChangeWidth(event) {
-    //   this.chooseDimensionsWidth(event.target.value);
-    // },
-    // loadProducts() {
-    //   this.axios
-    //     .get(`${this.getServerShopUrl}/products`)
-    //     .then((response) => {
-    //       this.products = response.data.data;
-    //     })
-    //     .catch(function (error) {
-    //       console.error(error);
-    //     });
-    // },
   },
 };
 </script>
