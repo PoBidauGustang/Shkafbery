@@ -1,37 +1,33 @@
 <template>
   <div>
     <h2>Корзина</h2>
-    <div>{{ GETALLITEMS }}</div>
+    <div v-if="isLocalStorage && cartIsReady">{{ GETALLITEMS }}</div>
+    <div v-else>Корзина пуста</div>
+    <button @click="removeCart">Очистить корзину</button>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "TheCart",
   components: {},
   data() {
     return {
-      // aboutCompany: [],
+      cartIsReady: true,
+      isLocalStorage: localStorage.getItem("cart"),
     };
   },
-  created() {
-    // this.loadAboutCompany();
-  },
+  mounted() {},
   computed: {
     ...mapGetters("cart", ["GETALLITEMS"]),
   },
   methods: {
-    // loadAboutCompany() {
-    //   this.axios
-    //     .get(`${this.getServerInformationUrl}/about_company`)
-    //     .then((response) => {
-    //       this.aboutCompany = response.data.data;
-    //     })
-    //     .catch(function (error) {
-    //       console.error(error);
-    //     });
-    // },
+    ...mapActions("cart", ["clearCart"]),
+    removeCart() {
+      this.clearCart();
+      this.cartIsReady = false;
+    },
   },
 };
 </script>

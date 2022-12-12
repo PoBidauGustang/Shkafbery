@@ -19,7 +19,7 @@
     </div>
     <ul class="header_middle_bar_wrapper">
       <li class="header_middle_bar_item">
-        <a href="/">
+        <a href="/#/cart">
           <span class="material-symbols-outlined">shopping_cart</span
           ><span class="header_middle_bar_item_lnk">Корзина</span>
         </a>
@@ -31,7 +31,7 @@
         </a>
       </li>
       <li class="header_middle_bar_item">
-        <a href="/login">
+        <a href="/#/login">
           <span class="material-symbols-outlined">person</span
           ><span class="header_middle_bar_item_lnk">Войти</span>
         </a>

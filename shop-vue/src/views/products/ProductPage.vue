@@ -82,6 +82,9 @@
         {{ productData.attributes.color_price[0].color.name }}
       </div>
     </div>
+    <button v-if="choosedColor && choosedDimesion" @click="addToCart(cartData)">
+      Добавить в корзину
+    </button>
     <div v-if="productData.attributes.description">
       {{ productData.attributes.description }}
     </div>
@@ -93,11 +96,16 @@
         {{ value.specification }}: {{ value.value }}
       </div>
     </div>
+    <div v-if="choosedColor && choosedDimesion">
+      {{ cartData }}
+      <!-- <div v-for="(key, value) in cartData" :key="value">{{ key }}: {{ value }}</div> -->
+    </div>
+    <p>{{ productData }}</p>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "ProductPage",
   components: {},
@@ -128,8 +136,26 @@ export default {
       }
       return Number(price.toFixed());
     },
+    cartData() {
+      let result = {};
+      let uuid =
+        String(this.productData.id) +
+        String(this.choosedColor.id) +
+        String(this.choosedDimesion.id);
+      result["uuid"] = uuid;
+      result["id"] = this.productData.id;
+      result["title"] = this.productData.attributes.title;
+      result["category"] = this.productData.attributes.category;
+      result["color"] = this.choosedColor;
+      result["dimensions"] = this.choosedDimesion;
+      result["product_specification"] =
+        this.productData.attributes.product_specification_value;
+      result["price"] = this.updatedPrice;
+      return result;
+    },
   },
   methods: {
+    ...mapActions("cart", ["saveItem"]),
     async loadProduct() {
       await this.axios
         .get(`${this.getServerShopUrl}/product/${this.$route.params.id}`)
@@ -140,6 +166,9 @@ export default {
           console.error(error);
         });
       this.isProductFetched = true;
+    },
+    addToCart(payload) {
+      this.saveItem(payload);
     },
   },
 };
