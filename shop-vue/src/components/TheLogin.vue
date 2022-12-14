@@ -41,7 +41,7 @@ export default {
             "auth_token",
             response.data.data.attributes.auth_token
           );
-          this.$router.push({ name: "wardrobe" });
+          this.$router.push({ name: "HomePage" });
           alert("Мы здесь");
         })
         .catch((error) => console.log(error, error.response));

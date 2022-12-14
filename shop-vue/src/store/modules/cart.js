@@ -19,21 +19,31 @@ const mutations = {
       };
     }
   },
+  removeItemMut(state, payload) {
+    let item = state.cart[payload.uuid];
+    if (item && state.cart[payload.uuid].quantity > 1) {
+      state.cart[payload.uuid] = {
+        item: payload,
+        quantity: state.cart[payload.uuid].quantity - 1,
+      };
+    }
+  },
   saveDataMut(state) {
     localStorage.setItem("cart", JSON.stringify(state.cart));
   },
   clearCartMut(state) {
     state.cart = {};
     localStorage.removeItem("cart");
-    // localStorage.setItem("cart", JSON.stringify(state.cart));
-
-    // localStorage.setItem("cart", JSON.stringify(state.cart));
   },
 };
 
 const actions = {
   saveItem({ commit }, payload) {
     commit("saveItemMut", payload);
+    commit("saveDataMut");
+  },
+  removeItem({ commit }, payload) {
+    commit("removeItemMut", payload);
     commit("saveDataMut");
   },
   clearCart({ commit }) {
