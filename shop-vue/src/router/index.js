@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomePage from "../views/home_page/HomePage.vue";
+import getters from "../store/modules/auth.js";
+// import { mapActions } from "vuex"
 
 const routes = [
   {
@@ -10,7 +12,25 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../components/TheLogin.vue"),
+    component: () => import("../components/TheAuth/TheLogin.vue"),
+  },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   component: () => import("../components/TheLogin.vue"),
+  // },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("../components/TheAuth/TheRegister.vue"),
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () => import("../views/Dashboard.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/about",
@@ -167,6 +187,19 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    // if (this.store.modules.auth.getters.isLoggedIn) {
+    if (getters.ISLOGGEDIN) {
+      next();
+      return;
+    }
+    next("/login");
+  } else {
+    next();
+  }
 });
 
 export default router;

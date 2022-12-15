@@ -29,7 +29,7 @@ export default {
       this.axios
 
         .post(
-          `${this.getServerAuthUrl}/login/`,
+          `${this.getServerAuthUrl}/token/login/`,
           {
             username: this.login,
             password: this.password,

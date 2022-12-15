@@ -5,6 +5,7 @@ import api_urls from "./modules/api_urls";
 import data from "./modules/data";
 import cart from "./modules/cart";
 import test from "./modules/test";
+import auth from "./modules/auth";
 import App from "/src/App.vue";
 
 const store = createStore({
@@ -14,6 +15,7 @@ const store = createStore({
     data,
     cart,
     test,
+    auth,
   },
 });
 

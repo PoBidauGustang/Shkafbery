@@ -7,4 +7,8 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 
 const app = Vue.createApp(App);
+const token = localStorage.getItem("token");
+if (token) {
+  axios.defaults.headers.common["Authorization"] = token;
+}
 app.use(store).use(router).use(VueAxios, axios).mount("#app");

@@ -31,33 +31,45 @@
         </a>
       </li>
       <li class="header_middle_bar_item">
-        <a href="/#/login">
-          <span class="material-symbols-outlined">person</span
-          ><span class="header_middle_bar_item_lnk">Войти</span>
+        <!-- <a href="/#/login">
+          <span class="material-symbols-outlined">person</span><span class="header_middle_bar_item_lnk">Войти</span>
+        </a> -->
+        <a v-if="!isLoggedIn" href="/#/login">
+          <span class="material-symbols-outlined">person</span>
+          <span class="header_middle_bar_item_lnk">Войти</span>
+        </a>
+        <a v-if="isLoggedIn" @click="logout">
+          <span class="material-symbols-outlined">person</span>
+          <span class="header_middle_bar_item_lnk">Выйти</span>
         </a>
       </li>
     </ul>
-    <!-- <div class="header_middle_bar_wrapper">
-      <router-link class="" to="/cart"
-        ><span class=""
-          >shopping_cart</span
-        ></router-link
-      >
-      <a class="" href="/"
-        ><span class="">favorite_border</span></a
-      >
-    </div> -->
-    <!-- <router-link class="" to="/login"
-      ><span class="">person</span
-      ><span class="">Войти</span></router-link
-    > -->
   </div>
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "MiddleMenu",
+  data() {
+    return {
+      // isLoggedIn: false
+    };
+  },
+  computed: {
+    ...mapGetters("auth", ["ISLOGGEDIN"]),
+    isLoggedIn() {
+      return this.ISLOGGEDIN;
+    },
+  },
+  methods: {
+    ...mapActions("auth", ["logoutUser"]),
+    logout() {
+      this.logoutUser().then(() => {
+        this.$router.push("/login");
+      });
+    },
+  },
 };
 </script>
 

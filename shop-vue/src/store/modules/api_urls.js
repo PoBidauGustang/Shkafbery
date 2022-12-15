@@ -3,12 +3,12 @@ const state = {
   backendBlogUrl: "http://127.0.0.1:8000/api/blog",
   backendClosetUrl: "http://127.0.0.1:8000/api/closet",
   backendInformationUrl: "http://127.0.0.1:8000/api/information",
-  backendAuthUrl: "http://127.0.0.1:8000/api/auth/token",
+  backendAuthUrl: "http://127.0.0.1:8000/api/auth",
   // backendShopUrl: "http://185.46.11.192/api/shop",
   // backendBlogUrl: "http://185.46.11.192/api/blog",
   // backendClosetUrl: "http://185.46.11.192/api/closet",
   // backendInformationUrl: "http://185.46.11.192/api/information",
-  // backendAuthUrl: "http://185.46.11.192/api/auth/token",
+  // backendAuthUrl: "http://185.46.11.192/api/auth",
 };
 const getters = {
   getServerShopUrl(state) {
