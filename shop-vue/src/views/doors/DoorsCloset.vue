@@ -1,5 +1,0 @@
-<template>
-  <div>
-    <h1>Двери в шкаф</h1>
-  </div>
-</template>

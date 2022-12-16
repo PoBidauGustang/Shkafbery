@@ -1,52 +1,20 @@
 @font-face {
-    font-family: 'PT Root UI';
-    src: url('../fonts/PT-Root-UI_Regular.woff2') format('woff2'), url('../fonts/PT-Root-UI_Regular.woff') format('woff');
+    font-family: 'Golos UI';
+    src: url('../fonts/golos-ui_regular.woff2') format('woff2'), url('../fonts/golos-ui_regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'PT Root UI';
-    src: url('../fonts/PT-Root-UI_Medium.woff2') format('woff2'), url('../fonts/PT-Root-UI_Medium.woff') format('woff');
+    font-family: 'Golos UI';
+    src: url('../fonts/golos-ui_medium.woff2') format('woff2'), url('../fonts/golos-ui_medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'PT Root UI';
-    src: url('../fonts/PT-Root-UI_Bold.woff2') format('woff2'), url('../fonts/PT-Root-UI_Bold.woff') format('woff');
+    font-family: 'Golos UI';
+    src: url('../fonts/golos-ui_bold.woff2') format('woff2'), url('../fonts/golos-ui_bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
-}
-
-.material-icons.md-18 {
-    font-size: 18px;
-}
-
-.material-icons.md-24 {
-    font-size: 24px;
-}
-
-.material-icons.md-36 {
-    font-size: 36px;
-}
-
-.material-icons.md-48 {
-    font-size: 48px;
-}
-
-.material-icons-outlined.md-18 {
-    font-size: 18px;
-}
-
-.material-icons-outlined.md-24 {
-    font-size: 24px;
-}
-
-.material-icons-outlined.md-36 {
-    font-size: 36px;
-}
-
-.material-icons-outlined.md-48 {
-    font-size: 48px;
 }

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "Login",
   data() {
@@ -28,7 +28,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("api_urls", ["getServerAuthUrl"]),
+    // ...mapGetters("api_urls", ["getServerAuthUrl"]),
   },
   methods: {
     ...mapActions("auth", ["loginUser"]),
@@ -36,7 +36,7 @@ export default {
       let username = this.email;
       let password = this.password;
       this.loginUser({ username, password })
-        .then(() => this.$router.push("/"))
+        .then(() => this.$router.push("/dashboard"))
         .catch((err) => console.log(err));
     },
   },

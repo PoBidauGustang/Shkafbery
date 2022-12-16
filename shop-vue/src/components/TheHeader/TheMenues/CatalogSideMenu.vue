@@ -1,67 +1,77 @@
 <template>
-  <div class="">
-    <div class="all_pruducts_list_item" v-if="category.child_free === true">
-      <router-link class="" :to="'/category/' + category.attributes.slug">
-        <div class="all_pruducts_list_item_image_meta">
-          <div class="all_pruducts_list_item_image">
-            <img
-              :src="require('../../../assets/images/2.jpeg')"
-              alt="img"
-              class=""
-            />
-          </div>
-          {{ category.attributes.name }}
+  <div>
+    <!-- <div class="all_pruducts_list_item" v-if="category.child_free === true"> -->
+    <router-link
+      @click="switchMenuVisability"
+      class="all_pruducts_list_item"
+      v-if="category.child_free === true"
+      :to="'/category/' + category.attributes.slug"
+    >
+      <div class="all_pruducts_list_item_image_meta">
+        <div class="all_pruducts_list_item_image">
+          <img :src="require('../../../assets/images/2.jpeg')" alt="img" />
         </div>
-      </router-link>
-    </div>
-    <div class="" v-else @click="switchSideSubMenuVisability">
-      <a class="all_pruducts_list_item">
-        <span class="">
-          <div class="all_pruducts_list_item_image_meta">
-            <div class="all_pruducts_list_item_image">
-              <img
-                :src="require('../../../assets/images/2.jpeg')"
-                alt="img"
-                class=""
-              />
-            </div>
+        <span>{{ category.attributes.name }}</span>
+      </div>
+    </router-link>
+    <!-- </div> -->
+    <!-- <div class="" v-else @click="switchSideSubMenuVisability"> -->
+    <a
+      class="all_pruducts_list_item"
+      v-else
+      @click="switchSideSubMenuVisability"
+    >
+      <!-- <span class=""> -->
+      <div class="all_pruducts_list_item_image_meta">
+        <div class="all_pruducts_list_item_image">
+          <img :src="require('../../../assets/images/2.jpeg')" alt="img" />
+        </div>
+        <span>{{ category.attributes.name }}</span>
+      </div>
+      <!-- </span> -->
+      <!-- <span class=""> -->
+      <span class="material-symbols-outlined">expand_more</span>
+      <!-- </span> -->
+    </a>
+    <!-- </div> -->
+    <teleport to="body">
+      <div class="all_product_category_open_skr" v-if="sideSubMenuVisability">
+        <div class="all_product_category_open_wrapper">
+          <div class="all_product_category_open_header">
             {{ category.attributes.name }}
           </div>
-        </span>
-        <span class="">
-          <span class="material-symbols-outlined">expand_more</span>
-        </span>
-      </a>
-    </div>
-    <teleport to="body">
-      <div
-        class="all_product_category_open_wrapper"
-        v-if="sideSubMenuVisability"
-      >
-        <ul class="">
-          <li class="" v-for="cat in subCategoriesList" :key="cat.id">
-            <CatalogSubSideMenu
-              :categoryData="cat"
-              @switchSideSubMenuVisability="switchSideSubMenuVisability"
-            />
-          </li>
-          <li
-            v-if="category.id == 6"
-            @click="switchSideSubMenuVisability"
-            class=""
-          >
-            <router-link class="" to="/closet_planner">
-              <span class="">Планировщик шкафа</span>
-              <div class="">
-                <img
-                  :src="require('../../../assets/images/2.jpeg')"
-                  alt="img"
-                  class=""
-                />
-              </div>
-            </router-link>
-          </li>
-        </ul>
+          <ul class="all_product_category_open_list">
+            <li
+              class="all_product_category_open_list_item"
+              v-for="cat in subCategoriesList"
+              :key="cat.id"
+            >
+              <CatalogSubSideMenu
+                :categoryData="cat"
+                @switchSideSubMenuVisability="switchMenuVisability"
+              />
+            </li>
+            <li
+              v-if="category.id == 6"
+              @click="switchMenuVisability"
+              class="all_product_category_open_list_item"
+            >
+              <router-link
+                class="all_product_category_open_list_product"
+                to="/closet_planner"
+              >
+                <div class="all_product_category_open_list_image">
+                  <img
+                    :src="require('../../../assets/images/2.jpeg')"
+                    alt="img"
+                    class=""
+                  />
+                </div>
+                <span class="">Планировщик шкафа</span>
+              </router-link>
+            </li>
+          </ul>
+        </div>
       </div>
     </teleport>
   </div>
@@ -93,6 +103,9 @@ export default {
     ...mapGetters("data", ["GETCHILDCATEGORIES"]),
   },
   methods: {
+    switchMenuVisability() {
+      this.$emit("switchSideMenuVisability");
+    },
     switchSideSubMenuVisability() {
       this.sideSubMenuVisability = !this.sideSubMenuVisability;
     },
@@ -117,22 +130,26 @@ export default {
 </script>
 
 <style>
-.div_zaebal {
-  width: 100%;
-  height: 100%;
+.all_product_category_open_skr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 99999;
+  padding-right: 24px;
+  background-color: #ffffff;
+  pointer-events: none;
+  width: calc(100% - 336px);
 }
 
 .all_product_category_open_wrapper {
-  grid-column: 4 / span 9;
+  grid-column: 1;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   grid-template-rows: minmax(64px, max-content);
   grid-auto-rows: max-content;
-  position: sticky;
-  top: 0;
-  z-index: 4;
   overflow-y: auto;
   overflow-x: hidden;
+  pointer-events: auto;
   background-color: #f8f8f8;
   padding-bottom: 64px;
   margin-right: -24px;
@@ -185,12 +202,12 @@ export default {
   object-fit: cover;
 }
 
-.all_product_category_open_all {
+/* .all_product_category_open_all {
   grid-row: 3;
   grid-column: 7 / 13;
   margin-top: 32px;
   margin-right: 40px;
-}
+} */
 
 /* .all_product_category_open_wrapper {
   grid-column: 4 / span 9;

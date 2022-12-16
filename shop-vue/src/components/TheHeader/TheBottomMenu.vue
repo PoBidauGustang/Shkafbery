@@ -1,9 +1,10 @@
 <template>
   <div class="the_bottom_menu">
-    <button class="catalog_bottom_menu">
+    <MenuCatalog />
+    <!-- <button class="catalog_bottom_menu">
       <span class="material-symbols-outlined">widgets</span>
       <span><MenuCatalog /></span>
-    </button>
+    </button> -->
     <ul class="main_menu">
       <li
         class="main_menu_item"
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import MainMenu from "./TheMenues/MainMenu.vue";
 import MenuCatalog from "./TheMenues/MenuCatalog.vue";
 export default {
@@ -42,7 +43,6 @@ export default {
     ...mapGetters("data", ["GETMAINCATEGORIES"]),
   },
   methods: {
-    ...mapActions("test", ["increment"]),
     filterMainMenuCategories() {
       for (let category in this.GETMAINCATEGORIES) {
         if (this.GETMAINCATEGORIES[category].attributes.for_main_menu == true) {
@@ -57,7 +57,7 @@ export default {
 
 <style>
 .the_bottom_menu {
-  grid-row: 3;
+  /* grid-row: 3; */
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   border-bottom: 1px solid;

@@ -1,6 +1,5 @@
 <template>
-  <div class="the_header_wrapper">
-    <!-- <div> -->
+  <div>
     <TheUpperMenu />
     <TheMiddleMenu />
     <TheBottomMenu />
@@ -111,9 +110,4 @@ export default {
 };
 </script>
 
-<style>
-.the_header_wrapper {
-  display: grid;
-  grid-template-rows: 48px 80px 64px;
-}
-</style>
+<style></style>

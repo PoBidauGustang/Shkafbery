@@ -13,11 +13,6 @@ const routes = [
     name: "Login",
     component: () => import("../components/TheAuth/TheLogin.vue"),
   },
-  // {
-  //   path: "/login",
-  //   name: "Login",
-  //   component: () => import("../components/TheLogin.vue"),
-  // },
   {
     path: "/register",
     name: "Register",
@@ -52,11 +47,6 @@ const routes = [
     component: () => import("../views/PartnerPage.vue"),
   },
   {
-    path: "/services",
-    name: "ServicesPage",
-    component: () => import("../views/ServicesPage.vue"),
-  },
-  {
     path: "/posts",
     name: "BlogPosts",
     component: () => import("../views/PostsPage.vue"),
@@ -72,59 +62,9 @@ const routes = [
     component: () => import("../views/products/ProductPage.vue"),
   },
   {
-    path: "/materials",
-    name: "List materials",
-    component: () => import("../views/MaterialsPage.vue"),
-  },
-  {
-    path: "/material/:id",
-    name: "materials",
-    component: () => import("../views/MaterialPageSingle.vue"),
-  },
-  {
-    path: "/shelfs",
-    name: "Shelfs",
-    component: () => import("../views/accessories/Shelfs.vue"),
-  },
-  {
-    path: "/box",
-    name: "Box",
-    component: () => import("../views/accessories/Box.vue"),
-  },
-  {
-    path: "/accessories",
-    name: "Accessories",
-    component: () => import("../views/accessories/Accessories.vue"),
-  },
-  {
-    path: "/kitchen",
-    name: "kitchen",
-    component: () => import("../views/KitchenPage.vue"),
-  },
-  {
-    path: "/wardrobe",
-    name: "wardrobe",
-    component: () => import("../views/WardrobePage.vue"),
-  },
-  {
     path: "/category/:slug",
     name: "category",
     component: () => import("../views/products/Category.vue"),
-  },
-  {
-    path: "/closets",
-    name: "Closets",
-    component: () => import("../views/Closets.vue"),
-  },
-  {
-    path: "/freestanding_closets",
-    name: "FreestandingClosets",
-    component: () => import("../views/FreestandingClosets.vue"),
-  },
-  {
-    path: "/built-in_closets",
-    name: "Built-inClosets",
-    component: () => import("../views/Built-inClosets.vue"),
   },
   {
     path: "/closet_planner",
@@ -132,49 +72,14 @@ const routes = [
     component: () => import("../views/PlannerCloset.vue"),
   },
   {
-    path: "/doors_closet",
-    name: "DoorsCloset",
-    component: () => import("../views/doors/DoorsCloset.vue"),
-  },
-  {
-    path: "/doors_opening",
-    name: "DoorsTheOpening",
-    component: () => import("../views/doors/DoorsTheOpening.vue"),
-  },
-  {
-    path: "/doors_dressing_room",
-    name: "DoorsDressingRoom",
-    component: () => import("../views/doors/DoorsDressingRoom.vue"),
-  },
-  {
-    path: "/cutting",
-    name: "Cutting",
-    component: () => import("../views/services/Cutting.vue"),
-  },
-  {
     path: "/measurements",
     name: "Measurements",
-    component: () => import("../views/services/Measurements.vue"),
+    component: () => import("../views/common_services/Measurements.vue"),
   },
   {
     path: "/installation",
     name: "Installation",
-    component: () => import("../views/services/Installation.vue"),
-  },
-  {
-    path: "/chipboard",
-    name: "Chipboard",
-    component: () => import("../views/materials/Chipboard.vue"),
-  },
-  {
-    path: "/mirror",
-    name: "Mirror",
-    component: () => import("../views/materials/Mirror.vue"),
-  },
-  {
-    path: "/other",
-    name: "Other",
-    component: () => import("../views/materials/Other.vue"),
+    component: () => import("../views/common_services/Installation.vue"),
   },
   {
     path: "/cart",

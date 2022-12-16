@@ -1,33 +1,35 @@
 <template>
   <div class="header_top_wrapper">
     <ul class="header_top_list">
-      <li class="header_top_list_input">
+      <li class="header_top_list_item">
         <router-link class="header_top_link" to="/about">О нас</router-link>
       </li>
-      <li class="header_top_list_input">
+      <li class="header_top_list_item">
         <router-link class="header_top_link" to="/contacts"
           >Контакты</router-link
         >
       </li>
-      <li class="header_top_list_input">
-        <router-link class="header_top_link" to="/services"
+      <li class="header_top_list_item">
+        <router-link class="header_top_link" to="/installation"
           >Установка</router-link
         >
       </li>
-      <li class="header_top_list_input">
-        <router-link class="header_top_link" to="/services">Замеры</router-link>
+      <li class="header_top_list_item">
+        <router-link class="header_top_link" to="/measurements"
+          >Замеры</router-link
+        >
       </li>
-      <li class="header_top_list_input">
+      <li class="header_top_list_item">
         <router-link class="header_top_link" to="/partners"
           >Партнерам</router-link
         >
       </li>
-      <li class="header_top_list_input">
+      <li class="header_top_list_item">
         <router-link class="header_top_link" to="/photos"
           >Фото работ</router-link
         >
       </li>
-      <li class="header_top_list_input">
+      <li class="header_top_list_item">
         <router-link class="header_top_link" to="/posts">Блог</router-link>
       </li>
     </ul>
@@ -49,7 +51,6 @@ export default {
 
 <style>
 .header_top_wrapper {
-  grid-row: 1;
   display: flex;
   justify-content: space-between;
   background: #000000;
@@ -64,7 +65,7 @@ export default {
   margin-bottom: 4px;
 }
 
-.header_top_list_input {
+.header_top_list_item {
   display: flex;
   border-radius: 8px;
   padding-left: 12px;
@@ -75,7 +76,7 @@ export default {
   margin-right: 8px;
 }
 
-.header_top_list_input:last-child {
+.header_top_list_item:last-child {
   margin-right: 0px;
 }
 
@@ -135,10 +136,10 @@ export default {
   padding-left: 0px;
 }
 
-.top_menu_input {
+.top_menu_item {
   margin-right: 8px;
 }
-.top_menu_input:last-child {
+.top_menu_item:last-child {
   margin-right: 0px;
 }
 

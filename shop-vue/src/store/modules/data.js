@@ -6,6 +6,7 @@ const state = {
   allCategories: allCategoriesVar ? JSON.parse(allCategoriesVar) : {},
   childCategories: childCategoriesVar ? JSON.parse(childCategoriesVar) : {},
   mainCategories: mainCategoriesVar ? JSON.parse(mainCategoriesVar) : [],
+  currentSubSideMenuVisability: false,
   // allCategories: {},
   // childCategories: {},
   // mainCategories: [],
@@ -47,6 +48,9 @@ const mutations = {
       JSON.stringify(state.mainCategories)
     );
   },
+  switchCurrentSubSideMenuVisabilityMut(state) {
+    state.currentSubSideMenuVisability = !state.currentSubSideMenuVisability;
+  },
 };
 
 const actions = {
@@ -59,6 +63,9 @@ const actions = {
   saveMainCategories({ commit }, payload) {
     commit("saveMainCategoriesMut", payload);
   },
+  switchCurrentSubSideMenuVisability({ commit }) {
+    commit("switchCurrentSubSideMenuVisabilityMut");
+  },
 };
 
 const getters = {
@@ -70,6 +77,9 @@ const getters = {
   },
   GETMAINCATEGORIES(state) {
     return state.mainCategories;
+  },
+  GETCURRENTSUBSIDEMENUVISABILITY(state) {
+    return state.currentSubSideMenuVisability;
   },
 };
 

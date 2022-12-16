@@ -31,16 +31,9 @@
         </a>
       </li>
       <li class="header_middle_bar_item">
-        <!-- <a href="/#/login">
-          <span class="material-symbols-outlined">person</span><span class="header_middle_bar_item_lnk">Войти</span>
-        </a> -->
-        <a v-if="!isLoggedIn" href="/#/login">
-          <span class="material-symbols-outlined">person</span>
-          <span class="header_middle_bar_item_lnk">Войти</span>
-        </a>
-        <a v-if="isLoggedIn" @click="logout">
-          <span class="material-symbols-outlined">person</span>
-          <span class="header_middle_bar_item_lnk">Выйти</span>
+        <a href="/#/dashboard">
+          <span class="material-symbols-outlined">person</span
+          ><span class="header_middle_bar_item_lnk">Войти</span>
         </a>
       </li>
     </ul>
@@ -48,38 +41,22 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 export default {
   name: "MiddleMenu",
   data() {
-    return {
-      // isLoggedIn: false
-    };
+    return {};
   },
-  computed: {
-    ...mapGetters("auth", ["ISLOGGEDIN"]),
-    isLoggedIn() {
-      return this.ISLOGGEDIN;
-    },
-  },
-  methods: {
-    ...mapActions("auth", ["logoutUser"]),
-    logout() {
-      this.logoutUser().then(() => {
-        this.$router.push("/login");
-      });
-    },
-  },
+  computed: {},
+  methods: {},
 };
 </script>
 
 <style>
 .header_middle_wrapper {
-  grid-row: 2;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   align-items: center;
-  background-color: #1c1c1c;
+  background-color: #000000;
   padding-left: 24px;
   padding-right: 24px;
   max-height: 80px;
@@ -87,9 +64,13 @@ export default {
 
 .header_middle_search_button {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: start;
   color: #ffffff;
   padding: 8px;
   border-radius: 100px;
+  margin-left: 16px;
 }
 
 .header_middle_logo_wrapper {
@@ -99,9 +80,9 @@ export default {
 }
 
 .header_middle_bar_wrapper {
-  grid-column: 9 / 13;
+  grid-column: 10 / 13;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   list-style: none;
 }
 
@@ -127,94 +108,4 @@ export default {
   line-height: 16px;
   text-align: center;
 }
-/* .header_middle {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-column-gap: 32px;
-  background: #1c1c1c;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 16px;
-  padding-bottom: 16px; */
-/* position: sticky; */
-/* top: 0px;
-}
-
-.navbar_wrapper {
-  grid-column-start: 9;
-  grid-column-end: span 2;
-  justify-self: end;
-  display: flex;
-}
-
-.cart {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100px;
-  padding: 11px;
-  text-decoration: none;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.32);
-}
-
-.cart:last-child {
-  margin-left: 16px;
-}
-
-.cart:hover {
-  background-color: #000000;
-}
-
-.login {
-  grid-column-start: 11;
-  grid-column-end: span 2;
-  justify-self: end;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: #ffffff;
-  padding: 11px 15px 11px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  border-radius: 16px;
-}
-
-.login:hover {
-  background-color: #000000;
-}
-
-.login_text {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  padding-left: 8px;
-}
-
-.search {
-  grid-column-start: 1;
-  justify-self: start;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: #1c1c1c;
-  color: #ffffff;
-  border: none;
-  border-radius: 100px;
-  padding: 12px;
-}
-
-.search:hover {
-  background-color: #000000;
-}
-
-.logo {
-  grid-column-start: 5;
-  grid-column-end: span 4;
-  justify-self: center;
-  align-self: center;
-} */
 </style>
