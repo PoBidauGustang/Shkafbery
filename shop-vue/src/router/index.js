@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomePage from "../views/home_page/HomePage.vue";
-import getters from "../store/modules/auth.js";
-// import { mapActions } from "vuex"
+import store from "../store/index.js";
 
 const routes = [
   {
@@ -191,8 +190,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // if (this.store.modules.auth.getters.isLoggedIn) {
-    if (getters.ISLOGGEDIN) {
+    if (store.getters["auth/ISLOGGEDIN"]) {
       next();
       return;
     }

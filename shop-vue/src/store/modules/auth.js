@@ -131,8 +131,11 @@ const actions = {
 };
 
 const getters = {
-  ISLOGGEDIN: (state) => !!state.token,
+  // ISLOGGEDIN: (state) => !!state.token,
   AUTHSTATUS: (state) => state.status,
+  ISLOGGEDIN(state) {
+    return !!state.token;
+  },
   // GETALLCATEGORIES(state) {
   //   return state.allCategories;
   // },
