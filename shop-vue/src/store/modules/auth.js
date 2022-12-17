@@ -12,14 +12,14 @@ const mutations = {
   authRequestMut(state) {
     state.status = "loading";
   },
-  authSuccessMut(state, token, aa) {
+  authSuccessMut(state, token) {
     state.status = "success";
     state.token = token;
     // localStorage.setItem("user_data", user)
     // state.userData = user;
-    console.log("!!!!!!!", aa["username"])
-    localStorage.setItem("username", aa["username"])
-    state.username = aa["username"];
+    // console.log("!!!!!!!", aa["username"])
+    // localStorage.setItem("username", aa["username"])
+    // state.username = aa["username"];
   },
   authErrorMut(state) {
     state.status = "error";
@@ -27,6 +27,12 @@ const mutations = {
   logoutMut(state) {
     state.status = "";
     state.token = "";
+    state.userData = {};
+    state.username = "";
+  },
+  setUserMut(state, user) {
+    localStorage.setItem("username", user)
+    state.username = user;
   },
 };
 
@@ -34,6 +40,7 @@ const actions = {
   loginUser({ commit }, user) {
     return new Promise((resolve, reject) => {
       commit("authRequestMut");
+      commit("setUserMut", user.username)
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -47,9 +54,9 @@ const actions = {
           localStorage.setItem("token", token);
           // console.log("!!!", user);
           axios.defaults.headers.common["Authorization"] = token;
-          console.log(user.username);
-          let aa = user["username"];
-          commit("authSuccessMut", token, aa);
+          // console.log(user.username);
+          // let aa = user["username"];
+          commit("authSuccessMut", token);
           resolve(resp);
         })
         .catch((err) => {
@@ -96,6 +103,8 @@ const actions = {
         .post("http://127.0.0.1:8000/api/auth/token/logout", {}, options)
         .then((resp) => {
           localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.removeItem("user_data");
           axios.defaults.headers.common["Authorization"] = null;
           commit("logoutMut");
           resolve(resp);
@@ -114,7 +123,7 @@ const getters = {
     return !!state.token;
   },
   GETUSER(state) {
-    return state.user;
+    return state.username;
   }
 };
 

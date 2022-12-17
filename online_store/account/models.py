@@ -3,9 +3,9 @@ from django.db import models
 
 
 class Profile(models.Model):
-    name = models.OneToOneField(
-        settings.AUTH_USER_MODEL, verbose_name="пользователь", on_delete=models.CASCADE
-    )
+    # name = models.OneToOneField(
+    #     settings.AUTH_USER_MODEL, verbose_name="пользователь", on_delete=models.CASCADE
+    # )
     # email = models.EmailField("email", max_length=254, blank=True, null=True)
     phone = models.CharField("тел", max_length=50, blank=True)
     photo = models.ImageField(
@@ -35,10 +35,10 @@ class Profile(models.Model):
         verbose_name="квартира", help_text="Not Required", blank=True, null=True
     )
 
-    def __str__(self):
-        return f"Profile for user {self.name}"
+    # def __str__(self):
+    #     return f"Profile for user {self.name}"
 
-    class Meta:
-        ordering = ("-name",)
-        verbose_name = "пользователь"
-        verbose_name_plural = "пользователи"
+    # class Meta:
+    #     ordering = ("-name",)
+    #     verbose_name = "пользователь"
+    #     verbose_name_plural = "пользователи"
