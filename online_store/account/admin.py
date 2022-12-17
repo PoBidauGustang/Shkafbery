@@ -13,7 +13,8 @@ from .models import Profile
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = [
-        "user",
+        "name",
+        # "email",
         "phone",
         "photo",
         "town",
@@ -22,4 +23,4 @@ class ProfileAdmin(admin.ModelAdmin):
         "building",
         "apartment",
     ]
-    list_select_related = ("user",)
+    list_select_related = ("name",)

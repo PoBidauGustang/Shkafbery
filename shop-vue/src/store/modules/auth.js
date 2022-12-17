@@ -1,57 +1,25 @@
 import axios from "axios";
-// let allCategoriesVar = localStorage.getItem("allCategories");
-// let childCategoriesVar = localStorage.getItem("childCategories");
-// let mainCategoriesVar = localStorage.getItem("mainCategories");
+
 
 const state = {
   status: "",
   token: localStorage.getItem("token") || "",
-  user: {},
+  userData: localStorage.getItem("user_data") || {},
+  username: localStorage.getItem("username") || "",
 };
 
 const mutations = {
-  // saveItemMut(state, payload) {
-  //   let item = state.cart[payload.id];
-  //   if (item) {
-  //     state.cart[payload.id] = {
-  //       item: payload,
-  //       quantity: state.cart[payload.id].quantity + 1,
-  //     };
-  //   } else {
-  //     state.cart[payload.id] = {
-  //       item: payload,
-  //       quantity: 1,
-  //     };
-  //   }
-  // },
-  // saveItemMut(state, payload) {
-  //   state.allCategories = payload;
-  // },
-  // saveAllCategoriesMut(state, payload) {
-  //   state.allCategories = payload;
-  //   localStorage.setItem("allCategories", JSON.stringify(state.allCategories));
-  // },
-  // saveChildCategoriesMut(state, payload) {
-  //   state.childCategories = payload;
-  //   localStorage.setItem(
-  //     "childCategories",
-  //     JSON.stringify(state.childCategories)
-  //   );
-  // },
-  // saveMainCategoriesMut(state, payload) {
-  //   state.mainCategories = payload;
-  //   localStorage.setItem(
-  //     "mainCategories",
-  //     JSON.stringify(state.mainCategories)
-  //   );
-  // },
   authRequestMut(state) {
     state.status = "loading";
   },
-  authSuccessMut(state, token, user) {
+  authSuccessMut(state, token, aa) {
     state.status = "success";
     state.token = token;
-    state.user = user;
+    // localStorage.setItem("user_data", user)
+    // state.userData = user;
+    console.log("!!!!!!!", aa["username"])
+    localStorage.setItem("username", aa["username"])
+    state.username = aa["username"];
   },
   authErrorMut(state) {
     state.status = "error";
@@ -71,18 +39,17 @@ const actions = {
           "Content-Type": "application/json",
         },
       };
-      // console.log(user)
-      // axios.post('http://127.0.0.1:8000/api/auth/token/login/', options, user)
       axios
         .post(`http://127.0.0.1:8000/api/auth/token/login/`, user, options)
         .then((resp) => {
-          // const token = resp.data.token
           const token = resp.data.data.attributes.auth_token;
-          const user = resp.data.data;
+          // const user = resp.data.data.attributes;
           localStorage.setItem("token", token);
-          console.log(user);
+          // console.log("!!!", user);
           axios.defaults.headers.common["Authorization"] = token;
-          commit("authSuccessMut", token, user);
+          console.log(user.username);
+          let aa = user["username"];
+          commit("authSuccessMut", token, aa);
           resolve(resp);
         })
         .catch((err) => {
@@ -118,16 +85,26 @@ const actions = {
     });
   },
   logoutUser({ commit }) {
-    return new Promise((resolve) => {
-      commit("logoutMut");
-      localStorage.removeItem("token");
-      delete axios.defaults.headers.common["Authorization"];
-      resolve();
+    return new Promise((resolve, reject) => {
+      let token = localStorage.getItem("token");
+      const options = {
+        headers: {
+          "Authorization": "Token " + token,
+        },
+      };
+      axios
+        .post("http://127.0.0.1:8000/api/auth/token/logout", {}, options)
+        .then((resp) => {
+          localStorage.removeItem("token");
+          axios.defaults.headers.common["Authorization"] = null;
+          commit("logoutMut");
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
     });
   },
-  // saveMainCategories({ commit }, payload) {
-  //   commit("saveMainCategoriesMut", payload);
-  // },
 };
 
 const getters = {
@@ -136,15 +113,9 @@ const getters = {
   ISLOGGEDIN(state) {
     return !!state.token;
   },
-  // GETALLCATEGORIES(state) {
-  //   return state.allCategories;
-  // },
-  // GETCHILDCATEGORIES(state) {
-  //   return state.childCategories;
-  // },
-  // GETMAINCATEGORIES(state) {
-  //   return state.mainCategories;
-  // },
+  GETUSER(state) {
+    return state.user;
+  }
 };
 
 export default {

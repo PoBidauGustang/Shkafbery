@@ -3,10 +3,11 @@ from django.db import models
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(
+    name = models.OneToOneField(
         settings.AUTH_USER_MODEL, verbose_name="пользователь", on_delete=models.CASCADE
     )
-    phone = models.CharField("тел", max_length=50)
+    # email = models.EmailField("email", max_length=254, blank=True, null=True)
+    phone = models.CharField("тел", max_length=50, blank=True)
     photo = models.ImageField(
         verbose_name="Фото", upload_to="users/%Y/%m/%d/", blank=True
     )
@@ -35,9 +36,9 @@ class Profile(models.Model):
     )
 
     def __str__(self):
-        return f"Profile for user {self.user}"
+        return f"Profile for user {self.name}"
 
     class Meta:
-        ordering = ("-user",)
+        ordering = ("-name",)
         verbose_name = "пользователь"
         verbose_name_plural = "пользователи"

@@ -356,6 +356,15 @@ REST_FRAMEWORK = {
     "DEFAULT_METADATA_CLASS": "rest_framework_json_api.metadata.JSONAPIMetadata",
 }
 
+DJOSER = {
+    'LOGIN_FIELD': 'username',
+    'SERIALIZERS': {
+    #      'user_create': 'account.serializers.UserRegistrationSerializer'
+        'user_create': 'djoser.serializers.UserCreateSerializer',
+    },
+}
+
+# AUTH_USER_MODEL = "account.Profile"
 
 CORS_ORIGIN_ALLOW_ALL = True
 
