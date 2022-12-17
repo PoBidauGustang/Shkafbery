@@ -1,14 +1,17 @@
 <template>
   <div @click="switchMainSubMenuVisability">
-    <router-link class="" :to="'/category/' + categoryData.attributes.slug">
-      <span class="">{{ categoryData.attributes.name }}</span>
-      <div class="">
+    <router-link
+      class="main_sub_menu_open_list_product"
+      :to="'/category/' + categoryData.attributes.slug"
+    >
+      <div class="main_sub_menu_open_list_image">
         <img
           :src="require('../../../assets/images/2.jpeg')"
           alt="img"
           class=""
         />
       </div>
+      <span>{{ categoryData.attributes.name }}</span>
     </router-link>
   </div>
 </template>
@@ -36,7 +39,7 @@ export default {
 </script>
 
 <style>
-.MegaMenu_input {
+/* .MegaMenu_input {
   color: #1e1b16;
   font-size: 16px;
   font-weight: 700;
@@ -65,5 +68,5 @@ export default {
   padding-right: 16px;
   background-color: #ffffff;
   border-radius: 12px;
-}
+} */
 </style>

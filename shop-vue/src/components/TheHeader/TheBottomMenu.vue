@@ -11,9 +11,12 @@
         v-for="category in filteredMainMenuCategories"
         :key="category.id"
       >
-        <span v-if="category.attributes.for_main_menu == true">
-          <MainMenu :category="category" />
-        </span>
+        <!-- <span > -->
+        <MainMenu
+          v-if="category.attributes.for_main_menu == true"
+          :category="category"
+        />
+        <!-- </span> -->
       </li>
     </ul>
   </div>
@@ -97,14 +100,14 @@ export default {
 
 .main_menu_item:last-child {
   border-right: 0px;
+  margin-right: -24px;
 }
 
 .main_menu_item:last-child a {
   padding-right: 24px;
-  margin-right: -24px;
 }
 
-.main_menu_item a {
+.main_menu_item_link {
   display: flex;
   justify-content: center;
   align-items: center;

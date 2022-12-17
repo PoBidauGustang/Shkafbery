@@ -1,23 +1,30 @@
 <template>
   <div>
-    <div v-if="category.child_free === true">
-      <router-link class="" :to="'/category/' + category.attributes.slug">{{
-        category.attributes.name
-      }}</router-link>
-    </div>
-    <div v-else @click="switchMainSubMenuVisability">
-      <!-- <a class="bottom_menu_link" @click="showMegaMenuCloset"> -->
-      <a class="">
-        <span class="">{{ category.attributes.name }}</span>
-        <span class="">
-          <span class="material-symbols-outlined">expand_more</span>
-        </span>
-      </a>
-    </div>
+    <!-- <div v-if="category.child_free === true"> -->
+    <router-link
+      class="main_menu_item_link"
+      v-if="category.child_free === true"
+      :to="'/category/' + category.attributes.slug"
+      >{{ category.attributes.name }}
+    </router-link>
+    <!-- </div> -->
+    <!-- <div v-else @click="switchMainSubMenuVisability"> -->
+    <!-- <a class="bottom_menu_link" @click="showMegaMenuCloset"> -->
+    <a class="main_menu_item_link" v-else @click="switchMainSubMenuVisability">
+      <span class="">{{ category.attributes.name }}</span>
+      <!-- <span class=""> -->
+      <span class="material-symbols-outlined">expand_more</span>
+      <!-- </span> -->
+    </a>
+    <!-- </div> -->
     <div class="" v-if="mainSubMenuVisible">
-      <div class="">
-        <ul class="">
-          <li class="" v-for="cat in subCategoriesList" :key="cat.id">
+      <div class="main_sub_menu_wrapper">
+        <ul class="main_sub_menu_open_list">
+          <li
+            class="main_sub_menu_open_list_item"
+            v-for="cat in subCategoriesList"
+            :key="cat.id"
+          >
             <MainSubMenu
               :categoryData="cat"
               @switchMainSubMenuVisability="switchMainSubMenuVisability"
@@ -26,17 +33,20 @@
           <li
             v-if="category.id == 6"
             @click="switchMainSubMenuVisability"
-            class=""
+            class="main_sub_menu_open_list_item"
           >
-            <router-link class="" to="/closet_planner">
-              <span class="">Планировщик шкафа</span>
-              <div class="">
+            <router-link
+              class="main_sub_menu_open_list_product"
+              to="/closet_planner"
+            >
+              <div class="main_sub_menu_open_list_image">
                 <img
                   :src="require('../../../assets/images/2.jpeg')"
                   alt="img"
                   class=""
                 />
               </div>
+              <span>Планировщик шкафа</span>
             </router-link>
           </li>
         </ul>
@@ -106,6 +116,89 @@ export default {
 </script>
 
 <style>
+.main_menu_item_link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-family: "Golos Ui", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: black;
+  padding-top: 20px;
+  padding-bottom: 19px;
+}
+
+.main_sub_menu_wrapper {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 185;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: max-content;
+  background-color: #f0f0f0;
+  padding-bottom: 24px;
+  padding-top: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.main_sub_menu_header {
+  grid-column: span 12;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.icon_button_close {
+  display: flex;
+  padding: 8px;
+  border-radius: 100px;
+}
+
+.main_sub_menu_open_list {
+  grid-column: span 12;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: 32px;
+  grid-auto-rows: max-content;
+  grid-row-gap: 32px;
+  list-style: none;
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+.main_sub_menu_open_list_item {
+  grid-column: span 3;
+}
+
+.main_sub_menu_open_list_product {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.main_sub_menu_open_list_image {
+  overflow: hidden;
+  aspect-ratio: 4 / 2;
+  margin-bottom: 16px;
+}
+
+.main_sub_menu_open_list_image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.main_sub_menu_open_all {
+  grid-row: 3;
+  grid-column: 10;
+  margin-top: 32px;
+}
 /* .bottom_menu_link {
   display: flex;
   align-items: center;
