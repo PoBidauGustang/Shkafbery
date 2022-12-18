@@ -70,10 +70,10 @@ export default {
       let username = this.signupUsername;
       let email = this.signupEmail;
       let password = this.signupPassword1;
-      this.registerUser({ username, email, password})
+      this.registerUser({ username, email, password })
         .then(() => console.log("Регистрация прошла"))
         .catch((err) => console.log(err));
-    }
+    },
   },
 };
 </script>

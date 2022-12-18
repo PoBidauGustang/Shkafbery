@@ -1,10 +1,12 @@
 import axios from "axios";
 
+let userDataVar = localStorage.getItem("user_data");
 
 const state = {
   status: "",
   token: localStorage.getItem("token") || "",
-  userData: localStorage.getItem("user_data") || {},
+  // userData: localStorage.getItem("user_data") || null,
+  userData: userDataVar ? JSON.parse(userDataVar) : {},
   username: localStorage.getItem("username") || "",
 };
 
@@ -31,8 +33,13 @@ const mutations = {
     state.username = "";
   },
   setUserMut(state, user) {
-    localStorage.setItem("username", user)
+    localStorage.setItem("username", user);
     state.username = user;
+  },
+  setUserDataMut(state, data) {
+    console.log(data);
+    localStorage.setItem("user_data", JSON.stringify(data));
+    state.userData = data;
   },
 };
 
@@ -40,7 +47,7 @@ const actions = {
   loginUser({ commit }, user) {
     return new Promise((resolve, reject) => {
       commit("authRequestMut");
-      commit("setUserMut", user.username)
+      commit("setUserMut", user.username);
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +103,7 @@ const actions = {
       let token = localStorage.getItem("token");
       const options = {
         headers: {
-          "Authorization": "Token " + token,
+          Authorization: "Token " + token,
         },
       };
       axios
@@ -114,6 +121,31 @@ const actions = {
         });
     });
   },
+  loadUserData({ commit }) {
+    return new Promise((resolve, reject) => {
+      let token = localStorage.getItem("token");
+      const options = {
+        headers: {
+          Authorization: "Token " + token,
+        },
+      };
+      axios
+        .get("http://127.0.0.1:8000/api/auth/users/me", options)
+        .then((resp) => {
+          // localStorage.removeItem("token");
+          // localStorage.removeItem("username");
+          // localStorage.removeItem("user_data");
+          // axios.defaults.headers.common["Authorization"] = null;
+          const data = resp.data.data.attributes;
+          console.log("!!!!", data);
+          commit("setUserDataMut", data);
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
 };
 
 const getters = {
@@ -124,7 +156,10 @@ const getters = {
   },
   GETUSER(state) {
     return state.username;
-  }
+  },
+  GETUSERDATA(state) {
+    return state.userData;
+  },
 };
 
 export default {

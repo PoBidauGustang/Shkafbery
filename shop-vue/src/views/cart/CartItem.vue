@@ -5,10 +5,17 @@
         <p>{{ itemData.item.title }}</p>
         <p>{{ itemData.item.dimensions.value }} мм</p>
         <p>{{ itemData.quantity * itemData.item.price }} ₽</p>
+        <!-- <p>{{ price }} ₽</p> -->
       </li>
-      <button @click="removeItem(itemData.item)">-----</button>
+      <button @click="removeItem({ item: itemData.item, price: priceMinus })">
+        -----
+      </button>
       <p>{{ itemData.quantity }}</p>
-      <button @click="saveItem(itemData.item)">++++++</button>
+      <!-- <button @click="getPrice()">++++++</button> -->
+      <button @click="saveItem({ item: itemData.item, price: pricePlus })">
+        ++++++
+      </button>
+      <!-- <div>item price: {{ itemPrice }}</div> -->
     </div>
   </div>
 </template>
@@ -19,7 +26,9 @@ export default {
   name: "CartItem",
   components: {},
   data() {
-    return {};
+    return {
+      itemPrice: "",
+    };
   },
   props: {
     itemData: {
@@ -29,7 +38,24 @@ export default {
       },
     },
   },
+  computed: {
+    pricePlus() {
+      return (this.itemData.quantity + 1) * this.itemData.item.price;
+    },
+    priceMinus() {
+      let result = 0;
+      if (this.itemData.quantity > 1) {
+        result = (this.itemData.quantity - 1) * this.itemData.item.price;
+      } else {
+        result = this.itemData.quantity * this.itemData.item.price;
+      }
+      return result;
+    },
+  },
   methods: {
+    // getPrice() {
+    //   this.itemPrice = this.price
+    // },
     ...mapActions("cart", ["saveItem", "removeItem"]),
   },
 };

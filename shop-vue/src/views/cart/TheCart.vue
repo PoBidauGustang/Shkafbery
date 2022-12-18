@@ -3,7 +3,7 @@
     <h2>Корзина</h2>
     <div>
       <h3>Оформление заказа</h3>
-      <div>
+      <div v-if="!Object.keys(GETUSERDATA).length">
         <span>Ваши данные</span>
         <label for="name">Ваше имя</label>
         <input
@@ -37,6 +37,13 @@
           placeholder="Ваша почта"
         />
         <div>{{ email }}</div>
+      </div>
+      <div v-else>
+        <span>Ваши данные</span>
+        <span>Ваше имя</span>
+        <div>{{ GETUSERDATA.username }}</div>
+        <span>E-mail</span>
+        <div>{{ GETUSERDATA.email }}</div>
       </div>
       <div>
         <span>Способ доставки</span>
@@ -94,11 +101,11 @@
     <div v-if="isLocalStorage && cartIsReady">
       <h3>Ваш заказ</h3>
       <div>Товаров: {{ Object.keys(GETALLITEMS).length }}</div>
+      <button @click="removeCart">Удалить все</button>
       <div v-for="item in GETALLITEMS" :key="item.id">
         <CartItem :itemData="item" />
       </div>
-
-      <button @click="removeCart">Удалить все</button>
+      <div>Итого {{ GETALLPRICE }} ₽</div>
     </div>
     <div v-else>Корзина пуста</div>
   </div>
@@ -127,7 +134,8 @@ export default {
   },
   mounted() {},
   computed: {
-    ...mapGetters("cart", ["GETALLITEMS"]),
+    ...mapGetters("cart", ["GETALLITEMS", "GETALLPRICE"]),
+    ...mapGetters("auth", ["GETUSER", "GETUSERDATA"]),
   },
   methods: {
     ...mapActions("cart", ["clearCart"]),
