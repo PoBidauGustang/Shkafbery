@@ -41,9 +41,9 @@
       <div v-else>
         <span>Ваши данные</span>
         <span>Ваше имя</span>
-        <div>{{ GETUSERDATA.username }}</div>
+        <div>{{ GETUSERDATA.attributes.username }}</div>
         <span>E-mail</span>
-        <div>{{ GETUSERDATA.email }}</div>
+        <div>{{ GETUSERDATA.attributes.email }}</div>
       </div>
       <div>
         <span>Способ доставки</span>
@@ -95,7 +95,10 @@
           placeholder="квартира/офис"
         />
         <div>{{ appartment }}</div>
-        <input type="submit" value="Перейти к оплате" />
+        <button @click="orderCompleteVisability=!orderCompleteVisability">
+        <span @click="sendOrder()">Перейти к оплате</span>
+        <div v-if="orderCompleteVisability">Заказ оформлен</div>
+        </button>
       </div>
     </div>
     <div v-if="isLocalStorage && cartIsReady">
@@ -121,6 +124,7 @@ export default {
   },
   data() {
     return {
+      orderCompleteVisability: false,
       name: "",
       phone: "",
       email: "",
@@ -136,6 +140,7 @@ export default {
   computed: {
     ...mapGetters("cart", ["GETALLITEMS", "GETALLPRICE"]),
     ...mapGetters("auth", ["GETUSER", "GETUSERDATA"]),
+    ...mapGetters("api_urls", ["getServerOrdersUrl"]),
   },
   methods: {
     ...mapActions("cart", ["clearCart"]),
@@ -143,8 +148,37 @@ export default {
       this.clearCart();
       this.cartIsReady = false;
     },
+    sendOrder() {
+      let token = localStorage.getItem("token");
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Token " + token,
+          "Accept": "application/json",
+        },
+      };
+      const data = {
+        "user": "1",
+        "full_name": "aaaaaaa aaaaaaaa",
+        "email": "123ss@sss.com",
+        "address": "aaaaaaa aaaaaaaa",
+        "town": "aaaaaaa aaaaaaaa",
+        "phone": "11111111",
+        "total_order_price": "11111111",
+        "payment_option": "наличка",
+        "billing_status": false,
+      };
+      this.axios
+        .post(`${this.getServerOrdersUrl}/orders_list`, data, options)
+        .then((response) => {
+          console.log(response.data.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
   },
-};
+}
 </script>
 
 <style></style>

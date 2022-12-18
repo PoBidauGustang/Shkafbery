@@ -15,13 +15,13 @@
           <h3 class="Products_Filters_Header_Name">Фильтры</h3>
           <div v-if="productsList[0].attributes.regular_price.length">
             <button v-on:click="ascending = !ascending">
-              <div v-if="ascending">
+              <div class="Product_filters_select" v-if="ascending">
                 По возрастанию цены
                 <span class="material-symbols-outlined size_20"
                   >arrow_upward</span
                 >
               </div>
-              <div v-else>
+              <div class="Product_filters_select" v-else>
                 По убыванию цены
                 <span class="material-symbols-outlined size_20"
                   >arrow_downward</span
@@ -228,7 +228,7 @@
           class="Product_Filters_List"
           v-if="productsList[0].attributes.color_price.length"
         >
-          <div class="Product_Filters_List_Item">
+          <div>
             <button
               @click="colorFilterVisability = !colorFilterVisability"
               class="Product_Filters_List_Item_Head"
@@ -665,12 +665,14 @@ export default {
   font-weight: 500;
 }
 
-.products_filter_select {
+.Product_filters_select {
   font-family: "Golos Ui", sans-serif;
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
-  border: 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .Product_Filters_List {

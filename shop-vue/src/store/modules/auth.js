@@ -136,8 +136,9 @@ const actions = {
           // localStorage.removeItem("username");
           // localStorage.removeItem("user_data");
           // axios.defaults.headers.common["Authorization"] = null;
-          const data = resp.data.data.attributes;
-          console.log("!!!!", data);
+          // const data = resp.data.data.attributes;
+          const data = resp.data.data;
+          // console.log("!!!!", data);
           commit("setUserDataMut", data);
           resolve(resp);
         })

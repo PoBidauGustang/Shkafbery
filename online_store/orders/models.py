@@ -10,16 +10,16 @@ class Order(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="order_user"
     )
-    full_name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255, blank=True)
+    full_name = models.CharField(max_length=255, blank=True)
+    email = models.EmailField(max_length=255)
     address = models.CharField(max_length=255)
     town = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    total_paid = models.DecimalField(max_digits=9, decimal_places=2)
-    order_key = models.CharField(max_length=200)
-    payment_option = models.CharField(max_length=255, blank=True)
+    total_order_price = models.DecimalField(max_digits=9, decimal_places=2)
+    # order_key = models.CharField(max_length=200)
+    payment_option = models.CharField(max_length=255)
     billing_status = models.BooleanField(default=False)
 
     class Meta:
@@ -36,6 +36,8 @@ class OrderItem(models.Model):
     product = models.ForeignKey(
         Product, related_name="order_items", on_delete=models.CASCADE
     )
+    dimensions = models.CharField(max_length=255, blank=True)
+    color = models.CharField(max_length=255, blank=True)
     price = models.DecimalField(max_digits=9, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
 

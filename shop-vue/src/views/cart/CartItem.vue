@@ -3,6 +3,7 @@
     <div>
       <li>
         <p>{{ itemData.item.title }}</p>
+        <p>{{ itemData.item.color.color.name }}</p>
         <p>{{ itemData.item.dimensions.value }} мм</p>
         <p>{{ itemData.quantity * itemData.item.price }} ₽</p>
         <!-- <p>{{ price }} ₽</p> -->
