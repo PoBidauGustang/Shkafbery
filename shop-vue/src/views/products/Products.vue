@@ -259,8 +259,12 @@
         </div>
       </div>
     </div>
-    <ul v-if="filteredProducts.length">
-      <li v-for="product in filteredProducts" :key="product.id">
+    <ul class="Product_Listing_Wrapper" v-if="filteredProducts.length">
+      <li
+        class="Product_Listing_Item"
+        v-for="product in filteredProducts"
+        :key="product.id"
+      >
         <ProductView :product="product" />
       </li>
     </ul>
@@ -610,6 +614,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   list-style: none;
+  grid-auto-rows: max-content;
 }
 
 .Product_Listing_Item {

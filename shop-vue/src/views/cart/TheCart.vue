@@ -95,9 +95,9 @@
           placeholder="квартира/офис"
         />
         <div>{{ appartment }}</div>
-        <button @click="orderCompleteVisability=!orderCompleteVisability">
-        <span @click="sendOrder()">Перейти к оплате</span>
-        <div v-if="orderCompleteVisability">Заказ оформлен</div>
+        <button @click="orderCompleteVisability = !orderCompleteVisability">
+          <span @click="sendOrder()">Перейти к оплате</span>
+          <div v-if="orderCompleteVisability">Заказ оформлен</div>
         </button>
       </div>
     </div>
@@ -153,20 +153,20 @@ export default {
       const options = {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Token " + token,
-          "Accept": "application/json",
+          Authorization: "Token " + token,
+          Accept: "application/json",
         },
       };
       const data = {
-        "user": "1",
-        "full_name": "aaaaaaa aaaaaaaa",
-        "email": "123ss@sss.com",
-        "address": "aaaaaaa aaaaaaaa",
-        "town": "aaaaaaa aaaaaaaa",
-        "phone": "11111111",
-        "total_order_price": "11111111",
-        "payment_option": "наличка",
-        "billing_status": false,
+        user: "1",
+        full_name: "aaaaaaa aaaaaaaa",
+        email: "123ss@sss.com",
+        address: "aaaaaaa aaaaaaaa",
+        town: "aaaaaaa aaaaaaaa",
+        phone: "11111111",
+        total_order_price: "11111111",
+        payment_option: "наличка",
+        billing_status: false,
       };
       this.axios
         .post(`${this.getServerOrdersUrl}/orders_list`, data, options)
@@ -178,7 +178,7 @@ export default {
         });
     },
   },
-}
+};
 </script>
 
 <style></style>

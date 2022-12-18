@@ -3,7 +3,7 @@
     <h2>Личный кабинет</h2>
     <p>{{ GETUSER }}</p>
     <p>{{ GETUSERDATA }}</p>
-    <div @click="ordersVisability=!ordersVisability">Мои заказы</div>
+    <div @click="ordersVisability = !ordersVisability">Мои заказы</div>
     <div v-if="ordersVisability">
       <div>Мои заказы</div>
       <p>{{ userID }}</p>
@@ -38,15 +38,15 @@ export default {
   computed: {
     ...mapGetters("auth", ["GETUSERDATA", "GETUSER"]),
     ...mapGetters("api_urls", ["getServerOrdersUrl"]),
-    userID () {
-      return this.GETUSERDATA['id']
+    userID() {
+      return this.GETUSERDATA["id"];
     },
     filteredUserOrders() {
       let tempOrders = this.ordersData;
-        tempOrders = tempOrders.filter((item) => {
-          return item.relationships.user.data.id == this.userID;
-        });
-      return tempOrders
+      tempOrders = tempOrders.filter((item) => {
+        return item.relationships.user.data.id == this.userID;
+      });
+      return tempOrders;
     },
   },
   methods: {
@@ -61,7 +61,7 @@ export default {
       const options = {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Token " + token,
+          Authorization: "Token " + token,
         },
       };
       // const data = {
