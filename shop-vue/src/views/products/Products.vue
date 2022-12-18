@@ -110,7 +110,7 @@
               </label>
             </div>
           </li>
-          <li
+          <li class="Product_Filters_List_Item"
             v-if="
               productsList[0].attributes.dimensions_value[0].dimension[1] == 'Г'
             "
@@ -147,7 +147,7 @@
               </label>
             </div>
           </li>
-          <li
+          <li class="Product_Filters_List_Item"
             v-if="
               productsList[0].attributes.dimensions_value[0].dimension[2] == 'В'
             "
@@ -184,7 +184,7 @@
               </label>
             </div>
           </li>
-          <li
+          <li class="Product_Filters_List_Item"
             v-if="
               productsList[0].attributes.dimensions_value[0].dimension == 'п.м.'
             "
@@ -228,7 +228,7 @@
           class="Product_Filters_List"
           v-if="productsList[0].attributes.color_price.length"
         >
-          <div>
+          <div class="Product_Filters_List_Item">
             <button
               @click="colorFilterVisability = !colorFilterVisability"
               class="Product_Filters_List_Item_Head"

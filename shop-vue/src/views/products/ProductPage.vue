@@ -9,36 +9,35 @@
           />
         </div>
       </div>
-    </div>
-    <div class="product_page_feature_wrapper">
-      <div class="product_feture_wrapper">
-        <div
-          class="product_feature_description_wrapper"
-          v-if="productData.attributes.description"
-        >
-          <h3 class="product_feature_description_head">Описание</h3>
-          <p
-            class="product_feature_description_meta"
-            v-html="productData.attributes.description"
-          ></p>
-        </div>
-        <div
-          class="product_feature_specification_wrapper"
-          v-if="productData.attributes.product_specification_value.length"
-        >
-          <h3 class="product_feature_specification_head">Характеристики</h3>
-          <dl
-            class="product_feature_specification"
-            v-for="value in productData.attributes.product_specification_value"
-            :key="value"
+      <div class="product_page_feature_wrapper">
+        <div class="product_feture_wrapper">
+          <div
+            class="product_feature_description_wrapper"
+            v-if="productData.attributes.description"
           >
-            <dt class="product_feature_specification_key">
-              {{ value.specification }}
-            </dt>
-            <dd class="product_feature_specification_value">
-              {{ value.value }}
-            </dd>
-          </dl>
+            <h3 class="product_feature_description_head">Описание</h3>
+            <p
+              class="product_feature_description_meta"
+            >{{ productData.attributes.description }}</p>
+          </div>
+          <div
+            class="product_feature_specification_wrapper"
+            v-if="productData.attributes.product_specification_value.length"
+          >
+            <h3 class="product_feature_specification_head">Характеристики</h3>
+            <dl
+              class="product_feature_specification"
+              v-for="value in productData.attributes.product_specification_value"
+              :key="value"
+            >
+              <dt class="product_feature_specification_key">
+                {{ value.specification }}
+              </dt>
+              <dd class="product_feature_specification_value">
+                {{ value.value }}
+              </dd>
+            </dl>
+          </div>
         </div>
       </div>
     </div>
@@ -127,7 +126,7 @@
                 <div class="product_item_widgets_choice_button_meta">
                   <span class="product_item_widgets_choice_button_head" @click="dimensionsVisability = !dimensionsVisability">Выберите размер ({{ productData.attributes.dimensions_value.length }})</span>
                   <div v-if="dimensionsVisability">
-                    <ul>
+                    <ul class="Vremmeny_class">
                       <li
                         v-for="dimension in productData.attributes.dimensions_value"
                         :key="dimension.id"
@@ -161,7 +160,7 @@
                     Выберите цвет ({{ productData.attributes.color_price.length }})
                   </span>
                   <div v-if="colorsVisability">
-                    <ul>
+                    <ul class="Vremmeny_class">
                       <li
                         v-for="color in productData.attributes.color_price"
                         :key="color.id"
@@ -340,6 +339,17 @@ export default {
 </script>
 
 <style>
+
+.Vremmeny_class {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  list-style: none;
+}
+
+
+
+
+
 .product_item_page_area {
   display: grid;
   grid-template-columns: repeat(12, 1fr);

@@ -18,3 +18,10 @@
     font-weight: 700;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'Akrobat';
+    src: url('../fonts/Akrobat-ExtraBold.woff') format('woff2'), url('../fonts/Akrobat-ExtraBold.woff2') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
