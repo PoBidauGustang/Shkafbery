@@ -169,7 +169,7 @@ export default {
         billing_status: false,
       };
       this.axios
-        .post(`${this.getServerOrdersUrl}/orders_list`, data, options)
+        .post(`${this.getServerOrdersUrl}/orders_list/`, data, options)
         .then((response) => {
           console.log(response.data.data);
         })

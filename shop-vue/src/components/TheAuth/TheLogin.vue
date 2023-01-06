@@ -14,7 +14,7 @@
       <hr />
       <button type="submit">Log in</button>
     </form>
-    <form class="signun" @submit.prevent="signun">
+    <form class="signup" @submit.prevent="signup">
       <h1>Sign un</h1>
       <label>Username</label>
       <input v-model="signupUsername" type="text" placeholder="Name" />
@@ -66,7 +66,7 @@ export default {
         .then(() => this.$router.push("/dashboard"))
         .catch((err) => console.log(err));
     },
-    signun() {
+    signup() {
       let username = this.signupUsername;
       let email = this.signupEmail;
       let password = this.signupPassword1;
