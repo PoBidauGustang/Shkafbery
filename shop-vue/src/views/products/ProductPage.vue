@@ -16,9 +16,9 @@
             v-if="productData.attributes.description"
           >
             <h3 class="product_feature_description_head">Описание</h3>
-            <p
-              class="product_feature_description_meta"
-            >{{ productData.attributes.description }}</p>
+            <p class="product_feature_description_meta">
+              {{ productData.attributes.description }}
+            </p>
           </div>
           <div
             class="product_feature_specification_wrapper"
@@ -27,7 +27,8 @@
             <h3 class="product_feature_specification_head">Характеристики</h3>
             <dl
               class="product_feature_specification"
-              v-for="value in productData.attributes.product_specification_value"
+              v-for="value in productData.attributes
+                .product_specification_value"
               :key="value"
             >
               <dt class="product_feature_specification_key">
@@ -124,11 +125,18 @@
             <div class="product_item_widgets_choice_buttons_wrapper">
               <button class="product_item_widgets_choice_button">
                 <div class="product_item_widgets_choice_button_meta">
-                  <span class="product_item_widgets_choice_button_head" @click="dimensionsVisability = !dimensionsVisability">Выберите размер ({{ productData.attributes.dimensions_value.length }})</span>
+                  <span
+                    class="product_item_widgets_choice_button_head"
+                    @click="dimensionsVisability = !dimensionsVisability"
+                    >Выберите размер ({{
+                      productData.attributes.dimensions_value.length
+                    }})</span
+                  >
                   <div v-if="dimensionsVisability">
                     <ul class="Vremmeny_class">
                       <li
-                        v-for="dimension in productData.attributes.dimensions_value"
+                        v-for="dimension in productData.attributes
+                          .dimensions_value"
                         :key="dimension.id"
                       >
                         <input
@@ -148,7 +156,11 @@
                   >
                     {{ choosedDimesion.value }}
                   </span>
-                  <span class="product_item_widgets_choice_button_value" v-else @click="dimensionsVisability = !dimensionsVisability">
+                  <span
+                    class="product_item_widgets_choice_button_value"
+                    v-else
+                    @click="dimensionsVisability = !dimensionsVisability"
+                  >
                     {{ productData.attributes.dimensions_value[0].value }}
                   </span>
                 </div>
@@ -156,8 +168,13 @@
               </button>
               <button class="product_item_widgets_choice_button">
                 <div class="product_item_widgets_choice_button_meta">
-                  <span class="product_item_widgets_choice_button_head" @click="colorsVisability = !colorsVisability">
-                    Выберите цвет ({{ productData.attributes.color_price.length }})
+                  <span
+                    class="product_item_widgets_choice_button_head"
+                    @click="colorsVisability = !colorsVisability"
+                  >
+                    Выберите цвет ({{
+                      productData.attributes.color_price.length
+                    }})
                   </span>
                   <div v-if="colorsVisability">
                     <ul class="Vremmeny_class">
@@ -175,10 +192,18 @@
                       </li>
                     </ul>
                   </div>
-                  <span class="product_item_widgets_choice_button_value" v-if="choosedColor" @click="colorsVisability = !colorsVisability">
+                  <span
+                    class="product_item_widgets_choice_button_value"
+                    v-if="choosedColor"
+                    @click="colorsVisability = !colorsVisability"
+                  >
                     {{ choosedColor.color.name }}
                   </span>
-                  <span class="product_item_widgets_choice_button_value" v-else @click="colorsVisability = !colorsVisability">
+                  <span
+                    class="product_item_widgets_choice_button_value"
+                    v-else
+                    @click="colorsVisability = !colorsVisability"
+                  >
                     {{ productData.attributes.color_price[0].color.name }}
                   </span>
                 </div>
@@ -187,16 +212,22 @@
             </div>
           </div>
           <div class="product_item_widgets_cart_button_wrapper">
-            <button class="product_item_widgets_cart_button" v-if="choosedColor && choosedDimesion" @click="addToCart(cartData)">
+            <button
+              class="product_item_widgets_cart_button"
+              v-if="choosedColor && choosedDimesion"
+              @click="addToCart(cartData)"
+            >
               <span class="material-symbols-outlined">shopping_cart</span>
-              <span class="product_item_widgets_cart_button_text">Добавить в корзину</span>
+              <span class="product_item_widgets_cart_button_text"
+                >Добавить в корзину</span
+              >
             </button>
           </div>
         </div>
       </div>
     </div>
     <!-- <div> -->
-        <!-- <span @click="dimensionsVisability = !dimensionsVisability"
+    <!-- <span @click="dimensionsVisability = !dimensionsVisability"
           >Выберите размер ({{
             productData.attributes.dimensions_value.length
           }})</span
@@ -227,7 +258,7 @@
           {{ productData.attributes.dimensions_value[0].value }}
         </div>
         <p></p> -->
-        <!-- <span @click="colorsVisability = !colorsVisability"
+    <!-- <span @click="colorsVisability = !colorsVisability"
           >Выберите цвет ({{ productData.attributes.color_price.length }})</span
         >
         <div v-if="colorsVisability">
@@ -253,18 +284,18 @@
           {{ productData.attributes.color_price[0].color.name }}
         </div>
       </div> -->
-      <!-- <button
+    <!-- <button
         v-if="choosedColor && choosedDimesion"
         @click="addToCart(cartData)"
       >
         Добавить в корзину
       </button> -->
 
-      <!-- <div v-if="choosedColor && choosedDimesion">
+    <!-- <div v-if="choosedColor && choosedDimesion">
         {{ cartData }}
         <div v-for="(key, value) in cartData" :key="value">{{ key }}: {{ value }}</div>
       </div> -->
-      <!-- <p>{{ productData }}</p> -->
+    <!-- <p>{{ productData }}</p> -->
     <!-- </div> -->
   </div>
 </template>
@@ -339,16 +370,11 @@ export default {
 </script>
 
 <style>
-
 .Vremmeny_class {
   padding-top: 16px;
   padding-bottom: 16px;
   list-style: none;
 }
-
-
-
-
 
 .product_item_page_area {
   display: grid;

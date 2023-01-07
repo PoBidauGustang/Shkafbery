@@ -15,15 +15,20 @@
         <MainMenu
           v-if="category.attributes.for_main_menu == true"
           :category="category"
+          @click="switchMainSubMenuVisability(category.attributes.name)"
+
         />
         <!-- </span> -->
+      </li>
+      <li>
+        <button @click="closeSubMenu()">CLOSE</button>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import MainMenu from "./TheMenues/MainMenu.vue";
 import MenuCatalog from "./TheMenues/MenuCatalog.vue";
 export default {
@@ -46,6 +51,7 @@ export default {
     ...mapGetters("data", ["GETMAINCATEGORIES"]),
   },
   methods: {
+    ...mapActions("data", ["switchMainSubMenuVisability", "closeSubMenu"]),
     filterMainMenuCategories() {
       for (let category in this.GETMAINCATEGORIES) {
         if (this.GETMAINCATEGORIES[category].attributes.for_main_menu == true) {
@@ -54,6 +60,9 @@ export default {
         }
       }
     },
+  },
+  updated() {
+    this.closeSubMenu();
   },
 };
 </script>

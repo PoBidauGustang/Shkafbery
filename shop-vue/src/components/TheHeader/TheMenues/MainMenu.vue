@@ -5,20 +5,22 @@
       class="main_menu_item_link"
       v-if="category.child_free === true"
       :to="'/category/' + category.attributes.slug"
+      @click.stop
+      @click="closeSubMenu"
       >{{ category.attributes.name }}
     </router-link>
     <!-- </div> -->
     <!-- <div v-else @click="switchMainSubMenuVisability"> -->
     <!-- <a class="bottom_menu_link" @click="showMegaMenuCloset"> -->
-    <a class="main_menu_item_link" v-else @click="switchMainSubMenuVisability">
+    <a class="main_menu_item_link" v-else >
       <span class="">{{ category.attributes.name }}</span>
       <!-- <span class=""> -->
       <span class="material-symbols-outlined">expand_more</span>
       <!-- </span> -->
     </a>
     <!-- </div> -->
-    <div class="" v-if="mainSubMenuVisible">
-      <div class="main_sub_menu_wrapper">
+    <div class="" v-show="GETCMAINSUBMENUVISABILITY === category.attributes.name" @click.stop>
+      <div class="main_sub_menu_wrapper" @click="closeSubMenu">
         <ul class="main_sub_menu_open_list">
           <li
             class="main_sub_menu_open_list_item"
@@ -27,12 +29,12 @@
           >
             <MainSubMenu
               :categoryData="cat"
-              @switchMainSubMenuVisability="switchMainSubMenuVisability"
+              
             />
           </li>
           <li
             v-if="category.id == 6"
-            @click="switchMainSubMenuVisability"
+            
             class="main_sub_menu_open_list_item"
           >
             <router-link
@@ -56,7 +58,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import MainSubMenu from "./MainSubMenu.vue";
 export default {
   name: "MainMenu",
@@ -78,7 +80,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("data", ["GETCHILDCATEGORIES"]),
+    ...mapGetters("data", ["GETCHILDCATEGORIES", "GETCMAINSUBMENUVISABILITY"]),
   },
   methods: {
     makeSubCategoriesList() {
@@ -94,17 +96,19 @@ export default {
         return 0;
       });
     },
-    switchMainSubMenuVisability() {
-      this.mainSubMenuVisible = !this.mainSubMenuVisible;
-    },
-    turnoffAllMainSubMenuVisability() {
-      if (this.mainSubMenuVisible) {
-        this.mainSubMenuVisible = false;
-      }
-    },
+    // switchMainSubMenuVisability() {
+    //   this.mainSubMenuVisible = !this.mainSubMenuVisible;
+    // },
+    // turnoffAllMainSubMenuVisability() {
+    //   // if (this.mainSubMenuVisible) {
+    //   this.mainSubMenuVisible = false;
+    //   // }
+    // },
+    ...mapActions("data", ["switchMainSubMenuVisability", "closeSubMenu"]),
   },
   mounted() {
     this.makeSubCategoriesList();
+    // this.turnoffAllMainSubMenuVisability();
     // let vm = this;
     // document.addEventListener("click", function (item) {
     //   if (item.target === vm.$refs["MegaMenu_wrapper"]) {

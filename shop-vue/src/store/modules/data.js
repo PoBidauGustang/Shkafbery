@@ -6,7 +6,8 @@ const state = {
   allCategories: allCategoriesVar ? JSON.parse(allCategoriesVar) : {},
   childCategories: childCategoriesVar ? JSON.parse(childCategoriesVar) : {},
   mainCategories: mainCategoriesVar ? JSON.parse(mainCategoriesVar) : [],
-  currentSubSideMenuVisability: false,
+  // currentSubSideMenuVisability: false,
+  mainSubMenuVisability: "",
   // allCategories: {},
   // childCategories: {},
   // mainCategories: [],
@@ -48,8 +49,18 @@ const mutations = {
       JSON.stringify(state.mainCategories)
     );
   },
-  switchCurrentSubSideMenuVisabilityMut(state) {
-    state.currentSubSideMenuVisability = !state.currentSubSideMenuVisability;
+  switchMainSubMenuVisabilityMut(state, payload) {
+    if (state.mainSubMenuVisability === payload) {
+      state.mainSubMenuVisability = ""
+    }
+    else {
+      state.mainSubMenuVisability = payload;
+    }
+    console.log(state.mainSubMenuVisability);
+  },
+  closeSubMenuMut(state) {
+    state.mainSubMenuVisability = "";
+    console.log("closed");
   },
 };
 
@@ -63,8 +74,11 @@ const actions = {
   saveMainCategories({ commit }, payload) {
     commit("saveMainCategoriesMut", payload);
   },
-  switchCurrentSubSideMenuVisability({ commit }) {
-    commit("switchCurrentSubSideMenuVisabilityMut");
+  switchMainSubMenuVisability({ commit }, payload) {
+    commit("switchMainSubMenuVisabilityMut", payload);
+  },
+  closeSubMenu({ commit }) {
+    commit("closeSubMenuMut");
   },
 };
 
@@ -78,8 +92,8 @@ const getters = {
   GETMAINCATEGORIES(state) {
     return state.mainCategories;
   },
-  GETCURRENTSUBSIDEMENUVISABILITY(state) {
-    return state.currentSubSideMenuVisability;
+  GETCMAINSUBMENUVISABILITY(state) {
+    return state.mainSubMenuVisability;
   },
 };
 
