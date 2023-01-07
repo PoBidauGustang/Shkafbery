@@ -1,27 +1,22 @@
 <template>
   <div class="the_bottom_menu">
-    <MenuCatalog />
-    <!-- <button class="catalog_bottom_menu">
-      <span class="material-symbols-outlined">widgets</span>
-      <span><MenuCatalog /></span>
-    </button> -->
+    <MenuCatalog
+      @click="closeMainSubMenu(), switchCatalogSubMenuVisability()"
+    />
     <ul class="main_menu">
       <li
         class="main_menu_item"
         v-for="category in filteredMainMenuCategories"
         :key="category.id"
       >
-        <!-- <span > -->
         <MainMenu
           v-if="category.attributes.for_main_menu == true"
           :category="category"
-          @click="switchMainSubMenuVisability(category.attributes.name)"
-
+          @click="
+            closeSideSubMenu(),
+              switchMainSubMenuVisability(category.attributes.name)
+          "
         />
-        <!-- </span> -->
-      </li>
-      <li>
-        <button @click="closeSubMenu()">CLOSE</button>
       </li>
     </ul>
   </div>
@@ -48,10 +43,20 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("data", ["GETMAINCATEGORIES"]),
+    ...mapGetters("data", [
+      "GETCATALOGSUBMENUVISABILITY",
+      "GETMAINCATEGORIES",
+      "GETMAINSUBMENUVISABILITY",
+    ]),
   },
   methods: {
-    ...mapActions("data", ["switchMainSubMenuVisability", "closeSubMenu"]),
+    ...mapActions("data", [
+      "switchMainSubMenuVisability",
+      "switchCatalogSubMenuVisability",
+      "closeSubMenu",
+      "closeMainSubMenu",
+      "closeSideSubMenu",
+    ]),
     filterMainMenuCategories() {
       for (let category in this.GETMAINCATEGORIES) {
         if (this.GETMAINCATEGORIES[category].attributes.for_main_menu == true) {
@@ -60,9 +65,20 @@ export default {
         }
       }
     },
+    handleKeydown(e) {
+      if (
+        (this.GETCATALOGSUBMENUVISABILITY || this.GETMAINSUBMENUVISABILITY) &&
+        e.key === "Escape"
+      ) {
+        this.closeSubMenu();
+      }
+    },
   },
-  updated() {
-    this.closeSubMenu();
+  mounted() {
+    document.addEventListener("keydown", this.handleKeydown);
+  },
+  beforeUnmount() {
+    document.removeEventListener("keydown", this.handleKeydown);
   },
 };
 </script>

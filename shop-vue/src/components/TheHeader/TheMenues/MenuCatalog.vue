@@ -1,6 +1,6 @@
 <template>
   <div class="men_wrapper_catalog">
-    <button class="men_catalog" @click="switchSideMenuVisability">
+    <button class="men_catalog">
       <!-- <span class="">Каталог</span><span class="">
           <span @click="closeSideMenuVisability">Закрыть</span>
         </span> -->
@@ -9,13 +9,15 @@
     </button>
     <!-- <teleport to="body"> -->
     <!-- <div class="all_products_wrapper" v-if="sideMenuVisability"> -->
-    <div class="all_products_list_wrapper" v-if="sideMenuVisability">
+    <div
+      class="all_products_list_wrapper"
+      v-if="GETCATALOGSUBMENUVISABILITY"
+      @click.stop
+    >
       <div class="all_products_list_header">
         <span>Каталог</span>
         <div class="icon_button_close">
-          <span
-            class="material-symbols-outlined"
-            @click="closeSideMenuVisability"
+          <span class="material-symbols-outlined" @click="closeSideSubMenu"
             >close</span
           >
         </div>
@@ -30,7 +32,9 @@
           <CatalogSideMenu
             v-if="category.attributes.for_side_menu == true"
             :category="category"
-            @switchSideMenuVisability="switchSideMenuVisability"
+            @click="
+              switchCatalogSubSideMenuVisability(category.attributes.name)
+            "
           />
           <!-- </span> -->
         </li>
@@ -42,7 +46,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import CatalogSideMenu from "./CatalogSideMenu.vue";
 export default {
   name: "MenuCatalog",
@@ -51,20 +55,28 @@ export default {
   },
   data() {
     return {
-      sideMenuVisability: false,
+      // sideMenuVisability: false,
     };
   },
   watch: {},
   computed: {
-    ...mapGetters("data", ["GETCHILDCATEGORIES", "GETMAINCATEGORIES"]),
+    ...mapGetters("data", [
+      "GETCHILDCATEGORIES",
+      "GETMAINCATEGORIES",
+      "GETCATALOGSUBMENUVISABILITY",
+    ]),
   },
   methods: {
-    switchSideMenuVisability() {
-      this.sideMenuVisability = !this.sideMenuVisability;
-    },
-    closeSideMenuVisability() {
-      this.sideMenuVisability = false;
-    },
+    ...mapActions("data", [
+      "switchCatalogSubSideMenuVisability",
+      "closeSideSubMenu",
+    ]),
+    // switchSideMenuVisability() {
+    //   this.sideMenuVisability = !this.sideMenuVisability;
+    // },
+    // closeSideMenuVisability() {
+    //   this.sideMenuVisability = false;
+    // },
   },
 };
 </script>

@@ -2,10 +2,11 @@
   <div>
     <!-- <div class="all_pruducts_list_item" v-if="category.child_free === true"> -->
     <router-link
-      @click="switchMenuVisability"
       class="all_pruducts_list_item"
       v-if="category.child_free === true"
       :to="'/category/' + category.attributes.slug"
+      @click.stop
+      @click="closeSideSubMenu"
     >
       <div class="all_pruducts_list_item_image_meta">
         <div class="all_pruducts_list_item_image">
@@ -16,11 +17,7 @@
     </router-link>
     <!-- </div> -->
     <!-- <div class="" v-else @click="switchSideSubMenuVisability"> -->
-    <a
-      class="all_pruducts_list_item"
-      v-else
-      @click="switchSideSubMenuVisability"
-    >
+    <a class="all_pruducts_list_item" v-else>
       <!-- <span class=""> -->
       <div class="all_pruducts_list_item_image_meta">
         <div class="all_pruducts_list_item_image">
@@ -35,7 +32,12 @@
     </a>
     <!-- </div> -->
     <teleport to="body">
-      <div class="all_product_category_open_skr" v-if="sideSubMenuVisability">
+      <div
+        class="all_product_category_open_skr"
+        v-if="GETCATALOGSUBSIDEMENUVISABILITY === category.attributes.name"
+        @click="closeSideSubMenu"
+        @click.stop
+      >
         <div class="all_product_category_open_wrapper">
           <div class="all_product_category_open_header">
             {{ category.attributes.name }}
@@ -46,10 +48,7 @@
               v-for="cat in subCategoriesList"
               :key="cat.id"
             >
-              <CatalogSubSideMenu
-                :categoryData="cat"
-                @switchSideSubMenuVisability="switchMenuVisability"
-              />
+              <CatalogSubSideMenu :categoryData="cat" />
             </li>
             <li
               v-if="category.id == 6"
@@ -78,7 +77,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import CatalogSubSideMenu from "./CatalogSubSideMenu.vue";
 export default {
   name: "CatalogSideMenu",
@@ -100,15 +99,22 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("data", ["GETCHILDCATEGORIES"]),
+    ...mapGetters("data", [
+      "GETCATALOGSUBSIDEMENUVISABILITY",
+      "GETCHILDCATEGORIES",
+    ]),
   },
   methods: {
-    switchMenuVisability() {
-      this.$emit("switchSideMenuVisability");
-    },
-    switchSideSubMenuVisability() {
-      this.sideSubMenuVisability = !this.sideSubMenuVisability;
-    },
+    ...mapActions("data", [
+      "closeSideSubMenu",
+      "switchCatalogSubSideMenuVisability",
+    ]),
+    // switchMenuVisability() {
+    //   this.$emit("switchSideMenuVisability");
+    // },
+    // switchSideSubMenuVisability() {
+    //   this.sideSubMenuVisability = !this.sideSubMenuVisability;
+    // },
     makeSubCategoriesList() {
       this.subCategoriesList =
         this.GETCHILDCATEGORIES[this.category.attributes.name];

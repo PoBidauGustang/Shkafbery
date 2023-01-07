@@ -1,5 +1,5 @@
 <template>
-  <div @click="switchMainSubMenuVisability">
+  <div>
     <router-link
       class="main_sub_menu_open_list_product"
       :to="'/category/' + categoryData.attributes.slug"
@@ -31,9 +31,9 @@ export default {
     return {};
   },
   methods: {
-    switchMainSubMenuVisability() {
-      this.$emit("switchMainSubMenuVisability");
-    },
+    // switchMainSubMenuVisability() {
+    //   this.$emit("switchMainSubMenuVisability");
+    // },
   },
 };
 </script>

@@ -6,8 +6,9 @@ const state = {
   allCategories: allCategoriesVar ? JSON.parse(allCategoriesVar) : {},
   childCategories: childCategoriesVar ? JSON.parse(childCategoriesVar) : {},
   mainCategories: mainCategoriesVar ? JSON.parse(mainCategoriesVar) : [],
-  // currentSubSideMenuVisability: false,
   mainSubMenuVisability: "",
+  catalogSubMenuVisability: false,
+  catalogSubSideMenuVisability: "",
   // allCategories: {},
   // childCategories: {},
   // mainCategories: [],
@@ -51,16 +52,32 @@ const mutations = {
   },
   switchMainSubMenuVisabilityMut(state, payload) {
     if (state.mainSubMenuVisability === payload) {
-      state.mainSubMenuVisability = ""
-    }
-    else {
+      state.mainSubMenuVisability = "";
+    } else {
       state.mainSubMenuVisability = payload;
     }
-    console.log(state.mainSubMenuVisability);
+  },
+  switchCatalogSubMenuVisabilityMut(state) {
+    state.catalogSubMenuVisability = !state.catalogSubMenuVisability;
+  },
+  switchCatalogSubSideMenuVisabilityMut(state, payload) {
+    if (state.catalogSubSideMenuVisability === payload) {
+      state.catalogSubSideMenuVisability = "";
+    } else {
+      state.catalogSubSideMenuVisability = payload;
+    }
   },
   closeSubMenuMut(state) {
     state.mainSubMenuVisability = "";
-    console.log("closed");
+    state.catalogSubMenuVisability = false;
+    state.catalogSubSideMenuVisability = "";
+  },
+  closeMainSubMenuMut(state) {
+    state.mainSubMenuVisability = "";
+  },
+  closeSideSubMenuMut(state) {
+    state.catalogSubMenuVisability = false;
+    state.catalogSubSideMenuVisability = "";
   },
 };
 
@@ -77,8 +94,20 @@ const actions = {
   switchMainSubMenuVisability({ commit }, payload) {
     commit("switchMainSubMenuVisabilityMut", payload);
   },
+  switchCatalogSubMenuVisability({ commit }) {
+    commit("switchCatalogSubMenuVisabilityMut");
+  },
+  switchCatalogSubSideMenuVisability({ commit }, payload) {
+    commit("switchCatalogSubSideMenuVisabilityMut", payload);
+  },
   closeSubMenu({ commit }) {
     commit("closeSubMenuMut");
+  },
+  closeMainSubMenu({ commit }) {
+    commit("closeMainSubMenuMut");
+  },
+  closeSideSubMenu({ commit }) {
+    commit("closeSideSubMenuMut");
   },
 };
 
@@ -92,8 +121,14 @@ const getters = {
   GETMAINCATEGORIES(state) {
     return state.mainCategories;
   },
-  GETCMAINSUBMENUVISABILITY(state) {
+  GETMAINSUBMENUVISABILITY(state) {
     return state.mainSubMenuVisability;
+  },
+  GETCATALOGSUBMENUVISABILITY(state) {
+    return state.catalogSubMenuVisability;
+  },
+  GETCATALOGSUBSIDEMENUVISABILITY(state) {
+    return state.catalogSubSideMenuVisability;
   },
 };
 

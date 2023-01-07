@@ -1,42 +1,33 @@
 <template>
   <div>
-    <!-- <div v-if="category.child_free === true"> -->
     <router-link
       class="main_menu_item_link"
       v-if="category.child_free === true"
       :to="'/category/' + category.attributes.slug"
       @click.stop
-      @click="closeSubMenu"
+      @click="closeMainSubMenu"
       >{{ category.attributes.name }}
     </router-link>
-    <!-- </div> -->
-    <!-- <div v-else @click="switchMainSubMenuVisability"> -->
-    <!-- <a class="bottom_menu_link" @click="showMegaMenuCloset"> -->
-    <a class="main_menu_item_link" v-else >
+    <a class="main_menu_item_link" v-else>
       <span class="">{{ category.attributes.name }}</span>
-      <!-- <span class=""> -->
       <span class="material-symbols-outlined">expand_more</span>
-      <!-- </span> -->
     </a>
-    <!-- </div> -->
-    <div class="" v-show="GETCMAINSUBMENUVISABILITY === category.attributes.name" @click.stop>
-      <div class="main_sub_menu_wrapper" @click="closeSubMenu">
+    <div
+      class="backdrop"
+      v-show="GETMAINSUBMENUVISABILITY === category.attributes.name"
+      @click="closeMainSubMenu"
+      @click.stop
+    >
+      <div class="main_sub_menu_wrapper">
         <ul class="main_sub_menu_open_list">
           <li
             class="main_sub_menu_open_list_item"
             v-for="cat in subCategoriesList"
             :key="cat.id"
           >
-            <MainSubMenu
-              :categoryData="cat"
-              
-            />
+            <MainSubMenu :categoryData="cat" />
           </li>
-          <li
-            v-if="category.id == 6"
-            
-            class="main_sub_menu_open_list_item"
-          >
+          <li v-if="category.id == 6" class="main_sub_menu_open_list_item">
             <router-link
               class="main_sub_menu_open_list_product"
               to="/closet_planner"
@@ -76,11 +67,10 @@ export default {
   data() {
     return {
       subCategoriesList: [],
-      mainSubMenuVisible: false,
     };
   },
   computed: {
-    ...mapGetters("data", ["GETCHILDCATEGORIES", "GETCMAINSUBMENUVISABILITY"]),
+    ...mapGetters("data", ["GETCHILDCATEGORIES", "GETMAINSUBMENUVISABILITY"]),
   },
   methods: {
     makeSubCategoriesList() {
@@ -96,15 +86,7 @@ export default {
         return 0;
       });
     },
-    // switchMainSubMenuVisability() {
-    //   this.mainSubMenuVisible = !this.mainSubMenuVisible;
-    // },
-    // turnoffAllMainSubMenuVisability() {
-    //   // if (this.mainSubMenuVisible) {
-    //   this.mainSubMenuVisible = false;
-    //   // }
-    // },
-    ...mapActions("data", ["switchMainSubMenuVisability", "closeSubMenu"]),
+    ...mapActions("data", ["switchMainSubMenuVisability", "closeMainSubMenu"]),
   },
   mounted() {
     this.makeSubCategoriesList();
@@ -203,6 +185,17 @@ export default {
   grid-column: 10;
   margin-top: 32px;
 }
+
+.backdrop {
+  position: static;
+  top: 473.13;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+}
+
 /* .bottom_menu_link {
   display: flex;
   align-items: center;

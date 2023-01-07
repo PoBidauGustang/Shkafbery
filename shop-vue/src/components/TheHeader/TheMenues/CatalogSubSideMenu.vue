@@ -6,8 +6,6 @@
     >
       <div class="all_product_category_open_list_image">
         <img :src="require('../../../assets/images/2.jpeg')" alt="img" />
-        <!-- <div>sdfsssssssssss</div> -->
-        <!-- <span>{{ categoryData.attributes.name }}</span> -->
       </div>
       <span>{{ categoryData.attributes.name }}</span>
     </router-link>
