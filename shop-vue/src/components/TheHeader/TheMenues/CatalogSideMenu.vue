@@ -140,11 +140,10 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 99999;
-  padding-right: 24px;
+  left: 380px;
+  z-index: 105;
   background-color: #ffffff;
   pointer-events: none;
-  width: calc(100% - 336px);
 }
 
 .all_product_category_open_wrapper {

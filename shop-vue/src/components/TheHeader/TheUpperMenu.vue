@@ -11,7 +11,7 @@
       </li>
       <li class="header_top_list_item">
         <router-link class="header_top_link" to="/installation"
-          >Установка</router-link
+          >Сборка и установка</router-link
         >
       </li>
       <li class="header_top_list_item">
@@ -26,7 +26,7 @@
       </li>
       <li class="header_top_list_item">
         <router-link class="header_top_link" to="/photos"
-          >Фото работ</router-link
+          >Примеры работ</router-link
         >
       </li>
       <li class="header_top_list_item">

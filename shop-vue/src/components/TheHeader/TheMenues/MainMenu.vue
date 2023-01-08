@@ -120,8 +120,8 @@ export default {
   position: absolute;
   right: 0;
   left: 0;
-  top: 185;
-  z-index: 2;
+  top: 0;
+  z-index: 102;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: max-content;
@@ -187,8 +187,8 @@ export default {
 }
 
 .backdrop {
-  position: static;
-  top: 473.13;
+  position: absolute;
+  top: 184px;
   left: 0;
   bottom: 0;
   right: 0;
