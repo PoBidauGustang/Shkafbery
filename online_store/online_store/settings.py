@@ -106,7 +106,7 @@ DATABASES = {
 #         "NAME": "postgres",
 #         "USER": "postgres",
 #         "PASSWORD": "123456",
-#         "HOST": "sb_db",
+#         "HOST": "db",
 #         "PORT": "5432",
 #     }
 # }
