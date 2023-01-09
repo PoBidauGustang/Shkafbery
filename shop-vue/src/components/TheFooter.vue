@@ -59,19 +59,25 @@
           <legend class="footer_area_contact_form_title">
             Подписка на акции и новости
           </legend>
-          <div class="footer_area_form_input">
-            <label for="mail">Ваша почта</label>
-            <div class="test_submit">
-              <input type="email" name="mail" id="mail" required />
-              <button class="footer_area_input_submit">
-                <span class="material-symbols-outlined">send</span>
-              </button>
-            </div>
-            <span class="footer_area_input_prompt"
-              >Отправляя свой e-mail вы соглашаетесь с политикой
-              конфиденциальности</span
+          <div class="footer_area_form_input_wrapper">
+            <input
+              class="footer_area_form_input"
+              type="email"
+              id="mail"
+              placeholder=" "
+              required
+            />
+            <label class="footer_area_form_input_label" for="mail"
+              >Ваша почта</label
             >
+            <button class="footer_area_input_submit">
+              <span class="material-symbols-outlined">send</span>
+            </button>
           </div>
+          <span class="footer_area_input_prompt"
+            >Отправляя свой e-mail, вы соглашаетесь с политикой
+            конфиденциальности</span
+          >
         </fieldset>
       </form>
       <ul class="footer_area_contacts">
@@ -122,22 +128,18 @@
 
 <script>
 export default {
-  name: "TheFooter",
+  name: "The-Footer",
 };
 </script>
 
 <style>
-.test_submit {
-  display: flex;
-}
-
 .footer_area {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   padding-left: 24px;
   padding-right: 24px;
   padding-bottom: 16px;
-  background-color: #f0f0f0;
+  background-color: var(--surface-dark);
 }
 
 .footer_area_items_wrapper {
@@ -149,7 +151,7 @@ export default {
   padding-top: 48px;
   padding-right: 16px;
   padding-bottom: 48px;
-  border-right: 1px solid;
+  border-right: 1px solid var(--outline-dark);
 }
 
 .footer_items_wrapper {
@@ -164,6 +166,7 @@ export default {
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
+  color: var(--on-surface-variant-dark);
   margin-bottom: 8px;
 }
 
@@ -171,6 +174,11 @@ export default {
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
+  color: var(--on-surface-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--primary-dark);
 }
 
 .footer_area_contact_wrapper {
@@ -195,47 +203,73 @@ export default {
   font-size: 32px;
   line-height: 40px;
   text-transform: uppercase;
+  color: var(--on-surface-dark);
   margin-bottom: 24px;
 }
 
-.footer_area_form_input {
+.footer_area_form_input_wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
 
-.footer_area_form_input label {
-  margin-bottom: 8px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.footer_area_form_input input {
-  width: 100%;
+.footer_area_form_input_label {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  padding: 16px;
-  border: 1px solid;
+  color: var(--on-surface-dark);
+  pointer-events: none;
+  transform-origin: 0 50%;
+  transition: transform 200ms;
+}
+
+.footer_area_form_input {
+  height: 56px;
+  font-size: 16px;
+  line-height: 24px;
+  padding-top: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  background-color: var(--surface-variant-dark);
+  border: 1px solid var(--outline-dark);
   border-radius: 8px;
-  background-color: #fafafa;
+}
+
+.footer_area_form_input:focus ~ .footer_area_form_input_label,
+.footer_area_form_input:not(:placeholder-shown)
+  ~ .footer_area_form_input_label {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  transform: translateY(-16px);
+}
+
+.footer_area_form_input:focus {
+  outline-color: var(--primary-dark);
 }
 
 .footer_area_input_prompt {
   font-size: 12px;
   line-height: 16px;
   margin-top: 4px;
+  color: var(--on-surface-variant-dark);
 }
 
 .footer_area_input_submit {
-  position: relative;
-  top: 0px;
-  right: 48px;
-  z-index: 1;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 8px;
+  color: var(--on-surface-variant-dark);
 }
 
 .footer_area_contacts {
@@ -253,6 +287,7 @@ export default {
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
+  color: var(--on-surface-dark);
   margin-bottom: 8px;
 }
 
@@ -260,20 +295,21 @@ export default {
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
+  color: var(--on-surface-variant-dark);
 }
 
 .footer_item_link_wrapper {
   display: flex;
   gap: 8px;
+  color: var(--on-surface-dark);
 }
-
 .footer_prompt_info {
   grid-row: 3;
   grid-column: span 12;
   display: flex;
   justify-content: center;
   padding-top: 16px;
-  border-top: 1px solid;
+  border-top: 1px solid var(--outline-dark);
 }
 
 .footer_socials {
@@ -291,7 +327,7 @@ export default {
   align-items: center;
   width: 40px;
   height: 40px;
-  border: 1px solid;
+  border: 1px solid var(--outline-dark);
   border-radius: 100px;
 }
 </style>

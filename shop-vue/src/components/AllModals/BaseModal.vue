@@ -1,22 +1,17 @@
 <template>
-    <div v-if="isOpen" @click="close" class="back_drop">
-        <slot name="MyComponent"></slot>
-    </div>
+  <div v-if="isOpen" @click="close" class="back_drop">
+    <slot name="MyComponent"></slot>
+  </div>
 </template>
 
-
 <script>
-
-
 export default {
-    name: "BaseModal",
-    components: {
-    
-  },
+  name: "BaseModal",
+  components: {},
 
   props: {
     isOpen: {
-    type: Boolean,
+      type: Boolean,
     },
   },
 
@@ -38,18 +33,14 @@ export default {
       }
     },
 
-
     close() {
       this.$emit("close");
     },
   },
-}
-
+};
 </script>
 
-
 <style scoped>
-
 .back_drop {
   position: fixed;
   top: 0;
@@ -59,6 +50,4 @@ export default {
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.8);
 }
-
-
 </style>

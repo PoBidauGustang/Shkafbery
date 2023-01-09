@@ -1,5 +1,5 @@
 <template>
-<div class="toggle_input_area">
+  <div class="toggle_input_area">
     <div class="toggle_input_meta_wrapper">
       <span class="material-symbols-outlined size_40">handyman</span>
       <div class="toggle_input_meta">
@@ -8,23 +8,19 @@
       </div>
     </div>
     <label class="toggle_input_switcher_wrapper">
-        <input type="checkbox" name="switchValue">
-        <span class="toggle_input_switcher"></span>
-    </label>  
-</div>
+      <input type="checkbox" name="switchValue" />
+      <span class="toggle_input_switcher"></span>
+    </label>
+  </div>
 </template>
 
 <script>
-
 export default {
-    name: "Toggle-Input-Outline",
-
-}
+  name: "Toggle-Input-Outline",
+};
 </script>
 
 <style>
-
-
 .toggle_input_area {
   display: flex;
   justify-content: space-between;
@@ -86,8 +82,8 @@ export default {
   bottom: 0;
   border-radius: 100px;
   background-color: var(--surface-variant-light);
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .toggle_input_switcher:before {
@@ -98,10 +94,11 @@ export default {
   top: 2px;
   left: 2px;
   border-radius: 100px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3),
+    0px 1px 3px 1px rgba(0, 0, 0, 0.15);
   background-color: white;
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 input:checked + .toggle_input_switcher {
@@ -117,6 +114,4 @@ input:checked + .toggle_input_switcher:before {
   -ms-transform: translateX(20px);
   transform: translateX(20px);
 }
-
-
 </style>
