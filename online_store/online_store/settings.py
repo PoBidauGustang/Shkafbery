@@ -21,14 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY = "fdsfsfddsfdg43t4ysdsaddssd675fd68s"
+SECRET_KEY = os.environ.get("SECRET_KEY")
+# SECRET_KEY = "fdsfsfddsfdg43t4ysdsaddssd675fd68s"
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = bool(int(os.environ.get("DEBUG", default=1)))
-DEBUG = True
-# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+DEBUG = bool(int(os.environ.get("DEBUG", default=1)))
+# DEBUG = True
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -90,37 +90,28 @@ WSGI_APPLICATION = "online_store.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "shop",
-        "USER": "aman",
-        "PASSWORD": "123",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "postgres",
-#         "USER": "postgres",
-#         "PASSWORD": "123456",
-#         "HOST": "db",
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "shop",
+#         "USER": "aman",
+#         "PASSWORD": "123",
+#         "HOST": "localhost",
 #         "PORT": "5432",
 #     }
 # }
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-#         "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
-#         "USER": os.environ.get("SQL_USER", "user"),
-#         "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-#         "HOST": os.environ.get("SQL_HOST", "localhost"),
-#         "PORT": os.environ.get("SQL_PORT", "5432"),
-#     }
-# }
+
+DATABASES = {
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -175,6 +166,8 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:1313",
     "http://localhost:1313",
     "http://194.67.119.7",
+    "http://shkafberi.ru/",
+    "http://www.shkafberi.ru/",
 ]
 
 # Default primary key field type
@@ -367,10 +360,4 @@ DJOSER = {
 
 # AUTH_USER_MODEL = "account.Profile"
 
-CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:8080",
-    "http://localhost:8081",
-    "http://127.0.0.1:8000",
-]
+# CORS_ORIGIN_ALLOW_ALL = True
