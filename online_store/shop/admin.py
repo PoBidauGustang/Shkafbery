@@ -106,7 +106,14 @@ class CategoryAdmin(MPTTModelAdmin):
         "is_active",
     ]
     form = CategoryAdminForm
-    list_editable = ["parent", "is_active", "for_main_menu", "for_side_menu", "position", "image"]
+    list_editable = [
+        "parent",
+        "is_active",
+        "for_main_menu",
+        "for_side_menu",
+        "position",
+        "image",
+    ]
     inlines = [CategoryImageInline]
     prepopulated_fields = {"slug": ("name",)}
 

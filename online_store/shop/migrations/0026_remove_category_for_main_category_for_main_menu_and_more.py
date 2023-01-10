@@ -6,27 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0025_rename_is_feature_productimage_is_active_and_more'),
+        ("shop", "0025_rename_is_feature_productimage_is_active_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='category',
-            name='for_main',
+            model_name="category",
+            name="for_main",
         ),
         migrations.AddField(
-            model_name='category',
-            name='for_main_menu',
-            field=models.BooleanField(default=False, verbose_name='для главного меню'),
+            model_name="category",
+            name="for_main_menu",
+            field=models.BooleanField(default=False, verbose_name="для главного меню"),
         ),
         migrations.AddField(
-            model_name='category',
-            name='for_side_menu',
-            field=models.BooleanField(default=False, verbose_name='для бокового меню'),
+            model_name="category",
+            name="for_side_menu",
+            field=models.BooleanField(default=False, verbose_name="для бокового меню"),
         ),
         migrations.AlterField(
-            model_name='productimage',
-            name='is_active',
+            model_name="productimage",
+            name="is_active",
             field=models.BooleanField(default=True),
         ),
     ]

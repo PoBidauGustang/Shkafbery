@@ -6,42 +6,42 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('orders', '0002_alter_order_options_alter_orderitem_options'),
+        ("orders", "0002_alter_order_options_alter_orderitem_options"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='order',
-            old_name='total_paid',
-            new_name='total_order_price',
+            model_name="order",
+            old_name="total_paid",
+            new_name="total_order_price",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='order_key',
+            model_name="order",
+            name="order_key",
         ),
         migrations.AddField(
-            model_name='orderitem',
-            name='color',
+            model_name="orderitem",
+            name="color",
             field=models.CharField(blank=True, max_length=255),
         ),
         migrations.AddField(
-            model_name='orderitem',
-            name='dimensions',
+            model_name="orderitem",
+            name="dimensions",
             field=models.CharField(blank=True, max_length=255),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='email',
+            model_name="order",
+            name="email",
             field=models.EmailField(max_length=255),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='full_name',
+            model_name="order",
+            name="full_name",
             field=models.CharField(blank=True, max_length=255),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='payment_option',
+            model_name="order",
+            name="payment_option",
             field=models.CharField(max_length=255),
         ),
     ]

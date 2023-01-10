@@ -17,7 +17,9 @@ class OrderAdmin(admin.ModelAdmin):
         "payment_option",
         "billing_status",
     ]
-    list_editable = ["billing_status",]
+    list_editable = [
+        "billing_status",
+    ]
 
 
 @admin.register(OrderItem)
@@ -30,5 +32,4 @@ class OrderItemAdmin(admin.ModelAdmin):
         "color",
         "price",
         "quantity",
-
     ]
