@@ -1,16 +1,16 @@
 const state = {
-  // backendShopUrl: "http://127.0.0.1:8000/api/shop",
-  // backendBlogUrl: "http://127.0.0.1:8000/api/blog",
-  // backendClosetUrl: "http://127.0.0.1:8000/api/closet",
-  // backendInformationUrl: "http://127.0.0.1:8000/api/information",
-  // backendAuthUrl: "http://127.0.0.1:8000/api/auth",
-  // backendOrdersUrl: "http://127.0.0.1:8000/api/orders",
-  backendShopUrl: "http://194.67.119.7/api/shop",
-  backendBlogUrl: "http://194.67.119.7/api/blog",
-  backendClosetUrl: "http://194.67.119.7/api/closet",
-  backendInformationUrl: "http://194.67.119.7/api/information",
-  backendAuthUrl: "http://194.67.119.7/api/auth",
-  backendOrdersUrl: "http://194.67.119.7/api/orders",
+  backendShopUrl: "http://127.0.0.1:8000/api/shop",
+  backendBlogUrl: "http://127.0.0.1:8000/api/blog",
+  backendClosetUrl: "http://127.0.0.1:8000/api/closet",
+  backendInformationUrl: "http://127.0.0.1:8000/api/information",
+  backendAuthUrl: "http://127.0.0.1:8000/api/auth",
+  backendOrdersUrl: "http://127.0.0.1:8000/api/orders",
+  // backendShopUrl: "http://194.67.119.7/api/shop",
+  // backendBlogUrl: "http://194.67.119.7/api/blog",
+  // backendClosetUrl: "http://194.67.119.7/api/closet",
+  // backendInformationUrl: "http://194.67.119.7/api/information",
+  // backendAuthUrl: "http://194.67.119.7/api/auth",
+  // backendOrdersUrl: "http://194.67.119.7/api/orders",
 };
 const getters = {
   getServerShopUrl(state) {

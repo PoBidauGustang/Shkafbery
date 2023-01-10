@@ -15,11 +15,11 @@ local_settings.py
 #Docker settings
 Dockerfile.prod
 docker-compose.prod.yml
-.env.prod
+.env.prod*
 entrypoint.prod
 
 #Vue settings
-api_urls.js
+# api_urls.js
 
 __pycache__/
 */__pycache__/
