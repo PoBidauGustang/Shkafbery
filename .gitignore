@@ -7,9 +7,16 @@ db.sqlite3
 
 venv_store
 
+#Django settings
 # settings.py
 prod_settings.py
 local_settings.py
+
+#Docker settings
+Dockerfile.prod
+docker-compose.prod.yml
+.env.prod
+entrypoint.prod
 
 __pycache__/
 */__pycache__/
