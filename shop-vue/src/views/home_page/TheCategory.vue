@@ -18,7 +18,7 @@
           <a
             class="catalog_link"
             href="/page1"
-            v-html="category_data[0].attributes.name"
+            v-html="category_data.attributes.name"
           ></a>
         </li>
         <li class="catalog_link_container">

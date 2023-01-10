@@ -9,7 +9,11 @@ from .models import (
     ProductSpecification,
     ProductSpecificationValue,
 )
-from .serializers import CategoryListSerializer, ProductDetailSerializer
+from .serializers import (
+    CategoryListSerializer,
+    ProductDetailSerializer,
+    ProductListSerializer,
+)
 
 
 class CategoryListView(APIView):
@@ -25,6 +29,24 @@ class CategoryListView(APIView):
 
 #     queryset = Category.objects.filter(is_active=True)
 #     serializer_class = CategoryListSerializer
+
+
+class ProductListView(APIView):
+    """Displaying list of product by category"""
+
+    def get(self, request, pk):
+        # params = request.query_params.getlist("category")
+        # products = Product.objects.filter(category__in=params)
+
+        # products = Product.objects.filter(category=pk)
+        # serializer = ProductListSerializer(products, many=True)
+        # return Response(serializer.data)
+        products = Product.objects.filter(category__id=pk)
+        # products = Product.objects.filter(id=pk)
+        # надо сюда категори id = pk
+        # products = Product.objects.filter(is_active=True)
+        serializer = ProductListSerializer(products, many=True)
+        return Response(serializer.data)
 
 
 class ProductDetailView(APIView):

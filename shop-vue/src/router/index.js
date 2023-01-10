@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomePage from "../views/home_page/HomePage.vue";
+import store from "../store/index.js";
 
 const routes = [
   {
@@ -10,7 +11,20 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../components/TheLogin.vue"),
+    component: () => import("../components/TheAuth/TheLogin.vue"),
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("../components/TheAuth/TheRegister.vue"),
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () => import("../views/Dashboard.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/about",
@@ -33,11 +47,6 @@ const routes = [
     component: () => import("../views/PartnerPage.vue"),
   },
   {
-    path: "/services",
-    name: "ServicesPage",
-    component: () => import("../views/ServicesPage.vue"),
-  },
-  {
     path: "/posts",
     name: "BlogPosts",
     component: () => import("../views/PostsPage.vue"),
@@ -48,44 +57,14 @@ const routes = [
     component: () => import("../views/PostPageSingle.vue"),
   },
   {
-    path: "/products",
-    name: "List products",
-    component: () => import("../views/ProductsPage.vue"),
-  },
-  {
     path: "/product/:id",
     name: "product",
-    component: () => import("../views/ProductPageSingle.vue"),
+    component: () => import("../views/products/ProductPage.vue"),
   },
   {
-    path: "/materials",
-    name: "List materials",
-    component: () => import("../views/MaterialsPage.vue"),
-  },
-  {
-    path: "/material/:id",
-    name: "materials",
-    component: () => import("../views/MaterialPageSingle.vue"),
-  },
-  {
-    path: "/kitchen",
-    name: "kitchen",
-    component: () => import("../views/KitchenPage.vue"),
-  },
-  {
-    path: "/wardrobe",
-    name: "wardrobe",
-    component: () => import("../views/WardrobePage.vue"),
-  },
-  {
-    path: "/freestanding_closets",
-    name: "FreestandingClosets",
-    component: () => import("../views/FreestandingClosets.vue"),
-  },
-  {
-    path: "/built-in_closets",
-    name: "Built-inClosets",
-    component: () => import("../views/Built-inClosets.vue"),
+    path: "/category/:slug",
+    name: "category",
+    component: () => import("../views/products/Category.vue"),
   },
   {
     path: "/closet_planner",
@@ -93,55 +72,37 @@ const routes = [
     component: () => import("../views/PlannerCloset.vue"),
   },
   {
-    path: "/doors_closet",
-    name: "DoorsCloset",
-    component: () => import("../views/doors/DoorsCloset.vue"),
-  },
-  {
-    path: "/doors_opening",
-    name: "DoorsTheOpening",
-    component: () => import("../views/doors/DoorsTheOpening.vue"),
-  },
-  {
-    path: "/doors_dressing_room",
-    name: "DoorsDressingRoom",
-    component: () => import("../views/doors/DoorsDressingRoom.vue"),
-  },
-  {
-    path: "/cutting",
-    name: "Cutting",
-    component: () => import("../views/services/Cutting.vue"),
-  },
-  {
     path: "/measurements",
     name: "Measurements",
-    component: () => import("../views/services/Measurements.vue"),
+    component: () => import("../views/common_services/Measurements.vue"),
   },
   {
     path: "/installation",
     name: "Installation",
-    component: () => import("../views/services/Installation.vue"),
+    component: () => import("../views/common_services/Installation.vue"),
   },
   {
-    path: "/chipboard",
-    name: "Chipboard",
-    component: () => import("../views/materials/Chipboard.vue"),
-  },
-  {
-    path: "/glass",
-    name: "Glass",
-    component: () => import("../views/materials/Glass.vue"),
-  },
-  {
-    path: "/other",
-    name: "Other",
-    component: () => import("../views/materials/Other.vue"),
+    path: "/cart",
+    name: "TheCart",
+    component: () => import("../views/cart/TheCart.vue"),
   },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.getters["auth/ISLOGGEDIN"]) {
+      next();
+      return;
+    }
+    next("/login");
+  } else {
+    next();
+  }
 });
 
 export default router;

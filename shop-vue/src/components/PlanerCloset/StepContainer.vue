@@ -1,20 +1,22 @@
 <template>
-  <div>here is step stepcontainer</div>
-  <!-- <p>{{ GETCURRENTSTEP }}</p> -->
-  <button @click="switchToPreviousStep">Previous</button>
-  <button @click="switchToNextStep">Next</button>
-  <FirstStep v-if="GETCURRENTSTEP == 1" />
-  <SecondStep
-    v-if="GETCURRENTSTEP == 2"
-    :fillingSchemesList="fillingSchemesList"
-  />
-  <ThirdStep v-if="GETCURRENTSTEP == 3" />
-  <FourthStep v-if="GETCURRENTSTEP == 4" />
-  <FifthStep v-if="GETCURRENTSTEP == 5" />
-  <SixthStep v-if="GETCURRENTSTEP == 6" />
-  <SeventhStep v-if="GETCURRENTSTEP == 7" />
-  <button @click="switchToPreviousStep">Previous</button>
-  <button @click="switchToNextStep">Next</button>
+  <div>
+    <div>here is step stepcontainer</div>
+    <!-- <p>{{ GETCURRENTSTEP }}</p> -->
+    <button @click="switchToPreviousStep">Previous</button>
+    <button @click="switchToNextStep">Next</button>
+    <FirstStep v-if="GETCURRENTSTEP == 1" />
+    <SecondStep
+      v-if="GETCURRENTSTEP == 2"
+      :fillingSchemesList="fillingSchemesList"
+    />
+    <ThirdStep v-if="GETCURRENTSTEP == 3" />
+    <FourthStep v-if="GETCURRENTSTEP == 4" />
+    <FifthStep v-if="GETCURRENTSTEP == 5" />
+    <SixthStep v-if="GETCURRENTSTEP == 6" />
+    <SeventhStep v-if="GETCURRENTSTEP == 7" />
+    <button @click="switchToPreviousStep">Previous</button>
+    <button @click="switchToNextStep">Next</button>
+  </div>
 </template>
 
 <script>

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
@@ -24,8 +25,12 @@ class Category(MPTTModel):
     description = models.TextField(
         verbose_name="описание", help_text="Not Required", blank=True
     )
-    for_main = models.BooleanField(
-        verbose_name="для главной?",
+    for_main_menu = models.BooleanField(
+        verbose_name="для главного меню",
+        default=False,
+    )
+    for_side_menu = models.BooleanField(
+        verbose_name="для бокового меню",
         default=False,
     )
     image = models.ImageField(
@@ -36,7 +41,8 @@ class Category(MPTTModel):
         blank=True,
     )
     position = models.IntegerField(
-        verbose_name="Позиция в категории",
+        verbose_name="Позиция в род.категории",
+        help_text="Позиция в родительской категории главного меню",
         null=True,
         blank=True,
     )
@@ -56,32 +62,9 @@ class Category(MPTTModel):
         return self.name
 
 
-class ProductSpecification(models.Model):
-    """
-    The Product Specification Table contains product
-    specifiction or features for the product types.
-    """
-
-    name = models.CharField(
-        verbose_name="Имя", help_text="Required", max_length=255, unique=True
-    )
-    category = models.ManyToManyField(
-        Category,
-        verbose_name="категория",
-        related_name="products_specification_category",
-    )
-
-    class Meta:
-        verbose_name = "Спецификация товара"
-        verbose_name_plural = "Спецификации товаров"
-
-    def __str__(self):
-        return self.name
-
-
 class Product(models.Model):
     """
-    The Product table contining all product items.
+    The Product table containing all product items.
     """
 
     title = models.CharField(
@@ -127,7 +110,6 @@ class Product(models.Model):
     is_active = models.BooleanField(
         verbose_name="Видимость товара",
         help_text="Изменить видимость товара",
-        # null=True,
         default=True,
     )
     created_at = models.DateTimeField("Создан", auto_now_add=True, editable=False)
@@ -146,35 +128,52 @@ class Product(models.Model):
         return self.title
 
 
+class ProductSpecification(models.Model):
+    """
+    The Product Specification Table contains product
+    specifiction or features for the product types.
+    """
+
+    name = models.CharField(
+        verbose_name="Имя", help_text="Required", max_length=255, unique=True
+    )
+    category = models.ManyToManyField(
+        Category,
+        verbose_name="категория",
+        related_name="products_specification_category",
+    )
+
+    class Meta:
+        verbose_name = "Свойство товара"
+        verbose_name_plural = "Свойства товаров"
+
+    def __str__(self):
+        return self.name
+
+
 class ProductSpecificationValue(models.Model):
     """
     The Product Specification Value table holds each of the
     products individual specification or bespoke features.
     """
 
-    # def get_total_cost(self):
-    #     results = self.Product.objects.all()
-    #     end = []
-    #     for result in results:
-    #         end += result.category.all()
-    #     return end
-
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="product_specification_value"
+    )
     specification = models.ForeignKey(
         ProductSpecification,
         verbose_name="Свойство",
         on_delete=models.RESTRICT,
-        # limit_choices_to={'category': get_total_cost(product)},
     )
     value = models.CharField(
         verbose_name="значение",
-        help_text="Значение характеристики товара (maximum of 255 words)",
+        help_text="Значение свойства товара (maximum of 255 words)",
         max_length=255,
     )
 
     class Meta:
-        verbose_name = "Значение характеристики товара"
-        verbose_name_plural = "Значения характеристик товаров"
+        verbose_name = "Значение свойства товара"
+        verbose_name_plural = "Значения свойства товаров"
 
     def __str__(self):
         return self.value
@@ -202,10 +201,178 @@ class ProductImage(models.Model):
         null=True,
         blank=True,
     )
-    is_feature = models.BooleanField(default=False)
+    main = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Изображение"
         verbose_name_plural = "Изображения"
+
+
+class CategoryImage(models.Model):
+    """
+    The Category Image table.
+    """
+
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="category_image"
+    )
+    image = models.ImageField(
+        verbose_name="Изображение",
+        help_text="Загрузите изображение категории",
+        upload_to="products_category/%Y/%m/%d",
+        default="products/default.jpg",
+        blank=True,
+    )
+    alt_text = models.CharField(
+        verbose_name="Альтернативный текст",
+        help_text="Пожалуйста, добавьте альтернативный текст",
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    is_active = models.BooleanField(default=True)
+    for_main = models.BooleanField(
+        verbose_name="для меню?",
+        default=False,
+    )
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Изображение"
+        verbose_name_plural = "Изображения"
+
+
+class Color(models.Model):
+    """
+    The Product colors
+    """
+
+    name = models.CharField(
+        verbose_name="Название", help_text="Required", max_length=255, unique=True
+    )
+    category = models.ManyToManyField(
+        Category,
+        verbose_name="категория",
+        related_name="products_color_category",
+    )
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Цвет товара"
+        verbose_name_plural = "Цвета товаров"
+
+    def __str__(self):
+        return self.name
+
+
+class ColorImage(models.Model):
+    """
+    The Product Color table.
+    """
+
+    color = models.ForeignKey(
+        "Color",
+        on_delete=models.CASCADE,
+        related_name="color_image"
+        # "ColorPrice", on_delete=models.CASCADE, related_name="color_image"
+    )
+    image = models.ImageField(
+        verbose_name="Цвет",
+        help_text="Загрузите фото цвета товара",
+        upload_to="products/colors/%Y/%m/%d",
+        default="products/colors/default.jpg",
+        blank=True,
+    )
+    alt_text = models.CharField(
+        verbose_name="Альтернативный текст",
+        help_text="Пожалуйста, добавьте альтернативный текст",
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Фото цвета товара"
+        verbose_name_plural = "Фото цветов товаров"
+
+
+class ColorPrice(models.Model):
+    """
+    The price of product`s color in percent.
+    """
+
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="color_price"
+    )
+    color = models.ForeignKey(
+        Color,
+        verbose_name="Цвет",
+        on_delete=models.RESTRICT,
+    )
+    price_percent = models.IntegerField(
+        validators=[MinValueValidator(-100), MaxValueValidator(100)],
+        verbose_name="Добавленная стоимость в %",
+        help_text="Изменение цены товара за цвет в %",
+        default=0,
+    )
+
+    class Meta:
+        verbose_name = "Изменение цены товара за цвет"
+        verbose_name_plural = "Изменение цен товаров за цвета"
+
+
+class Dimensions(models.Model):
+    """
+    The Product dimensions
+    """
+
+    name = models.CharField(
+        verbose_name="Название", help_text="Required", max_length=255, unique=True
+    )
+    category = models.ManyToManyField(
+        Category,
+        verbose_name="категория",
+        related_name="products_dimensions_category",
+    )
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Размер товара"
+        verbose_name_plural = "Размеры товаров"
+
+    def __str__(self):
+        return self.name
+
+
+class DimensionsValue(models.Model):
+    """
+    The Product Dimensions Value table holds values with it`s price change of all dimesion types.
+    """
+
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="dimensions_value"
+    )
+    dimension = models.ForeignKey(
+        Dimensions,
+        verbose_name="Размеры",
+        on_delete=models.RESTRICT,
+    )
+    value = models.CharField(
+        verbose_name="Значение",
+        help_text="Значение размера товара в мм, для п.м. указывается ширина 1 п.м, для ШГВ - ШхГхВ, для ДШ - ДхШ",
+        max_length=255,
+    )
+    price_change = models.IntegerField(
+        verbose_name="Изменение цены от размера",
+        help_text="Изменение цены товара от размеров",
+        default=0,
+    )
+
+    class Meta:
+        verbose_name = "Значение размера и изменение цены"
+        verbose_name_plural = "Значения размеров изменение цен"

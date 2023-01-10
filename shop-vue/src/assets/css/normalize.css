@@ -1,3 +1,4 @@
+
 *,
 *::before,
 *::after {
@@ -5,18 +6,50 @@
 }
 
 body {
-  font-family: 'PT Root UI', sans-serif;
+  font-family: 'Golos Ui', sans-serif;
   scroll-behavior: smooth;
   padding: 0px;
   margin: 0px;
 }
 
-h3 {
+ul {
+  padding: 0px;
   margin: 0px;
 }
 
-h2 {
+p {
+  padding: 0px;
+  margin: 0px;  
+}
+
+ol {
+  padding: 0px;
   margin: 0px;
+}
+
+li {
+  padding: 0px;
+  margin: 0px;
+}
+
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
 }
 
 details summary::-webkit-details-marker {
@@ -27,125 +60,197 @@ details > summary {
   list-style: none;
 }
 
-.body_large {
-   font-family: 'PT Root UI', sans-serif;
-   font-size: 18px;
-   line-height: 28px;
-   font-weight: 400;
+input > checkbox {
+  margin: 0px;
 }
 
-.body_medium {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 400;
+button {
+  border: 0px;
+  background-color: inherit;
+  font-family: 'Golos ui', sans-serif;
 }
 
-.promt_large {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 400;
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;  
 }
 
-.promt_medium {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 400;
+legend {
+  padding: 0;
 }
 
-.links_large {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 18px;
-    line-height: 28px;
-    font-weight: 500;
+.size_20 {
+  font-size: 20px;
+  font-variation-settings: 'OPSZ' 20;
 }
 
-.links_medium {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 500;
+.size_40 {
+  font-size: 40px;
+  font-variation-settings: 'OPSZ' 40;
+  color: var(--on-surface-light);
 }
 
-.links_promt_large {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500;
+.icon_filled + .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
 }
 
-.links_promt_medium {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 500;
-}
 
-.label_large {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 18px;
-    line-height: 28px;
-    font-weight: 700;
-}
 
-.label_medium {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 700;
-}
+:root {
+  --md-source: #6750A4;
+  /* primary */
+  --palette-primary0: #000000;
+  --palette-primary10: #21005D;
+  --palette-primary20: #381E72;
+  --palette-primary30: #4F378B;
+  --palette-primary40: #6750A4;
+  --palette-primary50: #7F67BE;
+  --palette-primary60: #9A82DB;
+  --palette-primary70: #B69DF8;
+  --palette-primary80: #D0BCFF;
+  --palette-primary90: #EADDFF;
+  --palette-primary95: #F6EDFF;
+  --palette-primary99: #FFFBFE;
+  --palette-primary100: #FFFFFF;
+  /* secondary */
+  --palette-secondary0: #000000;
+  --palette-secondary10: #1D192B;
+  --palette-secondary20: #332D41;
+  --palette-secondary30: #4A4458;
+  --palette-secondary40: #625B71;
+  --palette-secondary50: #7A7289;
+  --palette-secondary60: #958DA5;
+  --palette-secondary70: #B0A7C0;
+  --palette-secondary80: #CCC2DC;
+  --palette-secondary90: #E8DEF8;
+  --palette-secondary95: #F6EDFF;
+  --palette-secondary99: #FFFBFE;
+  --palette-secondary100: #FFFFFF;
+  /* tertiary */
+  --palette-tertiary0: #000000;
+  --palette-tertiary10: #31111D;
+  --palette-tertiary20: #492532;
+  --palette-tertiary30: #633B48;
+  --palette-tertiary40: #7D5260;
+  --palette-tertiary50: #986977;
+  --palette-tertiary60: #B58392;
+  --palette-tertiary70: #D29DAC;
+  --palette-tertiary80: #EFB8C8;
+  --palette-tertiary90: #FFD8E4;
+  --palette-tertiary95: #FFECF1;
+  --palette-tertiary99: #FFFBFA;
+  --palette-tertiary100: #FFFFFF;
+  /* error */
+  --palette-error0: #000000;
+  --palette-error10: #410E0B;
+  --palette-error20: #601410;
+  --palette-error30: #8C1D18;
+  --palette-error40: #B3261E;
+  --palette-error50: #DC362E;
+  --palette-error60: #E46962;
+  --palette-error70: #EC928E;
+  --palette-error80: #F2B8B5;
+  --palette-error90: #F9DEDC;
+  --palette-error95: #FCEEEE;
+  --palette-error99: #FFFBF9;
+  --palette-error100: #FFFFFF;
+  /* neutral */
+  --palette-neutral0: #000000;
+  --palette-neutral10: #1C1B1F;
+  --palette-neutral20: #313033;
+  --palette-neutral30: #484649;
+  --palette-neutral40: #605D62;
+  --palette-neutral50: #787579;
+  --palette-neutral60: #939094;
+  --palette-neutral70: #AEAAAE;
+  --palette-neutral80: #C9C5CA;
+  --palette-neutral90: #E6E1E5;
+  --palette-neutral95: #F4EFF4;
+  --palette-neutral99: #FFFBFE;
+  --palette-neutral100: #FFFFFF;
+  /* neutral-variant */
+  --palette-neutral-variant0: #000000;
+  --palette-neutral-variant10: #1D1A22;
+  --palette-neutral-variant20: #322F37;
+  --palette-neutral-variant30: #49454F;
+  --palette-neutral-variant40: #605D66;
+  --palette-neutral-variant50: #79747E;
+  --palette-neutral-variant60: #938F99;
+  --palette-neutral-variant70: #AEA9B4;
+  --palette-neutral-variant80: #CAC4D0;
+  --palette-neutral-variant90: #E7E0EC;
+  --palette-neutral-variant95: #F5EEFA;
+  --palette-neutral-variant99: #FFFBFE;
+  --palette-neutral-variant100: #FFFFFF;
+  /* light */
+  --primary-light: #6750A4;
+  --on-primary-light: #FFFFFF;
+  --primary-container-light: #EADDFF;
+  --on-primary-container-light: #21005D;
+  --secondary-light: #625B71;
+  --on-secondary-light: #FFFFFF;
+  --secondary-container-light: #E8DEF8;
+  --on-secondary-container-light: #1D192B;
 
-.label_small {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 700;
-}
 
-.title_large {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 28px;
-    line-height: 36px;
-    font-weight: 500;
-}
+  --tertiary-light: #7D5260;
+  --on-tertiary-light: #FFFFFF;
+  --tertiary-container-light: #FFD8E4;
+  --on-tertiary-container-light: #31111D;
+  --error-light: #B3261E;
+  --on-error-light: #FFFFFF;
+  --error-container-light: #F9DEDC;
+  --on-error-container-light: #410E0B;
+  --outline-light: #79747E;
+  --background-light: #FFFBFE;
+  --on-background-light: #1C1B1F;
+  --surface-light: #FFFBFE;
+  --on-surface-light: #1C1B1F;
+  --surface-variant-light: #E7E0EC;
+  --on-surface-variant-light: #49454F;
+  --inverse-surface-light: #313033;
+  --inverse-on-surface-light: #F4EFF4;
+  --inverse-primary-light: #D0BCFF;
+  --shadow-light: #000000;
+  --surface-tint-light: #6750A4;
+  --outline-variant-light: #CAC4D0;
+  --scrim-light: #000000;
+  /* dark */
+  --primary-dark: #D0BCFF;
+  --on-primary-dark: #381E72;
+  --primary-container-dark: #4F378B;
+  --on-primary-container-dark: #EADDFF;
+  --secondary-dark: #CCC2DC;
+  --on-secondary-dark: #332D41;
+  --secondary-container-dark: #4A4458;
+  --on-secondary-container-dark: #E8DEF8;
+  --tertiary-dark: #EFB8C8;
+  --on-tertiary-dark: #492532;
+  --tertiary-container-dark: #633B48;
+  --on-tertiary-container-dark: #FFD8E4;
+  --error-dark: #F2B8B5;
+  --on-error-dark: #601410;
+  --error-container-dark: #8C1D18;
+  --on-error-container-dark: #F9DEDC;
+  --outline-dark: #938F99;
+  --background-dark: #1C1B1F;
+  --on-background-dark: #E6E1E5;
+  --surface-dark: #1C1B1F;
+  --on-surface-dark: #E6E1E5;
+  --surface-variant-dark: #49454F;
+  --on-surface-variant-dark: #CAC4D0;
+  --inverse-surface-dark: #E6E1E5;
+  --inverse-on-surface-dark: #313033;
+  --inverse-primary-dark: #6750A4;
+  --shadow-dark: #000000;
+  --surface-tint-dark: #D0BCFF;
+  --outline-variant-dark: #49454F;
+  --scrim-dark: #000000;
 
-.title_medium {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 24px;
-    line-height: 32px;
-    font-weight: 500;
-}
 
-.head_text_large {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 24px;
-    line-height: 32px;
-    font-weight: 400;
-}
-
-.head_text_medium {
-    font-family: 'PT Root UI', sans-serif;
-    font-size: 20px;
-    line-height: 28px;
-    font-weight: 400;
-}
-
-.headline {
-   font-family: 'Akrobat', sans-serif;
-   font-style: normal;
-   font-weight: 800;
-   font-size: 32px;
-   line-height: 32px;
-   text-transform: uppercase;
-}
-
-.display_large {
-   font-family: 'Akrobat', sans-serif;
-   font-style: normal;
-   font-weight: 800;
-   font-size: 72px;
-   line-height: 72px;
-   text-transform: uppercase;
+  /* shadows */
+  --elevation-light-1: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --elevation-light-2: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
 }

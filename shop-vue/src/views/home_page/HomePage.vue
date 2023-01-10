@@ -12,9 +12,9 @@
     <div class="catalog">
       <TheCategory
         class="category"
-        v-for="category in GETALLCATEGORIES"
+        v-for="category in GETMAINCATEGORIES"
         :key="category"
-        :category_title="category[0].attributes.parent.name"
+        :category_title="category.attributes.name"
         :category_data="category"
       />
     </div>
@@ -110,7 +110,7 @@ export default {
   },
   computed: {
     ...mapGetters("api_urls", ["getServerShopUrl", "getServerInformationUrl"]),
-    ...mapGetters("data", ["GETALLCATEGORIES"]),
+    ...mapGetters("data", ["GETMAINCATEGORIES"]),
   },
   methods: {
     loadAboutCompany() {
