@@ -18,6 +18,9 @@ docker-compose.prod.yml
 .env.prod
 entrypoint.prod
 
+#Vue settings
+api_urls.js
+
 __pycache__/
 */__pycache__/
 *.py[cod]
