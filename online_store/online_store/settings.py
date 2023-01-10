@@ -174,11 +174,7 @@ CORS_ORIGIN_WHITELIST = [
     "https://127.0.0.1:8000",
     "http://127.0.0.1:1313",
     "http://localhost:1313",
-<<<<<<< HEAD
-    "http://194.67.119.7"
-=======
-    "http://185.46.11.192",
->>>>>>> 639568eed9f04c9434a5ff701f0540c029242ff2
+    "http://194.67.119.7",
 ]
 
 # Default primary key field type
