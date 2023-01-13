@@ -63,7 +63,36 @@ class Post(models.Model):
     status = models.CharField(
         verbose_name="статус", max_length=10, choices=STATUS_CHOICES, default="draft"
     )
-
+    news_carousel = models.BooleanField(
+        verbose_name="карусель новостей",
+        default=False,
+        blank=True,
+    )
+    carousel_link_text = models.CharField(
+        verbose_name="текст ссылки для карусели",
+        default="ссылка",
+        blank=True,
+        max_length=250,
+    )
+    main = models.BooleanField(
+        verbose_name="для главной?",
+        default=False,
+        blank=True,
+    )
+    image = models.ImageField(
+        verbose_name="изображение",
+        help_text="Загрузите изображение для поста",
+        upload_to="blog/%Y/%m/%d",
+        default="planner/default.jpg",
+        blank=True,
+    )
+    alt_text = models.CharField(
+        verbose_name="альтернативный текст",
+        help_text="Пожалуйста, добавьте альтернативный текст",
+        max_length=255,
+        null=True,
+        blank=True,
+    )
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Our custom manager.
 

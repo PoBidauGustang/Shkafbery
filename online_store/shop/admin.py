@@ -20,20 +20,20 @@ from .models import (
 )
 
 
-class ProductAdminForm(forms.ModelForm):
-    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+# class ProductAdminForm(forms.ModelForm):
+#     description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
 
-    class Meta:
-        model = Product
-        fields = "__all__"
+#     class Meta:
+#         model = Product
+#         fields = "__all__"
 
 
-class CategoryAdminForm(forms.ModelForm):
-    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+# class CategoryAdminForm(forms.ModelForm):
+#     description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
 
-    class Meta:
-        model = Category
-        fields = "__all__"
+#     class Meta:
+#         model = Category
+#         fields = "__all__"
 
 
 # class ProductSpecificationInline(admin.TabularInline):
@@ -105,7 +105,7 @@ class CategoryAdmin(MPTTModelAdmin):
         "for_side_menu",
         "is_active",
     ]
-    form = CategoryAdminForm
+    # form = CategoryAdminForm
     list_editable = [
         "parent",
         "is_active",
@@ -139,13 +139,14 @@ class ProductAdmin(admin.ModelAdmin):
         "regular_price",
         "discount_price",
         "is_active",
+        "popular",
         "created_at",
         "updated_at",
     ]
     filter_horizontal = ("category",)
     list_filter = ["is_active", "created_at", "updated_at"]
-    list_editable = ["regular_price", "discount_price", "is_active"]
-    form = ProductAdminForm
+    list_editable = ["regular_price", "discount_price", "is_active", "popular"]
+    # form = ProductAdminForm
     inlines = [
         ProductSpecificationValueInline,
         ProductImageInline,

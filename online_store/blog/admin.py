@@ -27,7 +27,17 @@ class CategoryAdmin(MPTTModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "slug", "publish", "status")
+    list_display = (
+        "title",
+        "slug",
+        "publish",
+        "status",
+        "news_carousel",
+        "carousel_link_text",
+        "main",
+        "image",
+    )
+    list_editable = ["news_carousel", "carousel_link_text", "main"]
     form = PostAdminForm
     filter_horizontal = ("category",)
     list_filter = ("status", "created", "publish")

@@ -95,7 +95,7 @@ class Product(models.Model):
         blank=True,
     )
     discount_price = models.DecimalField(
-        verbose_name="Discount price",
+        verbose_name="Цена со скидкой",
         help_text="Maximum 9 999 999.99",
         error_messages={
             "name": {
@@ -111,6 +111,11 @@ class Product(models.Model):
         verbose_name="Видимость товара",
         help_text="Изменить видимость товара",
         default=True,
+    )
+    popular = models.BooleanField(
+        verbose_name="популярный товар",
+        default=False,
+        blank=True,
     )
     created_at = models.DateTimeField("Создан", auto_now_add=True, editable=False)
     updated_at = models.DateTimeField("Обновлен", auto_now=True)
