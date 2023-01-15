@@ -132,8 +132,8 @@ class ExamplesPhoto(models.Model):
     )
 
     class Meta:
-        verbose_name = "Фото"
-        verbose_name_plural = "Фото"
+        verbose_name = "Фото примера работ"
+        verbose_name_plural = "Фото примеров работ"
 
     def __str__(self):
         return self.name
@@ -319,8 +319,8 @@ class ServicesPhoto(models.Model):
     )
 
     class Meta:
-        verbose_name = "Фото"
-        verbose_name_plural = "Фото"
+        verbose_name = "Фото услуги"
+        verbose_name_plural = "Фото услуг"
 
     def __str__(self):
         return self.name

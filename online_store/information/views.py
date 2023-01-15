@@ -1,12 +1,13 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import AboutCompany, Examples, ExamplesPhoto, Faq
+from .models import AboutCompany, Examples, ExamplesPhoto, Faq, MainPageHeader
 from .serializers import (
     AboutCompanySerializer,
     ExamplesPhotoSerializer,
     ExamplesSerializer,
     FaqSerializer,
+    MainPageHeaderSerializer,
 )
 
 # class DimensionsListView(APIView):DimensionsListView
@@ -33,6 +34,15 @@ class AboutCompanyView(APIView):
     def get(self, request):
         information = AboutCompany.objects.filter(is_active=True)
         serializer = AboutCompanySerializer(information, many=True)
+        return Response(serializer.data)
+
+
+class MainPageHeaderView(APIView):
+    """Displaying information about company"""
+
+    def get(self, request):
+        information = MainPageHeader.objects.filter(is_active=True)
+        serializer = MainPageHeaderSerializer(information, many=True)
         return Response(serializer.data)
 
 

@@ -16,7 +16,8 @@ class PostListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ("status", "created", "updated")
 
 
 class PostDetailSerializer(serializers.ModelSerializer):
@@ -26,4 +27,4 @@ class PostDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        exclude = ("status",)
+        exclude = ("status", "created", "updated")

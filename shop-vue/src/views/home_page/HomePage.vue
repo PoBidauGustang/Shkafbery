@@ -1,6 +1,13 @@
 <template>
   <div>
-    <!-- <div>{{ faq }}</div> -->
+    <div v-if="mainPageHeader.attributes">
+      <h2>{{ mainPageHeader.attributes.title }}</h2>
+      <span>{{ mainPageHeader.attributes.text }}</span>
+      <a class="blog_link" href="#/about">
+        <button>Узнать больше</button>
+      </a>
+    </div>
+    <NewsCarousel :news="newsCarousel" />
     <div>
       <TheAboutCompany
         v-for="company in aboutCompany"
@@ -87,6 +94,7 @@ import TheAboutCompany from "./TheAboutCompany.vue";
 import TheWorkExample from "./TheWorkExample.vue";
 import TheCategory from "./TheCategory.vue";
 import TheFAQ from "./TheFAQ.vue";
+import NewsCarousel from "./NewsCarousel.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "HomePage",
@@ -95,21 +103,30 @@ export default {
     TheWorkExample,
     TheFAQ,
     TheCategory,
+    NewsCarousel,
   },
   data() {
     return {
       aboutCompany: [],
       workExamplesList: [],
       faq: [],
+      mainPageHeader: [],
+      newsCarousel: [],
     };
   },
   created() {
     this.loadAboutCompany();
     this.loadWorkExamplesList();
     this.loadFaq();
+    this.loadMainPageHeader();
+    this.loadNewsCarousel();
   },
   computed: {
-    ...mapGetters("api_urls", ["getServerShopUrl", "getServerInformationUrl"]),
+    ...mapGetters("api_urls", [
+      "getServerBlogUrl",
+      "getServerShopUrl",
+      "getServerInformationUrl",
+    ]),
     ...mapGetters("data", ["GETMAINCATEGORIES"]),
   },
   methods: {
@@ -138,6 +155,26 @@ export default {
         .get(`${this.getServerInformationUrl}/FAQ`)
         .then((response) => {
           this.faq = response.data.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    loadMainPageHeader() {
+      this.axios
+        .get(`${this.getServerInformationUrl}/main_page_header`)
+        .then((response) => {
+          this.mainPageHeader = response.data.data[0];
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    loadNewsCarousel() {
+      this.axios
+        .get(`${this.getServerBlogUrl}/news_carousel`)
+        .then((response) => {
+          this.newsCarousel = response.data.data;
         })
         .catch(function (error) {
           console.error(error);

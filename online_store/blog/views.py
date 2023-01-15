@@ -22,3 +22,12 @@ class PostDetailView(APIView):
         post = Post.objects.get(slug=slug, status="published")
         serializer = PostDetailSerializer(post)
         return Response(serializer.data)
+
+
+class PostListCarouselView(APIView):
+    """Displaying list of news for carousel"""
+
+    def get(self, request):
+        posts = Post.objects.filter(news_carousel=True, status="published")
+        serializer = PostListSerializer(posts, many=True)
+        return Response(serializer.data)

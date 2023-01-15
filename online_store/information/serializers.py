@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import AboutCompany, Examples, ExamplesPhoto, Faq
+from .models import AboutCompany, Examples, ExamplesPhoto, Faq, MainPageHeader
 
 
 class AboutCompanySerializer(serializers.ModelSerializer):
@@ -34,6 +34,12 @@ class FaqSerializer(serializers.ModelSerializer):
     class Meta:
         model = Faq
         exclude = ("is_active", "for_main", "created_at", "updated_at")
+
+
+class MainPageHeaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MainPageHeader
+        exclude = ("created_at", "updated_at")
 
 
 # class BodyColourSerializer(serializers.ModelSerializer):
