@@ -1,18 +1,21 @@
 <template>
-  <div>
-    <!-- <h4>{{ example_name }}</h4> -->
-    <!-- <p v-html="example_description"></p> -->
-    <!-- <p>{{ imagesList }}</p> -->
-    <!-- <div>
-      <TheExampleImage
-        v-for="image in filteredImagesList"
-        :key="image"
-        :image_name="image.attributes.name"
-        :image="image.attributes.image"
-        :image_alt_text="image.attributes.alt_text"
-      />
-    </div> -->
-    <div class="work_img_wrapper">
+  <div class="work">
+    <h2>Примеры работ</h2>
+    <ul>
+      <li v-for="example in workExamplesList" :key="example.id">
+        {{ example.attributes.name }}
+        {{ example.attributes.price }}
+        <img
+          v-if="example.attributes.example_photo[0]"
+          class=""
+          :src="example.attributes.example_photo[0].image"
+        />
+      </li>
+    </ul>
+    <!-- <ul v-for=""> -->
+
+    <!-- </ul> -->
+    <!-- <div class="work_img_wrapper">
       <img
         class="work_img"
         src="https://images.unsplash.com/photo-1567016546367-c27a0d56712e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
@@ -30,7 +33,7 @@
       <div class="work_price">
         <span class="links_promt_large">118 900 ₽</span>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -44,62 +47,62 @@ export default {
   },
   data() {
     return {
-      imagesList: [],
-      filteredImagesList: [],
+      // examplesList: [],
+      // filteredImagesList: [],
     };
   },
-  watch: {
-    imagesList() {
-      this.filterImageList();
-    },
-  },
+  // watch: {
+  //   imagesList() {
+  //     this.filterImageList();
+  //   },
+  // },
   props: {
-    example_name: {
-      type: String,
+    workExamplesList: {
+      type: Array,
       default() {
-        return "";
+        return [];
       },
     },
-    example_description: {
-      type: String,
-      default() {
-        return "";
-      },
-    },
-    example_image: {
-      type: Number,
-      default() {
-        return 0;
-      },
-    },
+    // example_description: {
+    //   type: String,
+    //   default() {
+    //     return "";
+    //   },
+    // },
+    // example_image: {
+    //   type: Number,
+    //   default() {
+    //     return 0;
+    //   },
+    // },
   },
   created() {
-    this.loadImagesList();
+    // this.loadExamplesList();
   },
   computed: {
     ...mapGetters("api_urls", ["getServerShopUrl", "getServerInformationUrl"]),
   },
   methods: {
-    loadImagesList() {
-      this.axios
-        .get(`${this.getServerInformationUrl}/examples_photos`)
-        .then((response) => {
-          this.imagesList = response.data.data;
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-    },
-    filterImageList() {
-      for (let image in this.imagesList) {
-        if (
-          this.imagesList[Number(image)].attributes.examples[0].name ===
-          this.example_name
-        ) {
-          this.filteredImagesList.push(this.imagesList[Number(image)]);
-        }
-      }
-    },
+    // loadExamplesList() {
+    //   this.axios
+    //     .get(`${this.getServerInformationUrl}/work_examples_main`)
+    //     .then((response) => {
+    //       this.examplesList = response.data.data;
+    //     })
+    //     .catch(function (error) {
+    //       console.error(error);
+    //     });
+    // },
+    // filterImageList() {
+    //   for (let image in this.imagesList) {
+    //     if (
+    //       this.imagesList[Number(image)].attributes.examples[0].name ===
+    //       this.example_name
+    //     ) {
+    //       this.filteredImagesList.push(this.imagesList[Number(image)]);
+    //     }
+    //   }
+    // },
   },
 };
 </script>

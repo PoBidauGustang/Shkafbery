@@ -6,7 +6,9 @@
           {{ item.id }}
           {{ item.attributes.title }}
           {{ item.attributes.slug }}
-          <router-link :to="'/post/' + item.attributes.slug">{{ item.attributes.carousel_link_text }}</router-link>
+          <router-link :to="'/post/' + item.attributes.slug">{{
+            item.attributes.carousel_link_text
+          }}</router-link>
           <img
             class=""
             :src="item.attributes.image"
@@ -24,7 +26,7 @@
 
 <script>
 export default {
-  name: "TheFAQ",
+  name: "NewsCarousel",
   props: {
     news: {
       type: Object,

@@ -9,73 +9,34 @@
     </div>
     <NewsCarousel :news="newsCarousel" />
     <TheCatalog />
-    <TheAboutCompany
+    <PopularProducts :popularProducts="popularProductsList" />
+    <div v-if="planner.attributes">
+      <h2>{{ planner.attributes.title }}</h2>
+      <span>{{ planner.attributes.text }}</span>
+      <img
+        v-if="planner.attributes.image"
+        class=""
+        :src="planner.attributes.image"
+        :alt="planner.attributes.alt_text"
+      />
+      <a class="blog_link" href="#/closet_planner">
+        <button>Начать планирование</button>
+      </a>
+    </div>
+    <TheWorkExample class="portfolio" :workExamplesList="workExamplesList" />
+    <TheServices :servicesList="servicesList" />
+    <ThePostView
+      class="Post_Page"
+      v-for="post in newsList"
+      :key="post.id"
+      :post_data="post.attributes"
+    />
+    <!-- <TheAboutCompany
       v-for="company in aboutCompany"
       :key="company"
       :company_title="company.attributes.title"
       :company_text="company.attributes.text"
-    />
-    <div class="catalog">
-      <TheCategory
-        class="category"
-        v-for="category in GETMAINCATEGORIES"
-        :key="category"
-        :category_title="category.attributes.name"
-        :category_data="category"
-      />
-    </div>
-    <section class="products">
-      <div class="banner">
-        <div class="banner_img_wrapper">
-          <img
-            class="banner_img"
-            src="https://images.unsplash.com/photo-1611486212355-d276af4581c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt=""
-          />
-        </div>
-        <div class="banner_info">
-          <div class="banner_title">
-            <h2 class="headline">планировщики шкафа-купе и дверей-купе</h2>
-          </div>
-          <div class="banner_text">
-            <span class="body_large"
-              >создайте свой уникальный шкаф-купе или двери-купе, которые будут
-              отвечать всем вашим потребностям и идеально впишутся в
-              интерьер</span
-            >
-          </div>
-          <div class="banner_btn">
-            <router-link to="/closet_planner">
-              <button name="button" class="button_filled_li">
-                <span class="material-symbols-outlined">edit</span
-                ><span class="li_btn_text">Планировать двери</span>
-              </button>
-            </router-link>
-            <router-link to="/closet_planner">
-              <button name="button" class="button_filled_li">
-                <span class="material-symbols-outlined">edit</span
-                ><span class="li_btn_text">Планировать шкаф</span>
-              </button>
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </section>
-    <div class="display_work_wrapper">
-      <h2 class="display_large">Выполненные работы</h2>
-    </div>
-    <div class="portfolio">
-      <TheWorkExample
-        class="work"
-        v-for="example in workExamplesList"
-        :key="example"
-        :example_name="example.attributes.name"
-      />
-    </div>
-    <a class="blog_link" href="/page3"
-      ><span class="links_large">Смотреть все работы</span
-      ><span class="material-symbols-outlined">arrow_forward</span></a
-    >
+    /> -->
     <div>
       <TheFAQ
         v-for="question in faq"
@@ -89,38 +50,52 @@
 </template>
 
 <script>
-import TheAboutCompany from "./TheAboutCompany.vue";
+// import TheAboutCompany from "./TheAboutCompany.vue";
 import TheWorkExample from "./TheWorkExample.vue";
-import TheCategory from "./TheCategory.vue";
+// import TheCategory from "./TheCategory.vue";
 import TheFAQ from "./TheFAQ.vue";
 import NewsCarousel from "./NewsCarousel.vue";
 import TheCatalog from "./TheCatalog.vue";
+import PopularProducts from "./PopularProducts.vue";
+import TheServices from "./TheServices.vue";
+import ThePostView from "../../components/ThePostView.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "HomePage",
   components: {
-    TheAboutCompany,
+    // TheAboutCompany,
     TheWorkExample,
     TheFAQ,
-    TheCategory,
+    // TheCategory,
     NewsCarousel,
     TheCatalog,
+    PopularProducts,
+    TheServices,
+    ThePostView,
   },
   data() {
     return {
-      aboutCompany: [],
+      // aboutCompany: [],
       workExamplesList: [],
       faq: [],
       mainPageHeader: [],
       newsCarousel: [],
+      popularProductsList: [],
+      planner: [],
+      servicesList: [],
+      newsList: [],
     };
   },
   created() {
-    this.loadAboutCompany();
+    // this.loadAboutCompany();
     this.loadWorkExamplesList();
     this.loadFaq();
     this.loadMainPageHeader();
     this.loadNewsCarousel();
+    this.loadPopularProductsList();
+    this.loadPlanner();
+    this.loadServicesList();
+    this.loadNewsList();
   },
   computed: {
     ...mapGetters("api_urls", [
@@ -131,19 +106,19 @@ export default {
     ...mapGetters("data", ["GETMAINCATEGORIES"]),
   },
   methods: {
-    loadAboutCompany() {
-      this.axios
-        .get(`${this.getServerInformationUrl}/about_company`)
-        .then((response) => {
-          this.aboutCompany = response.data.data;
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-    },
+    // loadAboutCompany() {
+    //   this.axios
+    //     .get(`${this.getServerInformationUrl}/about_company`)
+    //     .then((response) => {
+    //       this.aboutCompany = response.data.data;
+    //     })
+    //     .catch(function (error) {
+    //       console.error(error);
+    //     });
+    // },
     loadWorkExamplesList() {
       this.axios
-        .get(`${this.getServerInformationUrl}/work_examples`)
+        .get(`${this.getServerInformationUrl}/work_examples_main`)
         .then((response) => {
           this.workExamplesList = response.data.data;
         })
@@ -176,6 +151,46 @@ export default {
         .get(`${this.getServerBlogUrl}/news_carousel`)
         .then((response) => {
           this.newsCarousel = response.data.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    loadPopularProductsList() {
+      this.axios
+        .get(`${this.getServerShopUrl}/popular_products`)
+        .then((response) => {
+          this.popularProductsList = response.data.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    loadPlanner() {
+      this.axios
+        .get(`${this.getServerInformationUrl}/planner`)
+        .then((response) => {
+          this.planner = response.data.data[0];
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    loadServicesList() {
+      this.axios
+        .get(`${this.getServerInformationUrl}/services`)
+        .then((response) => {
+          this.servicesList = response.data.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    loadNewsList() {
+      this.axios
+        .get(`${this.getServerBlogUrl}/posts`)
+        .then((response) => {
+          this.newsList = response.data.data;
         })
         .catch(function (error) {
           console.error(error);
@@ -326,5 +341,15 @@ export default {
   padding-bottom: 16px;
   border-radius: 12px;
   margin-bottom: 64px;
+}
+
+.Post_Page {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: 24px;
+  background: #f6f3f3;
+  padding-left: 48px;
+  padding-right: 48px;
+  padding-top: 48px;
 }
 </style>

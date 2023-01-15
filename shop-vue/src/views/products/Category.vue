@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="Object.keys(this.currentCategory).length">
     <div class="product_page_meta_wrapper">
       <div class="product_page_headline_container">
         <h1 class="product_page_headline">

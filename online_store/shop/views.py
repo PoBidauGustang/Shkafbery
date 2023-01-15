@@ -56,3 +56,21 @@ class ProductDetailView(APIView):
         product = Product.objects.get(id=pk, is_active=True)
         serializer = ProductDetailSerializer(product)
         return Response(serializer.data)
+
+
+class PopularProductListView(APIView):
+    """Displaying list of popular products"""
+
+    def get(self, request):
+        # params = request.query_params.getlist("category")
+        # products = Product.objects.filter(category__in=params)
+
+        # products = Product.objects.filter(category=pk)
+        # serializer = ProductListSerializer(products, many=True)
+        # return Response(serializer.data)
+        products = Product.objects.filter(popular=True)
+        # products = Product.objects.filter(id=pk)
+        # надо сюда категори id = pk
+        # products = Product.objects.filter(is_active=True)
+        serializer = ProductListSerializer(products, many=True)
+        return Response(serializer.data)

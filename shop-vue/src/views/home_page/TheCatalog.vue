@@ -1,17 +1,12 @@
 <template>
   <div>
-    <div
-    v-for="category in GETMAINCATEGORIES"
-    :key="category.id"
-    >
+    <h2>Каталог</h2>
+    <div v-for="category in GETMAINCATEGORIES" :key="category.id">
       <router-link :to="'/category/' + category.attributes.slug">
         <ul>
           <li>{{ category.attributes.name }}</li>
           <li>
-            <img
-              class=""
-              :src="category.attributes.image"
-            />
+            <img class="" :src="category.attributes.image" />
           </li>
         </ul>
       </router-link>
@@ -22,7 +17,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "TheFAQ",
+  name: "TheCatalog",
   props: {
     news: {
       type: Object,
@@ -32,8 +27,7 @@ export default {
     },
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters("data", ["GETMAINCATEGORIES"]),

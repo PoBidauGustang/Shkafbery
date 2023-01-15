@@ -103,7 +103,7 @@ class ExamplesPhoto(models.Model):
     examples = models.ManyToManyField(
         Examples,
         verbose_name="пример",
-        related_name="filling_scheme_image",
+        related_name="example_photo",
         blank=True,
     )
     name = models.CharField(
@@ -286,12 +286,8 @@ class ServicesPhoto(models.Model):
     """
     Services photos.
     """
-
-    services = models.ManyToManyField(
-        Services,
-        verbose_name="услуга",
-        related_name="service_image",
-        blank=True,
+    services = models.ForeignKey(
+        Services, on_delete=models.CASCADE, verbose_name="фото услуги", related_name="services_photo", null=True, blank=True
     )
     name = models.CharField(
         verbose_name="наименование",

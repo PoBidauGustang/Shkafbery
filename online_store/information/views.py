@@ -1,13 +1,15 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import AboutCompany, Examples, ExamplesPhoto, Faq, MainPageHeader
+from .models import AboutCompany, Examples, ExamplesPhoto, Faq, MainPageHeader, Planner, Services
 from .serializers import (
     AboutCompanySerializer,
     ExamplesPhotoSerializer,
     ExamplesSerializer,
     FaqSerializer,
     MainPageHeaderSerializer,
+    PlannerSerializer,
+    ServicesSerializer,
 )
 
 # class DimensionsListView(APIView):DimensionsListView
@@ -46,8 +48,27 @@ class MainPageHeaderView(APIView):
         return Response(serializer.data)
 
 
+class PlannerView(APIView):
+    """Displaying information about closet planner"""
+
+    def get(self, request):
+        planner = Planner.objects.filter(is_active=True)
+        serializer = PlannerSerializer(planner, many=True)
+        return Response(serializer.data)
+
+
+
 class ExamplesListView(APIView):
     """Displaying list of work examples"""
+
+    def get(self, request):
+        examples = Examples.objects.filter(is_active=True)
+        serializer = ExamplesSerializer(examples, many=True)
+        return Response(serializer.data)
+
+
+class ExamplesListMainView(APIView):
+    """Displaying list of work examples for main page"""
 
     def get(self, request):
         examples = Examples.objects.filter(is_active=True, for_main=True)
@@ -70,4 +91,13 @@ class FaqListView(APIView):
     def get(self, request):
         question = Faq.objects.filter(is_active=True, for_main=True)
         serializer = FaqSerializer(question, many=True)
+        return Response(serializer.data)
+
+
+class ServicesListView(APIView):
+    """Displaying list of services"""
+
+    def get(self, request):
+        services = Services.objects.filter(is_active=True)
+        serializer = ServicesSerializer(services, many=True)
         return Response(serializer.data)

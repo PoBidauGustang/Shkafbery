@@ -1,6 +1,7 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import (
     AboutCompany,
@@ -144,10 +145,19 @@ class PlannerAdmin(admin.ModelAdmin):
     save_as = True
 
 
-class ServicesPhotoInline(admin.TabularInline):
-    model = ServicesPhoto.services.through
-    extra = 1
+# class ServicesPhotoInline(admin.TabularInline):
+#     model = ServicesPhoto.services.through
+#     extra = 1
 
+class ServicesPhotoInline(admin.TabularInline):
+    model = ServicesPhoto
+    extra = 1
+    readonly_fields = ("get_image",)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} width="100" height="110"')
+
+    get_image.short_description = "Изображение"
 
 @admin.register(Services)
 class ServicesAdmin(admin.ModelAdmin):
@@ -168,17 +178,17 @@ class ServicesAdmin(admin.ModelAdmin):
     save_as = True
 
 
-@admin.register(ServicesPhoto)
-class ServicesPhotoAdmin(admin.ModelAdmin):
-    list_display = [
-        "id",
-        "name",
-        "image",
-        "alt_text",
-        "is_active",
-    ]
-    filter_horizontal = ("services",)
-    list_display_links = ("name",)
-    list_editable = ("is_active",)
-    save_on_top = True
-    save_as = True
+# @admin.register(ServicesPhoto)
+# class ServicesPhotoAdmin(admin.ModelAdmin):
+#     list_display = [
+#         "id",
+#         "name",
+#         "image",
+#         "alt_text",
+#         "is_active",
+#     ]
+#     # filter_horizontal = ("services",)
+#     list_display_links = ("name",)
+#     list_editable = ("is_active",)
+#     save_on_top = True
+#     save_as = True

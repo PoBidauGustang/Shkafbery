@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import AboutCompany, Examples, ExamplesPhoto, Faq, MainPageHeader
+from .models import AboutCompany, Examples, ExamplesPhoto, Faq, MainPageHeader, Planner, Services, ServicesPhoto
 
 
 class AboutCompanySerializer(serializers.ModelSerializer):
@@ -15,19 +15,20 @@ class ExamplesFilterSerializer(serializers.ModelSerializer):
         fields = ["id", "name"]
 
 
-class ExamplesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Examples
-        exclude = ("is_active", "for_main", "created_at", "updated_at")
-
-
 class ExamplesPhotoSerializer(serializers.ModelSerializer):
-
-    examples = ExamplesFilterSerializer(read_only=True, many=True)
+    
+    # examples = ExamplesFilterSerializer(read_only=True, many=True)
 
     class Meta:
         model = ExamplesPhoto
         exclude = ("is_active",)
+
+
+class ExamplesSerializer(serializers.ModelSerializer):
+    example_photo = ExamplesPhotoSerializer(many=True)
+    class Meta:
+        model = Examples
+        exclude = ("is_active", "for_main", "created_at", "updated_at")
 
 
 class FaqSerializer(serializers.ModelSerializer):
@@ -42,6 +43,26 @@ class MainPageHeaderSerializer(serializers.ModelSerializer):
         exclude = ("created_at", "updated_at")
 
 
+class PlannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Planner
+        exclude = ("created_at", "updated_at")
+
+
+class ServicesPhotoSerializer(serializers.ModelSerializer):
+    
+    # examples = ExamplesFilterSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = ServicesPhoto
+        exclude = ("is_active",)
+
+
+class ServicesSerializer(serializers.ModelSerializer):
+    services_photo = ServicesPhotoSerializer(many=True)
+    class Meta:
+        model = Services
+        exclude = ("created_at", "updated_at")
 # class BodyColourSerializer(serializers.ModelSerializer):
 
 #     filling_scheme = SchemeFilterSerializer(read_only=True, many=True)
