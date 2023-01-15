@@ -60,9 +60,7 @@
 </template>
 
 <script>
-// import TheAboutCompany from "./TheAboutCompany.vue";
 import TheWorkExample from "./TheWorkExample.vue";
-// import TheCategory from "./TheCategory.vue";
 import TheFAQ from "./TheFAQ.vue";
 import NewsCarousel from "./NewsCarousel.vue";
 import TheCatalog from "./TheCatalog.vue";
@@ -74,10 +72,8 @@ import { mapGetters } from "vuex";
 export default {
   name: "HomePage",
   components: {
-    // TheAboutCompany,
     TheWorkExample,
     TheFAQ,
-    // TheCategory,
     NewsCarousel,
     TheCatalog,
     PopularProducts,
@@ -87,7 +83,6 @@ export default {
   },
   data() {
     return {
-      // aboutCompany: [],
       workExamplesList: [],
       faq: [],
       mainPageHeader: [],
@@ -99,7 +94,6 @@ export default {
     };
   },
   created() {
-    // this.loadAboutCompany();
     this.loadWorkExamplesList();
     this.loadFaq();
     this.loadMainPageHeader();
@@ -118,16 +112,6 @@ export default {
     ...mapGetters("data", ["GETMAINCATEGORIES"]),
   },
   methods: {
-    // loadAboutCompany() {
-    //   this.axios
-    //     .get(`${this.getServerInformationUrl}/about_company`)
-    //     .then((response) => {
-    //       this.aboutCompany = response.data.data;
-    //     })
-    //     .catch(function (error) {
-    //       console.error(error);
-    //     });
-    // },
     loadWorkExamplesList() {
       this.axios
         .get(`${this.getServerInformationUrl}/work_examples_main`)

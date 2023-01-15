@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('information', '0016_alter_examplesphoto_options_and_more'),
+        ("information", "0016_alter_examplesphoto_options_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='servicesphoto',
-            name='services',
-            field=models.ManyToManyField(blank=True, related_name='service_image', to='information.Services', verbose_name='фото услуги'),
+            model_name="servicesphoto",
+            name="services",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="service_image",
+                to="information.Services",
+                verbose_name="фото услуги",
+            ),
         ),
     ]

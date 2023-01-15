@@ -1,8 +1,8 @@
 <template>
   <section class="base_page">
-    <h1 class="base_page_title">О компании</h1>
+    <h1 class="base_page_title">Сборка и установка</h1>
     <div class="base_page_meta_wrapper">
-      <p class="base_page_description">Информация о компании</p>
+      <p class="base_page_description">Сборка и установка мебели</p>
       <div class="base_page_img_wrapper">
         <img
           src="https://images.unsplash.com/photo-1567016546367-c27a0d56712e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"

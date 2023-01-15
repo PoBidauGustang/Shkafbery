@@ -10,7 +10,7 @@
         >
       </li>
       <li class="header_top_list_item">
-        <router-link class="header_top_link" to="/installation"
+        <router-link class="header_top_link" to="/assembly"
           >Сборка и установка</router-link
         >
       </li>

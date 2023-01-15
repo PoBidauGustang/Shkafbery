@@ -286,8 +286,14 @@ class ServicesPhoto(models.Model):
     """
     Services photos.
     """
+
     services = models.ForeignKey(
-        Services, on_delete=models.CASCADE, verbose_name="фото услуги", related_name="services_photo", null=True, blank=True
+        Services,
+        on_delete=models.CASCADE,
+        verbose_name="фото услуги",
+        related_name="services_photo",
+        null=True,
+        blank=True,
     )
     name = models.CharField(
         verbose_name="наименование",

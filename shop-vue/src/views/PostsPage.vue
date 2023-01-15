@@ -1,18 +1,18 @@
 <template>
-  <div>
+  <section class="blog_page_area">
+    <h1 class="blog_page_title">Блог</h1>
     <the-select
+      class="blog_page_select"
       :selected="selected"
       :options="categories"
       @select="sortByCategories"
     />
-    <div class="Post_Page">
-      <ThePostView
-        v-for="post in filteredPosts"
-        :key="post.id"
-        :post_data="post.attributes"
-      />
-    </div>
-  </div>
+    <ul class="blog_page_item_list">
+      <li class="blog_page_item" v-for="post in filteredPosts" :key="post.id">
+        <ThePostView :post_data="post.attributes" />
+      </li>
+    </ul>
+  </section>
 </template>
 
 <script>
@@ -73,13 +73,77 @@ export default {
 </script>
 
 <style>
-.Post_Page {
+.blog_page_area {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-column-gap: 24px;
-  background: #f6f3f3;
-  padding-left: 48px;
-  padding-right: 48px;
+  padding-left: 24px;
   padding-top: 48px;
+  padding-right: 24px;
+  padding-bottom: 48px;
+}
+
+.blog_page_title {
+  grid-column: span 12;
+  font-family: "Akrobat", sans-serif;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 72px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--on-surface-light);
+  margin-bottom: 48px;
+}
+
+.blog_page_select {
+  grid-column: span 3;
+  grid-row: 2;
+  margin: 16px;
+}
+
+.blog_page_item_list {
+  grid-column: span 12;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  list-style: none;
+}
+
+.blog_page_item {
+  grid-column: span 4;
+  border-right: 1px solid var(--outline-light);
+  border-bottom: 1px solid var(--outline-light);
+}
+
+.blog_page_item > div {
+  height: 100%;
+}
+
+.blog_page_item:first-child {
+  margin-left: -24px;
+}
+
+.blog_page_item:first-child > div {
+  padding-left: 24px;
+}
+
+.blog_page_item:nth-child(-n + 3) {
+  border-top: 1px solid var(--outline-light);
+}
+
+.blog_page_item:nth-child(3n) {
+  border-right: 0px;
+  margin-right: -24px;
+}
+
+.blog_page_item:nth-child(3n) > div {
+  padding-right: 24px;
+}
+
+.blog_page_item:nth-child(3n + 1) {
+  margin-left: -24px;
+}
+
+.blog_page_item:nth-child(3n + 1) > div {
+  padding-left: 24px;
 }
 </style>

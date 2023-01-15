@@ -6,26 +6,39 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('information', '0015_services_servicesphoto'),
+        ("information", "0015_services_servicesphoto"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='examplesphoto',
-            options={'verbose_name': 'Фото примера работ', 'verbose_name_plural': 'Фото примеров работ'},
+            name="examplesphoto",
+            options={
+                "verbose_name": "Фото примера работ",
+                "verbose_name_plural": "Фото примеров работ",
+            },
         ),
         migrations.AlterModelOptions(
-            name='servicesphoto',
-            options={'verbose_name': 'Фото услуги', 'verbose_name_plural': 'Фото услуг'},
+            name="servicesphoto",
+            options={
+                "verbose_name": "Фото услуги",
+                "verbose_name_plural": "Фото услуг",
+            },
         ),
         migrations.AlterField(
-            model_name='examplesphoto',
-            name='examples',
-            field=models.ManyToManyField(blank=True, related_name='example_photo', to='information.Examples', verbose_name='пример'),
+            model_name="examplesphoto",
+            name="examples",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="example_photo",
+                to="information.Examples",
+                verbose_name="пример",
+            ),
         ),
         migrations.AlterField(
-            model_name='services',
-            name='short_description',
-            field=models.TextField(blank=True, help_text='Not Required', verbose_name='краткое описание'),
+            model_name="services",
+            name="short_description",
+            field=models.TextField(
+                blank=True, help_text="Not Required", verbose_name="краткое описание"
+            ),
         ),
     ]

@@ -1,7 +1,15 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import AboutCompany, Examples, ExamplesPhoto, Faq, MainPageHeader, Planner, Services
+from .models import (
+    AboutCompany,
+    Examples,
+    ExamplesPhoto,
+    Faq,
+    MainPageHeader,
+    Planner,
+    Services,
+)
 from .serializers import (
     AboutCompanySerializer,
     ExamplesPhotoSerializer,
@@ -55,7 +63,6 @@ class PlannerView(APIView):
         planner = Planner.objects.filter(is_active=True)
         serializer = PlannerSerializer(planner, many=True)
         return Response(serializer.data)
-
 
 
 class ExamplesListView(APIView):

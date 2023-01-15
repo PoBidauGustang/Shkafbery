@@ -149,6 +149,7 @@ class PlannerAdmin(admin.ModelAdmin):
 #     model = ServicesPhoto.services.through
 #     extra = 1
 
+
 class ServicesPhotoInline(admin.TabularInline):
     model = ServicesPhoto
     extra = 1
@@ -158,6 +159,7 @@ class ServicesPhotoInline(admin.TabularInline):
         return mark_safe(f'<img src={obj.image.url} width="100" height="110"')
 
     get_image.short_description = "Изображение"
+
 
 @admin.register(Services)
 class ServicesAdmin(admin.ModelAdmin):

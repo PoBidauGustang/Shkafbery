@@ -73,6 +73,7 @@ export default {
   top: 30px;
   right: 0;
   width: 100%;
+  background-color: #ffffff;
 }
 .options p:hover {
   background: #e7e7e7;

@@ -7,13 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('information', '0018_remove_servicesphoto_services_servicesphoto_services'),
+        ("information", "0018_remove_servicesphoto_services_servicesphoto_services"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='servicesphoto',
-            name='services',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='services_photo', to='information.services', verbose_name='фото услуги'),
+            model_name="servicesphoto",
+            name="services",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="services_photo",
+                to="information.services",
+                verbose_name="фото услуги",
+            ),
         ),
     ]

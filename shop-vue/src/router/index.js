@@ -42,6 +42,21 @@ const routes = [
     component: () => import("../views/PhotosPage.vue"),
   },
   {
+    path: "/faq",
+    name: "faq",
+    component: () => import("../views/TheFaq.vue"),
+  },
+  {
+    path: "/assembly",
+    name: "assembly",
+    component: () => import("../views/common_services/TheAssembly.vue"),
+  },
+  {
+    path: "/products_catalog",
+    name: "products_catalog",
+    component: () => import("../views/ProductsCatalog.vue"),
+  },
+  {
     path: "/partners",
     name: "PartnerPage",
     component: () => import("../views/PartnerPage.vue"),
@@ -75,11 +90,6 @@ const routes = [
     path: "/measurements",
     name: "Measurements",
     component: () => import("../views/common_services/Measurements.vue"),
-  },
-  {
-    path: "/installation",
-    name: "Installation",
-    component: () => import("../views/common_services/Installation.vue"),
   },
   {
     path: "/cart",

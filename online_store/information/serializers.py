@@ -1,6 +1,15 @@
 from rest_framework import serializers
 
-from .models import AboutCompany, Examples, ExamplesPhoto, Faq, MainPageHeader, Planner, Services, ServicesPhoto
+from .models import (
+    AboutCompany,
+    Examples,
+    ExamplesPhoto,
+    Faq,
+    MainPageHeader,
+    Planner,
+    Services,
+    ServicesPhoto,
+)
 
 
 class AboutCompanySerializer(serializers.ModelSerializer):
@@ -16,7 +25,7 @@ class ExamplesFilterSerializer(serializers.ModelSerializer):
 
 
 class ExamplesPhotoSerializer(serializers.ModelSerializer):
-    
+
     # examples = ExamplesFilterSerializer(read_only=True, many=True)
 
     class Meta:
@@ -26,6 +35,7 @@ class ExamplesPhotoSerializer(serializers.ModelSerializer):
 
 class ExamplesSerializer(serializers.ModelSerializer):
     example_photo = ExamplesPhotoSerializer(many=True)
+
     class Meta:
         model = Examples
         exclude = ("is_active", "for_main", "created_at", "updated_at")
@@ -50,7 +60,7 @@ class PlannerSerializer(serializers.ModelSerializer):
 
 
 class ServicesPhotoSerializer(serializers.ModelSerializer):
-    
+
     # examples = ExamplesFilterSerializer(read_only=True, many=True)
 
     class Meta:
@@ -60,9 +70,12 @@ class ServicesPhotoSerializer(serializers.ModelSerializer):
 
 class ServicesSerializer(serializers.ModelSerializer):
     services_photo = ServicesPhotoSerializer(many=True)
+
     class Meta:
         model = Services
         exclude = ("created_at", "updated_at")
+
+
 # class BodyColourSerializer(serializers.ModelSerializer):
 
 #     filling_scheme = SchemeFilterSerializer(read_only=True, many=True)
