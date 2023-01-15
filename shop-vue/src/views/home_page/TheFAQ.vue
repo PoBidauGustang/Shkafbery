@@ -1,36 +1,40 @@
 <template>
-  <div>
-    <h4>{{ question_name }}</h4>
-    <p v-html="question"></p>
-    <p v-html="question_answer"></p>
-  </div>
+  <section class="main_base_section">
+    <div class="main_faq_title">
+      <h2 class="main_small_title">Часто задаваемые вопросы</h2>
+      <a class="main_base_link">
+        <span class="main_base_link_1">Смотреть </span><span class="main_base_link_2">все</span>
+      </a>
+    </div>
+    <div
+      class="main_faq_wrapper"
+      v-for="question in faq"
+      :key="question.id"
+    >
+      <DetailsItem
+        :detailsName="question.attributes.question"
+        :detailsText="question.attributes.answer"
+      />
+    </div>
+  </section>
 </template>
 
 <script>
+import DetailsItem from "../../components/AllCards/DetailsItem.vue";
+
 export default {
   name: "TheFAQ",
+  components: {
+    DetailsItem,
+  },
   props: {
-    question_name: {
-      type: String,
+    faq: {
+      type: Array,
       default() {
-        return "";
-      },
-    },
-    question: {
-      type: String,
-      default() {
-        return "";
-      },
-    },
-    question_answer: {
-      type: String,
-      default() {
-        return "";
+        return [];
       },
     },
   },
-  computed: {},
-  methods: {},
 };
 </script>
 

@@ -3,21 +3,24 @@
     <div v-for="item in news" :key="item">
       <div v-if="activeNews == item.id">
         <div>
-          {{ item.id }}
-          {{ item.attributes.title }}
-          {{ item.attributes.slug }}
-          <router-link :to="'/post/' + item.attributes.slug">{{
-            item.attributes.carousel_link_text
-          }}</router-link>
-          <img
-            class=""
-            :src="item.attributes.image"
-            :alt="item.attributes.alt_text"
-          />
-        </div>
-        <div>
-          <button @click="prevNews(item.id)">предыдущая</button>
-          <button @click="nextNews(item.id)">следующая</button>
+          <div class="main_first_slider_img_wrapper">
+            <img :src="item.attributes.image" :alt="item.attributes.alt_text" />
+          </div>
+          <div class="main_first_meta_wrapper">
+            <h2 class="main_first_slider_title">{{ item.attributes.title }}</h2>
+          </div>
+          <div class="main_first_slider_controls">
+            <router-link :to="'/post/' + item.attributes.slug">
+              <BaseButton
+                class="primary"
+                :ButtonMeta="item.attributes.carousel_link_text"
+              />
+            </router-link>
+            <div class="main_first_slider_switch">
+              <IconButton @click="prevNews(item.id)" IconName="chevron_left" />
+              <IconButton @click="nextNews(item.id)" IconName="chevron_right" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -25,8 +28,14 @@
 </template>
 
 <script>
+import BaseButton from "../../components/AllButtons/BaseButton.vue";
+import IconButton from "../../components/AllButtons/IconButton.vue";
 export default {
   name: "NewsCarousel",
+  components: {
+    BaseButton,
+    IconButton,
+  },
   props: {
     news: {
       type: Object,
@@ -81,4 +90,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.main_first_slider_switch {
+  display: flex;
+  column-gap: 8px;
+}
+</style>

@@ -1,39 +1,45 @@
 <template>
-  <a class="project_item_wrapper">
+  <div class="project_item_wrapper">
     <article class="project_item">
       <h3 class="project_item_title">
-        {{ ProjectItemTitile }}
+        {{ projectItem.attributes.name }}
       </h3>
       <div class="project_item_meta_wrapper">
-        <dl class="project_item_price">
+        <dl class="project_item_price" v-if="projectItem.attributes.price">
           <dt>Стоимость</dt>
-          <dd>70 000 ₽</dd>
+          <dd>{{ projectItem.attributes.price }} ₽</dd>
         </dl>
         <ul class="project_item_tag_list">
           <li>
-            <BaseTag BaseTagTitile="Двери-купе" />
+            <BaseTag :BaseTagTitile="projectItem.attributes.category" />
           </li>
         </ul>
       </div>
       <div class="project_item_img_wrapper">
         <img
+          v-if="projectItem.attributes.example_photo[0]"
+          class=""
+          :src="projectItem.attributes.example_photo[0].image"
+          :alt="projectItem.attributes.example_photo[0].alt_text"
+        />
+        <!-- <img
           src="https://images.unsplash.com/photo-1567016546367-c27a0d56712e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           alt=""
-        />
+        /> -->
       </div>
     </article>
-  </a>
+  </div>
 </template>
 
 <script>
 import BaseTag from "../AllButtons/BaseTag.vue";
 
 export default {
-  name: "ProjectItem",
+  name: "Project Item",
   components: {
     BaseTag,
   },
-  props: ["ProjectItemTitile"],
+  props: ["projectItem"],
 };
 </script>
 

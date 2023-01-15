@@ -1,24 +1,39 @@
 <template>
-  <div class="Post_Card">
-    <router-link :to="'/post/' + post_data.slug">
-      <img
-        :src="require('../assets/images/1.jpeg')"
-        alt="img"
-        class="Post_Image"
-      />
-      <div class="Post_Tag_Wrapper">
-        <span class="Post_Tag"
-          >Категория: {{ post_data.category[0].name }}</span
+  <div class="blog_item_wrapper">
+    <router-link class="blog_item" :to="'/post/' + post_data.slug">
+      <h3 class="blog_item_title">
+        {{ post_data.title }}
+      </h3>
+      <div class="blog_item_meta_wrapper">
+        <time
+          class="blog_item_time"
+          :datetime="post_data.publish.substr(0, 10)"
+          >{{ post_data.publish.substr(0, 10) }}</time
         >
+        <ul class="blog_item_tag_list">
+          <li>
+            <BaseTag :BaseTagTitile="post_data.category[0].name" />
+          </li>
+        </ul>
       </div>
-      <a class="Post_Headline">{{ post_data.title }}</a>
+      <div class="blog_item_img_wrapper">
+        <img
+          v-if="post_data.image"
+          :src="post_data.image"
+          :alt="post_data.alt_text"
+        />
+      </div>
     </router-link>
   </div>
 </template>
 
 <script>
+import BaseTag from "./AllButtons/BaseTag.vue";
 export default {
   name: "the-post-view",
+  components: {
+    BaseTag,
+  },
   props: {
     post_data: {
       type: Object,
@@ -30,60 +45,71 @@ export default {
 };
 </script>
 
-<style>
-.Post_Card {
+<style scoped>
+.blog_item_wrapper {
+  display: flex;
+  list-style: none;
+}
+.blog_item_wrapper:hover {
+  background-color: var(--palette-neutral-variant95);
+}
+
+.blog_item {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 32px;
+  padding: 16px;
+}
+
+.blog_item_title {
   grid-column: span 4;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 36px;
+  margin-bottom: 32px;
+  color: var(--on-surface-light);
+}
+
+.blog_item_wrapper:hover .blog_item_title {
+  text-decoration: underline;
+  text-decoration-color: var(--primary-light);
+}
+
+.blog_item_meta_wrapper {
+  grid-column: span 2;
+  grid-row: 2;
+  align-self: end;
   display: flex;
   flex-direction: column;
-  border-radius: 24px;
+  row-gap: 16px;
+}
+
+.blog_item_time {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--on-surface-variant-light);
+}
+
+.blog_item_tag_list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  column-gap: 8px;
+  row-gap: 8px;
+}
+
+.blog_item_img_wrapper {
+  grid-column: 3 / span 2;
+  grid-row: 2;
+  align-self: end;
   overflow: hidden;
-  background: #ffffff;
-  margin-bottom: 24px;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
 }
 
-.Post_Card:hover {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3),
-    0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-}
-
-.Post_Image {
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  padding-bottom: 16px;
+.blog_item_img_wrapper img {
   width: 100%;
-  /* height: 100%; */
-}
-
-.Post_Tag_Wrapper {
-  display: flex;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-bottom: 16px;
-}
-
-.Post_Tag {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 6px 16px;
-  background-color: #9e4300;
-  color: #ffffff;
-  border-radius: 100px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  text-align: center;
-}
-
-.Post_Headline {
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-bottom: 24px;
-  font-size: 28px;
-  font-weight: 500;
-  line-height: 36px;
-  color: #1e1b16;
-  text-decoration: none;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

@@ -1,32 +1,18 @@
 <template>
-  <div>
-    <!-- <div
-    v-for="product in popularProducts"
-    :key="product.id"
-    >
-      <router-link :to="'/product/' + product.id">
-        <ul>
-          <li>{{ product.attributes.title }}</li>
-          <li>
-            <img v-if="product.attributes.product_image[0]"
-              class=""
-              :src="product.attributes.product_image[0].image"
-            />
-          </li>
-        </ul>
-      </router-link>
-    </div> -->
-    <h2>Популярные товары</h2>
-    <ul class="Product_Listing_Wrapper">
+  <section class="main_base_section">
+    <div class="main_product_title">
+      <h2 class="main_small_title">Популярные товары</h2>
+    </div>
+    <ul class="main_product_list">
       <li
-        class="Product_Listing_Item"
+        class="main_product_list_item"
         v-for="product in popularProducts"
         :key="product.id"
       >
         <ProductView :product="product" />
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 
 <script>

@@ -1,49 +1,31 @@
 <template>
-  <div class="work">
-    <h2>Примеры работ</h2>
-    <ul>
-      <li v-for="example in workExamplesList" :key="example.id">
-        {{ example.attributes.name }}
-        {{ example.attributes.price }}
-        <img
-          v-if="example.attributes.example_photo[0]"
-          class=""
-          :src="example.attributes.example_photo[0].image"
-        />
+  <section class="main_base_section main_large_margin">
+    <div class="main_project_title">
+      <h2 class="main_small_title">Примеры работ</h2>
+      <a class="main_base_link" href="#/photos">
+        <span class="main_base_link_1">Смотреть </span>
+        <span class="main_base_link_2">все</span>
+      </a>
+    </div>
+    <ul class="main_project_list">
+      <li
+        class="main_project_list_item"
+        v-for="example in workExamplesList"
+        :key="example.id"
+      >
+        <ProjectItem :projectItem="example" />
       </li>
     </ul>
-    <!-- <ul v-for=""> -->
-
-    <!-- </ul> -->
-    <!-- <div class="work_img_wrapper">
-      <img
-        class="work_img"
-        src="https://images.unsplash.com/photo-1567016546367-c27a0d56712e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-        alt=""
-      />
-    </div>
-    <div class="work_title">
-      <h3 class="title_large">{{ example_name }}</h3>
-    </div>
-    <div class="work_meta_wrapper">
-      <div class="work_meta_tags">
-        <div class="work_tag"><span class="promt_large">Двери-купе</span></div>
-        <div class="work_tag"><span class="promt_large">Гардеробная</span></div>
-      </div>
-      <div class="work_price">
-        <span class="links_promt_large">118 900 ₽</span>
-      </div>
-    </div> -->
-  </div>
+  </section>
 </template>
 
 <script>
-// import TheExampleImage from "./TheExampleImage.vue";
+import ProjectItem from "../../components/AllCards/ProjectItem.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "TheWorkExample",
   components: {
-    // TheExampleImage,
+    ProjectItem,
   },
   data() {
     return {
