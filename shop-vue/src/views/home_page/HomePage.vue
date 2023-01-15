@@ -8,14 +8,13 @@
       </a>
     </div>
     <NewsCarousel :news="newsCarousel" />
-    <div>
-      <TheAboutCompany
-        v-for="company in aboutCompany"
-        :key="company"
-        :company_title="company.attributes.title"
-        :company_text="company.attributes.text"
-      />
-    </div>
+    <TheCatalog />
+    <TheAboutCompany
+      v-for="company in aboutCompany"
+      :key="company"
+      :company_title="company.attributes.title"
+      :company_text="company.attributes.text"
+    />
     <div class="catalog">
       <TheCategory
         class="category"
@@ -95,6 +94,7 @@ import TheWorkExample from "./TheWorkExample.vue";
 import TheCategory from "./TheCategory.vue";
 import TheFAQ from "./TheFAQ.vue";
 import NewsCarousel from "./NewsCarousel.vue";
+import TheCatalog from "./TheCatalog.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "HomePage",
@@ -104,6 +104,7 @@ export default {
     TheFAQ,
     TheCategory,
     NewsCarousel,
+    TheCatalog,
   },
   data() {
     return {

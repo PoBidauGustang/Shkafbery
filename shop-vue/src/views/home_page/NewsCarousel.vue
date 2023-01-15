@@ -2,16 +2,21 @@
   <div>
     <div v-for="item in news" :key="item">
       <div v-if="activeNews == item.id">
-        {{ item.id }}
-        {{ item.attributes.title }}
-        {{ item.attributes.slug }}
-        <img
-          class=""
-          :src="item.attributes.image"
-          :alt="item.attributes.alt_text"
-        />
-        <button @click="prevNews(item.id)">предыдущая</button>
-        <button @click="nextNews(item.id)">следующая</button>
+        <div>
+          {{ item.id }}
+          {{ item.attributes.title }}
+          {{ item.attributes.slug }}
+          <router-link :to="'/post/' + item.attributes.slug">{{ item.attributes.carousel_link_text }}</router-link>
+          <img
+            class=""
+            :src="item.attributes.image"
+            :alt="item.attributes.alt_text"
+          />
+        </div>
+        <div>
+          <button @click="prevNews(item.id)">предыдущая</button>
+          <button @click="nextNews(item.id)">следующая</button>
+        </div>
       </div>
     </div>
   </div>
